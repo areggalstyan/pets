@@ -1,0 +1,22 @@
+[
+  {
+    "id": "LION",
+    "name": "%GREEN%%PLAYER%'s Lion",
+    "head": {
+      "url": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120"
+    },
+    "maxHealth": 4,
+    "attackDamage": 2,
+    "armor": 2
+  },
+  {
+    "id": "ELEPHANT",
+    "name": "%GRAY%%PLAYER%'s Elephant",
+    "head": {
+      "url": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514"
+    },
+    "maxHealth": 8,
+    "attackDamage": -1,
+    "armor": 4
+  }
+]

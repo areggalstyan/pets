@@ -1,0 +1,53 @@
+[
+  {
+    "id": "LION",
+    "recipe": {
+      "result": {
+        "name": "%GREEN%Lion",
+        "lore": [
+          "%DARK_GRAY%Roar...",
+          "",
+          "%GRAY%When selected:",
+          "%DARK_GREEN% 4 Max Health",
+          "%DARK_GREEN% 2 Attack Damage",
+          "%DARK_GREEN% 2 Armor"
+        ]
+      },
+      "shape": [
+        "ggg",
+        "geg",
+        "ggg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    }
+  },
+  {
+    "id": "ELEPHANT",
+    "recipe": {
+      "result": {
+        "name": "%GRAY%Elephant",
+        "lore": [
+          "%DARK_GRAY%Trumpet...",
+          "",
+          "%GRAY%When selected:",
+          "%DARK_GREEN% 8 Max Health",
+          "%DARK_GREEN% -1 Attack Damage",
+          "%DARK_GREEN% 4 Armor"
+        ]
+      },
+      "shape": [
+        "odo",
+        "ded",
+        "odo"
+      ],
+      "ingredients": {
+        "o": "OBSIDIAN",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    }
+  }
+]
