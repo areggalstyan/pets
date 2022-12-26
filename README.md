@@ -5,147 +5,57 @@
 ![](images/banner_1.png)
 ![](images/banner_2.png)
 ![](images/banner_3.png)
-![](images/banner_4.png)
 
 # Configuration
 
-Specify colors and placeholders with `%COLOR_NAME%` or `%PLACEHOLDER_NAME%` (e.g., `%DARK_BLUE%`, `%REFORGE_NAME%`).
+Specify colors and placeholders with `%color_name%` or `%placeholder_name%` (e.g., `%dark_blue%`, `%level%`).
 
-## config.json
+## position.json
 
-Configures the pets menu and pet position.
+Configures the pet position relative to the player.
 
-### petPosition
-
-Specifies the pet position relative to the player.
-
-#### x: double
+### x: double
 
 Specifies the x coordinate of the position.
 
-#### y: double
+### y: double
 
 Specifies the y coordinate of the position.
 
-#### z: double
+### z: double
 
 Specifies the z coordinate of the position.
 
-### menuTitle: string
-
-Specifies the title of the pets menu.
-
-### menuSize: int
-
-Specifies the size of the pets menu (must be a multiple of 9).
-
 ```json
 {
-  "petPosition": {
-    "x": 1,
-    "y": 2,
-    "z": 1
-  },
-  "menuTitle": "Pets",
-  "menuSize": 36
+  "x": 1,
+  "y": 2,
+  "z": 1
 }
 ```
 
-## pet_items.json
+## menu.json
 
-Configures the pet items.
+Configures the pet menu.
 
-### id: string
+### title: string
 
-Specifies the id of the pet.
+Specifies the title of the menu.
 
-### recipe
+### size: int
 
-Specifies the crafting recipe of the pet.
-
-#### result
-
-Specifies the resulting item of the recipe.
-
-##### name: string
-
-Specifies the name of the item.
-
-Colorized, no placeholders.
-
-##### lore: string list
-
-Specifies the lore of the item.
-
-Colorized, no placeholders.
-
-#### shape: string list
-
-Specifies the shape of the crafting recipe.
-
-#### ingredients: char to material map
-
-Specifies single-character aliases for materials used in the shape.
+Specifies the size of the menu (must be a multiple of 9).
 
 ```json
-[
-  {
-    "id": "LION",
-    "recipe": {
-      "result": {
-        "name": "%GREEN%Lion",
-        "lore": [
-          "%DARK_GRAY%Roar...",
-          "",
-          "%GRAY%When selected:",
-          "%DARK_GREEN% 4 Max Health",
-          "%DARK_GREEN% 2 Attack Damage",
-          "%DARK_GREEN% 2 Armor"
-        ]
-      },
-      "shape": [
-        "ggg",
-        "geg",
-        "ggg"
-      ],
-      "ingredients": {
-        "g": "GOLD_BLOCK",
-        "e": "EGG"
-      }
-    }
-  },
-  {
-    "id": "ELEPHANT",
-    "recipe": {
-      "result": {
-        "name": "%GRAY%Elephant",
-        "lore": [
-          "%DARK_GRAY%Trumpet...",
-          "",
-          "%GRAY%When selected:",
-          "%DARK_GREEN% 8 Max Health",
-          "%DARK_GREEN% -1 Attack Damage",
-          "%DARK_GREEN% 4 Armor"
-        ]
-      },
-      "shape": [
-        "odo",
-        "ded",
-        "odo"
-      ],
-      "ingredients": {
-        "o": "OBSIDIAN",
-        "d": "DIAMOND_BLOCK",
-        "e": "EGG"
-      }
-    }
-  }
-]
+{
+  "title": "Pets",
+  "size": 36
+}
 ```
 
 ## pets.json
 
-Configures the pets.
+Configures the pet types.
 
 ### id: string
 
@@ -156,17 +66,62 @@ Specifies the id of the pet.
 Specifies the name of the pet.
 
 Colorized, placeholders:
-- **PLAYER** - the name of the player
+- **player** - the name of the owner
+- **level** - the level of the pet
 
-### head
-
-Specifies the head of the pet.
-
-#### url: string
+### head: string
 
 Specifies the url of the skin (see [https://minecraft-heads.com/](https://minecraft-heads.com/)).
 
-### [attribute]: double
+### item
+
+Specifies the item of this pet.
+
+#### material: material
+
+Specifies the material of the item (use `PLAYER_HEAD`).
+
+#### name: string
+
+Specifies the name of the item.
+
+Colorized, placeholders:
+- **level** - the level of the pet
+
+#### lore: string list
+
+Specifies the lore of the item.
+
+Colorized, placeholders:
+- **level** - the level of the pet
+- **attackSpeed** - the attack speed provided by the pet
+- **attackDamage** - the attack damage provided by the pet
+- **maxHealth** - the max health provided by the pet
+- **knockbackResistance** - the knockback resistance provided by the pet
+- **movementSpeed** - the movement speed provided by the pet
+- **armor** - the armor provided by the pet
+- **armorToughness** - the armor toughness provided by the pet
+
+### recipe
+
+Specifies the crafting recipe of the pet.
+
+#### shape: string list
+
+Specifies the shape of the crafting recipe.
+
+#### ingredients: char to material map
+
+Specifies single-character aliases for the materials used in the shape.
+
+### level: expression
+
+Specifies the mathematical expression for calculating the pet level.
+
+Arguments:
+- **x** - the player experience
+
+### [attribute]: expression
 
 - **attackSpeed** - the attack speed provided by the pet
 - **attackDamage** - the attack damage provided by the pet
@@ -176,27 +131,77 @@ Specifies the url of the skin (see [https://minecraft-heads.com/](https://minecr
 - **armor** - the armor provided by the pet
 - **armorToughness** - the armor toughness provided by the pet
 
+Specifies the mathematical expression for calculating the stat boosts provided by the pet.
+
+Arguments:
+- **x** - the pet level
+
 ```json
 [
   {
     "id": "LION",
-    "name": "%GREEN%%PLAYER%'s Lion",
-    "head": {
-      "url": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120"
+    "name": "%green%[%level%] %player%'s Lion",
+    "head": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%green%[%level%] Lion",
+      "lore": [
+        "%dark_gray%Roar...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %maxHealth% Max Health",
+        "%dark_green% %attackDamage% Attack Damage",
+        "%dark_green% %armor% Armor"
+      ]
     },
-    "maxHealth": 4,
-    "attackDamage": 2,
-    "armor": 2
+    "recipe": {
+      "shape": [
+        "ggg",
+        "geg",
+        "ggg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 50",
+    "maxHealth": "x / 5",
+    "attackDamage": "x / 10",
+    "armor": "x / 10"
   },
   {
     "id": "ELEPHANT",
-    "name": "%GRAY%%PLAYER%'s Elephant",
-    "head": {
-      "url": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514"
+    "name": "%gray%[%level%] %player%'s Elephant",
+    "head": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gray%[%level%] Elephant",
+      "lore": [
+        "%dark_gray%Trumpet...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %maxHealth% Max Health",
+        "%dark_green% %armor% Armor",
+        "%dark_green% %attackSpeed% Attack Speed"
+      ]
     },
-    "maxHealth": 8,
-    "attackDamage": -1,
-    "armor": 4
+    "recipe": {
+      "shape": [
+        "odo",
+        "ded",
+        "odo"
+      ],
+      "ingredients": {
+        "o": "OBSIDIAN",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 50",
+    "maxHealth": "x / 5",
+    "attackSpeed": "x / 10",
+    "armor": "x / 5"
   }
 ]
 ```

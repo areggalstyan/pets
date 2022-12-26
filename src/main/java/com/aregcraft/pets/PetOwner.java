@@ -1,173 +1,85 @@
 package com.aregcraft.pets;
 
-import org.bukkit.Bukkit;
+import com.aregcraft.delta.api.ItemWrapper;
+import com.aregcraft.delta.api.PersistentDataWrapper;
+import com.aregcraft.delta.api.entity.EntityBuilder;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.Inventory;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
 
 public class PetOwner implements Listener {
-    private static final String PET_CONTAINER_KEY = "pet_container";
-    private static final Map<UUID, PetOwner> OWNERS = new HashMap<>();
-    private static final GsonPersistentDataType<PetContainer> PET_CONTAINER_DATA_TYPE =
-            new GsonPersistentDataType<>(PetContainer.class);
-
     private final Player player;
     private final Pets plugin;
-    private final NamespacedKey containerKey;
+    private final PersistentDataWrapper persistentData;
     private final PetContainer container;
+    private final Inventory inventory;
     private ArmorStand armorStand;
 
-    private PetOwner(Player player, Pets plugin) {
+    public PetOwner(Player player, Pets plugin) {
         this.player = player;
         this.plugin = plugin;
-        containerKey = new NamespacedKey(plugin, PET_CONTAINER_KEY);
-        container = Optional.ofNullable(getContainer()).orElseGet(PetContainer::new);
-        setArmorStandHead();
-        Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
-
-    public static PetOwner getInstance(Player player) {
-        return OWNERS.get(player.getUniqueId());
-    }
-
-    public static void registerPlayer(Player player, Pets plugin) {
-        OWNERS.put(player.getUniqueId(), new PetOwner(player, plugin));
-    }
-
-    private PetContainer getContainer() {
-        return player.getPersistentDataContainer().get(containerKey, PET_CONTAINER_DATA_TYPE);
-    }
-
-    private void setContainer() {
-        player.getPersistentDataContainer().set(containerKey, PET_CONTAINER_DATA_TYPE, container);
-    }
-
-    public List<Pet> getPets() {
-        return container.getPets();
-    }
-
-    public void addPet(Pet pet) {
-        container.addPet(pet);
-        setContainer();
-    }
-
-    public void removePet(Pet pet) {
-        container.removePet(pet);
-        setContainer();
-        if (pet.equals(getSelectedPet())) {
-            setSelectedPet(null);
-        }
-    }
-
-    public void clearPets() {
-        container.clearPets();
-        setSelectedPet(null);
-    }
-
-    public Pet getSelectedPet() {
-        return container.getSelectedPet();
-    }
-
-    public void setSelectedPet(Pet selectedPet) {
-        if (selectedPet != null && Objects.equals(getSelectedPet(), selectedPet)) {
-            setSelectedPet(null);
-            return;
-        }
-        removeAttributeModifiers();
-        container.setSelectedPet(selectedPet);
-        setContainer();
-        addAttributeModifiers();
-        if (isShowPets()) {
-            setArmorStandHead();
-        }
-    }
-
-    private void addAttributeModifiers() {
-        if (getSelectedPet() != null) {
-            getSelectedPet().addAttributeModifiers(player);
-        }
-    }
-
-    private void removeAttributeModifiers() {
-        if (getSelectedPet() != null) {
-            getSelectedPet().removeAttributeModifiers(player);
-        }
-    }
-
-    private void setArmorStandHead() {
-        if (getSelectedPet() == null) {
-            removeArmorStand();
-            return;
-        }
-        if (armorStand == null) {
-            createArmorStand();
-        }
-        armorStand.setCustomName(getFormat().format(getSelectedPet().getName()));
-        Objects.requireNonNull(armorStand.getEquipment()).setHelmet(getSelectedPet().getHead());
-    }
-
-    public boolean isShowPets() {
-        return container.isShowPets();
-    }
-
-    public void setShowPets(boolean showPets) {
-        container.setShowPets(showPets);
-        setContainer();
-        if (!showPets) {
-            removeArmorStand();
-            return;
-        }
-        setArmorStandHead();
-    }
-
-    private void createArmorStand() {
-        armorStand = player.getWorld().spawn(getArmorStandLocation(), ArmorStand.class);
-        armorStand.setInvisible(true);
-        armorStand.setInvulnerable(true);
-        armorStand.setGravity(false);
-        armorStand.setCanPickupItems(false);
-        armorStand.setCustomNameVisible(true);
-    }
-
-    private Format getFormat() {
-        return Format.builder()
-                .entry("PLAYER", player.getDisplayName())
-                .build();
+        persistentData = PersistentDataWrapper.wrap(plugin, player);
+        container = persistentData.getOrElse("pet_container", new PetContainer());
+        inventory = plugin.getPetMenu().createInventory(player);
+        createArmorStand(container.getSelectedPet());
+        plugin.registerListener(this);
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (armorStand != null) {
+        if (checkPlayer(event) && armorStand != null) {
             armorStand.teleport(getArmorStandLocation());
         }
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getItem() == null) {
+    public void onPlayerExpChange(PlayerExpChangeEvent event) {
+        if (!checkPlayer(event)) {
             return;
         }
-        var item = PetItem.getInstance(event.getItem(), plugin);
-        addPet(Pet.getInstance(item, plugin));
-        if (item != null) {
-            decrementAmount(event.getItem());
+        var selectedPet = container.getSelectedPet();
+        if (selectedPet == null) {
+            return;
         }
+        if (selectedPet.addExperience(event.getAmount())) {
+            selectedPet.removeAttributeModifiers(player);
+            selectedPet.addAttributeModifiers(player);
+            createArmorStand(selectedPet);
+        }
+        setContainer();
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!checkPlayer(event)) {
+            return;
+        }
+        var item = ItemWrapper.wrap(event.getItem());
+        if (item == null) {
+            return;
+        }
+        var pet = Pet.of(item, plugin);
+        if (pet == null) {
+            return;
+        }
+        item.decrementAmount();
+        container.addPet(pet);
+        setContainer();
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        removeArmorStand();
-        OWNERS.remove(event.getPlayer().getUniqueId());
+        if (checkPlayer(event)) {
+            removeArmorStand();
+        }
     }
 
     @EventHandler
@@ -177,20 +89,92 @@ public class PetOwner implements Listener {
         }
     }
 
-    private void removeArmorStand() {
-        Optional.ofNullable(armorStand).ifPresent(ArmorStand::remove);
-        armorStand = null;
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!inventory.equals(event.getClickedInventory())) {
+            return;
+        }
+        var item = ItemWrapper.wrap(event.getCurrentItem());
+        if (item == null) {
+            return;
+        }
+        var pet = Pet.of(item, plugin);
+        if (pet == null) {
+            return;
+        }
+        event.setCancelled(true);
+        var click = event.getClick();
+        if (click.isLeftClick()) {
+            player.getInventory().addItem(pet.getItem(plugin).unwrap());
+            item.decrementAmount();
+            removePet(pet);
+        } else if (click.isRightClick()) {
+            selectPet(pet);
+        }
     }
 
-    private void decrementAmount(ItemStack item) {
-        item.setAmount(item.getAmount() - 1);
+    private void removePet(Pet pet) {
+        if (pet.equals(container.getSelectedPet())) {
+            selectPet(null);
+        }
+        container.removePet(pet);
+        setContainer();
+    }
+
+    public void openPetMenu() {
+        inventory.clear();
+        container.getPets().stream().map(it -> it.getItem(plugin).unwrap()).forEach(inventory::addItem);
+        player.openInventory(inventory);
+    }
+
+    private boolean checkPlayer(PlayerEvent event) {
+        return event.getPlayer().equals(player);
+    }
+
+    public void selectPet(Pet pet) {
+        if (pet == null) {
+            removeArmorStand();
+        } else if (pet.equals(container.getSelectedPet())) {
+            selectPet(null);
+            return;
+        } else {
+            pet.addAttributeModifiers(player);
+            createArmorStand(pet);
+        }
+        Optional.ofNullable(container.getSelectedPet()).ifPresent(it -> it.removeAttributeModifiers(player));
+        container.selectPet(pet);
+        setContainer();
+    }
+
+    public void togglePets() {
+        container.togglePets();
+        setContainer();
+    }
+
+    private void setContainer() {
+        persistentData.set("pet_container", container);
+    }
+
+    private void createArmorStand(Pet pet) {
+        if (!container.isShowPets() || pet == null) {
+            return;
+        }
+        if (armorStand == null) {
+            armorStand = EntityBuilder.createArmorStand().build(getArmorStandLocation());
+        }
+        armorStand.setCustomName(pet.getName(player));
+        Objects.requireNonNull(armorStand.getEquipment()).setHelmet(pet.getHead().unwrap());
     }
 
     private Location getArmorStandLocation() {
         return player.getLocation().add(plugin.getPetPosition());
     }
 
-    public Player getPlayer() {
-        return player;
+    private void removeArmorStand() {
+        if (armorStand == null) {
+            return;
+        }
+        armorStand.remove();
+        armorStand = null;
     }
 }

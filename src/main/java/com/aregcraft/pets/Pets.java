@@ -1,79 +1,59 @@
 package com.aregcraft.pets;
 
-import com.google.gson.Gson;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.aregcraft.delta.api.DeltaPlugin;
+import com.aregcraft.delta.api.json.JsonConfigurationLoader;
+import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
-public class Pets extends JavaPlugin {
-    private static final String CONFIG_NAME = "config";
-    private static final String PETS_NAME = "pets";
-    private static final String PET_ITEMS_NAME = "pet_items";
-    private static final String FILE_EXTENSION = ".json";
-    private static final Gson GSON = new Gson();
-
-    private final Map<String, Object> cache = new HashMap<>();
+public class Pets extends DeltaPlugin {
+    private final JsonConfigurationLoader configurationLoader = new JsonConfigurationLoader(this);
+    private final Map<UUID, PetOwner> owners = new HashMap<>();
 
     @Override
     public void onEnable() {
-        new PetOwnerListener(this);
-        SimpleCommand.playerSender("pets", it -> new PetsMenu(it, this).open());
-        SimpleCommand.playerSender("showpets", it -> PetOwner.getInstance(it).setShowPets(true));
-        SimpleCommand.playerSender("hidepets", it -> PetOwner.getInstance(it).setShowPets(false));
-        SimpleCommand.playerSender("clearpets", it -> PetOwner.getInstance(it).clearPets());
-        SimpleCommand.anySender("reloadpets", it -> cache.clear());
-        getPetItems().values().forEach(it -> it.registerRecipe(this));
+        super.onEnable();
+        getPetTypes().forEach(it -> it.register(this));
+        Bukkit.getOnlinePlayers().forEach(this::addPetOwner);
+        new Metrics(this, 17178);
+    }
+
+    public PetMenu getPetMenu() {
+        return configurationLoader.get(PetMenu.class);
+    }
+
+    public PetType getPetType(String id) {
+        return getPetTypes().stream().filter(it -> it.id().equals(id)).findAny().orElseThrow();
+    }
+
+    private List<PetType> getPetTypes() {
+        return List.of(configurationLoader.get("pets", PetType[].class));
     }
 
     public Vector getPetPosition() {
-        return deserialize(CONFIG_NAME, Config.class).getPetPosition();
+        return configurationLoader.get("position", Vector.class);
     }
 
-    public Map<String, Pet> getPets() {
-        return getMapById(deserialize(PETS_NAME, Pet[].class));
+    public PetOwner getPetOwner(Player player) {
+        return owners.get(player.getUniqueId());
     }
 
-    public Map<String, PetItem> getPetItems() {
-        return getMapById(deserialize(PET_ITEMS_NAME, PetItem[].class));
+    public void addPetOwner(Player player) {
+        owners.put(player.getUniqueId(), new PetOwner(player, this));
     }
 
-    public String getMenuTitle() {
-        return deserialize(CONFIG_NAME, Config.class).getMenuTitle();
+    public void removePetOwner(Player player) {
+        owners.remove(player.getUniqueId());
     }
 
-    public int getMenuSize() {
-        return deserialize(CONFIG_NAME, Config.class).getMenuSize();
-    }
-
-    private <T> T deserialize(String name, Class<T> type) {
-        name += FILE_EXTENSION;
-        if (cache.containsKey(name)) {
-            return type.cast(cache.get(name));
-        }
-        try {
-            var path = Files.createDirectories(getDataFolder().toPath()).resolve(name);
-            if (Files.notExists(path)) {
-                Files.copy(Objects.requireNonNull(getResource(name)), path);
-            }
-            try (var reader = Files.newBufferedReader(path)) {
-                var obj = GSON.fromJson(reader, type);
-                cache.put(name, obj);
-                return obj;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private <T extends Identified> Map<String, T> getMapById(T[] objs) {
-        return Arrays.stream(objs).collect(Collectors.toMap(Identified::getId, Function.identity()));
+    public void reload() {
+        configurationLoader.invalidateAll();
+        getPetTypes().forEach(it -> it.register(this));
     }
 }

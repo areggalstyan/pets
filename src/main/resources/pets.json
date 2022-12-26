@@ -1,22 +1,67 @@
 [
   {
     "id": "LION",
-    "name": "%GREEN%%PLAYER%'s Lion",
-    "head": {
-      "url": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120"
+    "name": "%green%[%level%] %player%'s Lion",
+    "head": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%green%[%level%] Lion",
+      "lore": [
+        "%dark_gray%Roar...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %maxHealth% Max Health",
+        "%dark_green% %attackDamage% Attack Damage",
+        "%dark_green% %armor% Armor"
+      ]
     },
-    "maxHealth": 4,
-    "attackDamage": 2,
-    "armor": 2
+    "recipe": {
+      "shape": [
+        "ggg",
+        "geg",
+        "ggg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 50",
+    "maxHealth": "x / 5",
+    "attackDamage": "x / 10",
+    "armor": "x / 10"
   },
   {
     "id": "ELEPHANT",
-    "name": "%GRAY%%PLAYER%'s Elephant",
-    "head": {
-      "url": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514"
+    "name": "%gray%[%level%] %player%'s Elephant",
+    "head": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gray%[%level%] Elephant",
+      "lore": [
+        "%dark_gray%Trumpet...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %maxHealth% Max Health",
+        "%dark_green% %armor% Armor",
+        "%dark_green% %attackSpeed% Attack Speed"
+      ]
     },
-    "maxHealth": 8,
-    "attackDamage": -1,
-    "armor": 4
+    "recipe": {
+      "shape": [
+        "odo",
+        "ded",
+        "odo"
+      ],
+      "ingredients": {
+        "o": "OBSIDIAN",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 50",
+    "maxHealth": "x / 5",
+    "attackSpeed": "x / 10",
+    "armor": "x / 5"
   }
 ]

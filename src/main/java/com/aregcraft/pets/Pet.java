@@ -1,47 +1,45 @@
 package com.aregcraft.pets;
 
+import com.aregcraft.delta.api.FormattingContext;
+import com.aregcraft.delta.api.ItemWrapper;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.Objects;
-import java.util.Optional;
 
-public class Pet implements Identified {
-    private static final String PET_KEY = "pet";
+public class Pet {
+    private final PetType type;
+    private double level;
 
-    private String id;
-    private String name;
-    private Head head;
-    private double maxHealth;
-    private double knockbackResistance;
-    private double movementSpeed;
-    private double attackDamage;
-    private double armor;
-    private double armorToughness;
-    private double attackSpeed;
+    public Pet(PetType type) {
+        this.type = type;
+        addExperience(0);
+    }
 
-    public static Pet getInstance(PetItem item, Pets plugin) {
-        if (item == null) {
-            return null;
-        }
-        return plugin.getPets().get(item.getId());
+    public static Pet of(ItemWrapper item, Pets plugin) {
+        return item.getPersistentData(plugin).get("pet", Pet.class);
+    }
+
+    public boolean addExperience(int experience) {
+        return level < (level += calculate(type.level(), experience));
     }
 
     public void addAttributeModifiers(Player player) {
-        addAttributeModifier(player, Attribute.GENERIC_MAX_HEALTH, maxHealth);
-        addAttributeModifier(player, Attribute.GENERIC_KNOCKBACK_RESISTANCE, knockbackResistance);
-        addAttributeModifier(player, Attribute.GENERIC_MOVEMENT_SPEED, movementSpeed);
-        addAttributeModifier(player, Attribute.GENERIC_ATTACK_DAMAGE, attackDamage);
-        addAttributeModifier(player, Attribute.GENERIC_ARMOR, armor);
-        addAttributeModifier(player, Attribute.GENERIC_ARMOR_TOUGHNESS, armorToughness);
-        addAttributeModifier(player, Attribute.GENERIC_ATTACK_SPEED, attackSpeed);
+        addAttributeModifier(player, Attribute.GENERIC_MAX_HEALTH, type.maxHealth());
+        addAttributeModifier(player, Attribute.GENERIC_KNOCKBACK_RESISTANCE, type.knockbackResistance());
+        addAttributeModifier(player, Attribute.GENERIC_MOVEMENT_SPEED, type.movementSpeed());
+        addAttributeModifier(player, Attribute.GENERIC_ATTACK_DAMAGE, type.attackDamage());
+        addAttributeModifier(player, Attribute.GENERIC_ARMOR, type.armor());
+        addAttributeModifier(player, Attribute.GENERIC_ARMOR_TOUGHNESS, type.armorToughness());
+        addAttributeModifier(player, Attribute.GENERIC_ATTACK_SPEED, type.attackSpeed());
     }
 
-    private void addAttributeModifier(Player player, Attribute attribute, double amount) {
-        getAttributeInstance(player, attribute).addModifier(createAttributeModifier(amount));
+    private void addAttributeModifier(Player player, Attribute attribute, Expression expression) {
+        Objects.requireNonNull(player.getAttribute(attribute))
+                .addModifier(new AttributeModifier(type.id(), calculateAttribute(expression),
+                        AttributeModifier.Operation.ADD_NUMBER));
     }
 
     public void removeAttributeModifiers(Player player) {
@@ -54,46 +52,68 @@ public class Pet implements Identified {
         removeAttributeModifier(player, Attribute.GENERIC_ATTACK_SPEED);
     }
 
+    private double calculate(Expression expression, double value) {
+        if (expression == null) {
+            return 0;
+        }
+        expression.setArgumentValue("x", value);
+        return expression.calculate();
+    }
+
+    private double calculateAttribute(Expression expression) {
+        return calculate(expression, (int) level);
+    }
+
     private void removeAttributeModifier(Player player, Attribute attribute) {
-        getAttributeModifier(player, attribute).ifPresent(getAttributeInstance(player, attribute)::removeModifier);
+        var attributeInstance = Objects.requireNonNull(player.getAttribute(attribute));
+        attributeInstance.getModifiers().stream()
+                .filter(it -> it.getName().equals(type.id()))
+                .forEach(attributeInstance::removeModifier);
     }
 
-    private AttributeModifier createAttributeModifier(double amount) {
-        return new AttributeModifier(PET_KEY, amount, AttributeModifier.Operation.ADD_NUMBER);
+    public String getName(Player player) {
+        return FormattingContext.builder()
+                .placeholder("level", (int) level)
+                .placeholder("player", player.getDisplayName())
+                .build().format(type.name());
     }
 
-    private Optional<AttributeModifier> getAttributeModifier(Player player, Attribute attribute) {
-        return getAttributeInstance(player, attribute).getModifiers().stream()
-                .filter(it -> PET_KEY.equals(it.getName()))
-                .findAny();
+    public ItemWrapper getHead() {
+        return type.item();
     }
 
-    private AttributeInstance getAttributeInstance(Player player, Attribute attribute) {
-        return Objects.requireNonNull(player.getAttribute(attribute));
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ItemStack getHead() {
-        return head.toItemStack();
-    }
-
-    public String getId() {
-        return id;
+    public ItemWrapper getItem(Pets plugin) {
+        var formattingContext = FormattingContext.builder()
+                .placeholder("level", (int) level)
+                .placeholder("maxHealth", calculateAttribute(type.maxHealth()))
+                .placeholder("knockbackResistance", calculateAttribute(type.knockbackResistance()))
+                .placeholder("movementSpeed", calculateAttribute(type.movementSpeed()))
+                .placeholder("attackDamage", calculateAttribute(type.attackDamage()))
+                .placeholder("armor", calculateAttribute(type.armor()))
+                .placeholder("armorToughness", calculateAttribute(type.armorToughness()))
+                .placeholder("attackSpeed", calculateAttribute(type.attackSpeed()))
+                .build();
+        return getHead().copy().createBuilder()
+                .nameFormattingContext(formattingContext)
+                .loreFormattingContext(formattingContext)
+                .persistentData(plugin, "pet", this)
+                .build();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         var pet = (Pet) o;
-        return id.equals(pet.id);
+        return Double.compare(pet.level, level) == 0 && Objects.equals(type, pet.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(type, level);
     }
 }

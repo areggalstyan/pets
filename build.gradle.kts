@@ -1,55 +1,45 @@
-import kr.entree.spigradle.kotlin.spigot
-
 plugins {
     java
-    id("kr.entree.spigradle") version "2.4.3"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.aregcraft.delta.plugin") version "1.0.0"
 }
 
 group = "com.aregcraft"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
+
+repositories {
+    mavenLocal()
+}
 
 dependencies {
-    compileOnly(spigot("1.19.3"))
-    compileOnly("com.mojang:authlib:1.5.25")
+    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+    implementation("com.aregcraft.delta:api:1.0.0")
+    implementation("org.mariuszgromada.math:MathParser.org-mXparser:5.0.7")
+    implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
-tasks.register("debugPlugin") {
-    file("build/libs").walk().filter { it.extension == "jar" }.forEach { it.delete() }
-    file("debug/spigot/plugins").walk().filter { it.extension == "jar" }.forEach { it.delete() }
-    file("debug/spigot/plugins/Pets").deleteRecursively()
-    tasks["runSpigot"].mustRunAfter(tasks["prepareSpigotPlugins"])
-    finalizedBy(tasks["prepareSpigotPlugins"])
-    finalizedBy(tasks["runSpigot"])
-}
-
-spigot {
-    name = "Pets"
-    apiVersion = "1.19"
+pluginDescription {
+    main.set("$group.pets.Pets")
+    apiVersion.set("1.19")
     commands {
         create("pets") {
-            description = "Opens the pets menu."
-            usage = "Usage: /<command>"
-            permission = "pets.command.pets"
+            description.set("Opens the pet menu.")
+            usage.set("Usage: /<command>")
+            permission.set("pets.command.pets")
         }
-        create("showpets") {
-            description = "Makes your pets visible."
-            usage = "Usage: /<command>"
-            permission = "pets.command.showpets"
-        }
-        create("hidepets") {
-            description = "Makes your pets invisible."
-            usage = "Usage: /<command>"
-            permission = "pets.command.hidepets"
-        }
-        create("clearpets") {
-            description = "Removes all of your pets."
-            usage = "Usage: /<command>"
-            permission = "pets.command.clearpets"
+        create("togglepets") {
+            description.set("Toggles the visibility of your pets.")
+            usage.set("Usage: /<command>")
+            permission.set("pets.command.togglepets")
         }
         create("reloadpets") {
-            description = "Reloads the configuration files."
-            usage = "Usage: /<command>"
-            permission = "pets.command.reloadpets"
+            description.set("Reloads the configuration files.")
+            usage.set("Usage: /<command>")
+            permission.set("pets.command.reloadpets")
         }
     }
+}
+
+tasks.shadowJar {
+    relocate("org.bstats", project.group.toString())
 }

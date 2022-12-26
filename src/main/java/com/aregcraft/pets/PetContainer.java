@@ -1,54 +1,42 @@
 package com.aregcraft.pets;
 
+import org.bukkit.event.Listener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetContainer {
-    private final List<Pet> pets;
-    private Pet selectedPet;
-    private boolean showPets;
-
-    public PetContainer() {
-        this(new ArrayList<>(), null, true);
-    }
-
-    public PetContainer(List<Pet> pets, Pet selectedPet, boolean showPets) {
-        this.pets = pets;
-        this.selectedPet = selectedPet;
-        this.showPets = showPets;
-    }
+public class PetContainer implements Listener {
+    private final List<Pet> pets = new ArrayList<>();
+    private int selectedPet = -1;
+    private boolean showPets = true;
 
     public List<Pet> getPets() {
         return pets;
     }
 
     public void addPet(Pet pet) {
-        if (pet != null) {
-            pets.add(pet);
-        }
+        pets.add(pet);
     }
 
     public void removePet(Pet pet) {
+        var selectedPet = getSelectedPet();
         pets.remove(pet);
-    }
-
-    public void clearPets() {
-        pets.clear();
+        selectPet(selectedPet);
     }
 
     public Pet getSelectedPet() {
-        return selectedPet;
+        return selectedPet < 0 ? null : pets.get(selectedPet);
     }
 
-    public void setSelectedPet(Pet selectedPet) {
-        this.selectedPet = selectedPet;
+    public void selectPet(Pet pet) {
+        selectedPet = pets.indexOf(pet);
     }
 
     public boolean isShowPets() {
         return showPets;
     }
 
-    public void setShowPets(boolean showPets) {
-        this.showPets = showPets;
+    public void togglePets() {
+        showPets = !showPets;
     }
 }
