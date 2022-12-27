@@ -1,12 +1,12 @@
 # Overview
 
-[![](images/spigotmc_button.png)](https://www.spigotmc.org/resources/pets.106830/)
-[![](images/github_button.png)](https://github.com/Aregcraft/pets)
 ![](images/banner_1.png)
 ![](images/banner_2.png)
 ![](images/banner_3.png)
 ![](images/banner_4.png)
 ![](images/banner_5.png)
+[![](images/spigotmc_button.png)](https://www.spigotmc.org/resources/pets.106830/)
+[![](images/github_button.png)](https://github.com/Aregcraft/pets)
 
 # Configuration
 
