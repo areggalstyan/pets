@@ -5,6 +5,8 @@
 ![](images/banner_1.png)
 ![](images/banner_2.png)
 ![](images/banner_3.png)
+![](images/banner_4.png)
+![](images/banner_5.png)
 
 # Configuration
 
