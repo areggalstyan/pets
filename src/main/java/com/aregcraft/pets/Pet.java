@@ -1,9 +1,9 @@
 package com.aregcraft.pets;
 
+import com.aregcraft.delta.api.AttributeModifierBuilder;
 import com.aregcraft.delta.api.FormattingContext;
-import com.aregcraft.delta.api.ItemWrapper;
+import com.aregcraft.delta.api.item.ItemWrapper;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.mariuszgromada.math.mxparser.Expression;
 
@@ -15,7 +15,6 @@ public class Pet {
 
     public Pet(PetType type) {
         this.type = type;
-        addExperience(0);
     }
 
     public static Pet of(ItemWrapper item, Pets plugin) {
@@ -27,29 +26,22 @@ public class Pet {
     }
 
     public void addAttributeModifiers(Player player) {
-        addAttributeModifier(player, Attribute.GENERIC_MAX_HEALTH, type.maxHealth());
-        addAttributeModifier(player, Attribute.GENERIC_KNOCKBACK_RESISTANCE, type.knockbackResistance());
-        addAttributeModifier(player, Attribute.GENERIC_MOVEMENT_SPEED, type.movementSpeed());
-        addAttributeModifier(player, Attribute.GENERIC_ATTACK_DAMAGE, type.attackDamage());
-        addAttributeModifier(player, Attribute.GENERIC_ARMOR, type.armor());
-        addAttributeModifier(player, Attribute.GENERIC_ARMOR_TOUGHNESS, type.armorToughness());
-        addAttributeModifier(player, Attribute.GENERIC_ATTACK_SPEED, type.attackSpeed());
-    }
-
-    private void addAttributeModifier(Player player, Attribute attribute, Expression expression) {
-        Objects.requireNonNull(player.getAttribute(attribute))
-                .addModifier(new AttributeModifier(type.id(), calculateAttribute(expression),
-                        AttributeModifier.Operation.ADD_NUMBER));
+        type.attributes().forEach((attribute, amount) -> AttributeModifierBuilder.forAttributable(player)
+                .attribute(attribute)
+                .name(type.id())
+                .amount(calculateAttribute(amount))
+                .add());
     }
 
     public void removeAttributeModifiers(Player player) {
-        removeAttributeModifier(player, Attribute.GENERIC_MAX_HEALTH);
-        removeAttributeModifier(player, Attribute.GENERIC_KNOCKBACK_RESISTANCE);
-        removeAttributeModifier(player, Attribute.GENERIC_MOVEMENT_SPEED);
-        removeAttributeModifier(player, Attribute.GENERIC_ATTACK_DAMAGE);
-        removeAttributeModifier(player, Attribute.GENERIC_ARMOR);
-        removeAttributeModifier(player, Attribute.GENERIC_ARMOR_TOUGHNESS);
-        removeAttributeModifier(player, Attribute.GENERIC_ATTACK_SPEED);
+        type.attributes().keySet().forEach(it -> removeAttributeModifier(player, it));
+    }
+
+    private void removeAttributeModifier(Player player, Attribute attribute) {
+        var instance = Objects.requireNonNull(player.getAttribute(attribute));
+        instance.getModifiers().stream()
+                .filter(it -> it.getName().equals(type.id()))
+                .forEach(instance::removeModifier);
     }
 
     private double calculate(Expression expression, double value) {
@@ -64,13 +56,6 @@ public class Pet {
         return calculate(expression, (int) level);
     }
 
-    private void removeAttributeModifier(Player player, Attribute attribute) {
-        var attributeInstance = Objects.requireNonNull(player.getAttribute(attribute));
-        attributeInstance.getModifiers().stream()
-                .filter(it -> it.getName().equals(type.id()))
-                .forEach(attributeInstance::removeModifier);
-    }
-
     public String getName(Player player) {
         return FormattingContext.builder()
                 .placeholder("level", (int) level)
@@ -83,21 +68,17 @@ public class Pet {
     }
 
     public ItemWrapper getItem(Pets plugin) {
-        var formattingContext = FormattingContext.builder()
-                .placeholder("level", (int) level)
-                .placeholder("maxHealth", calculateAttribute(type.maxHealth()))
-                .placeholder("knockbackResistance", calculateAttribute(type.knockbackResistance()))
-                .placeholder("movementSpeed", calculateAttribute(type.movementSpeed()))
-                .placeholder("attackDamage", calculateAttribute(type.attackDamage()))
-                .placeholder("armor", calculateAttribute(type.armor()))
-                .placeholder("armorToughness", calculateAttribute(type.armorToughness()))
-                .placeholder("attackSpeed", calculateAttribute(type.attackSpeed()))
-                .build();
-        return getHead().copy().createBuilder()
-                .nameFormattingContext(formattingContext)
-                .loreFormattingContext(formattingContext)
+        return ItemWrapper.wrap(getHead()).createBuilder()
+                .formattingContext(getFormattingContext())
                 .persistentData(plugin, "pet", this)
                 .build();
+    }
+
+    private FormattingContext getFormattingContext() {
+        var builder = FormattingContext.builder().placeholder("level", (int) level);
+        type.attributes().forEach((attribute, amount) ->
+                builder.placeholder(attribute.name().toLowerCase(), calculateAttribute(amount)));
+        return builder.build();
     }
 
     @Override

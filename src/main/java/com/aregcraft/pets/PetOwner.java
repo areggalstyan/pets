@@ -1,8 +1,9 @@
 package com.aregcraft.pets;
 
-import com.aregcraft.delta.api.ItemWrapper;
 import com.aregcraft.delta.api.PersistentDataWrapper;
 import com.aregcraft.delta.api.entity.EntityBuilder;
+import com.aregcraft.delta.api.entity.EquipmentWrapper;
+import com.aregcraft.delta.api.item.ItemWrapper;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -12,7 +13,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class PetOwner implements Listener {
@@ -41,7 +41,7 @@ public class PetOwner implements Listener {
     }
 
     @EventHandler
-    public void onPlayerExpChange(PlayerExpChangeEvent event) {
+    public void onPlayerLevelChange(PlayerLevelChangeEvent event) {
         if (!checkPlayer(event)) {
             return;
         }
@@ -49,7 +49,7 @@ public class PetOwner implements Listener {
         if (selectedPet == null) {
             return;
         }
-        if (selectedPet.addExperience(event.getAmount())) {
+        if (selectedPet.addExperience(Math.max(event.getNewLevel() - event.getOldLevel(), 0))) {
             selectedPet.removeAttributeModifiers(player);
             selectedPet.addAttributeModifiers(player);
             createArmorStand(selectedPet);
@@ -160,10 +160,10 @@ public class PetOwner implements Listener {
             return;
         }
         if (armorStand == null) {
-            armorStand = EntityBuilder.createArmorStand().build(getArmorStandLocation());
+            armorStand = EntityBuilder.createArmorStand().nameVisible(true).build(getArmorStandLocation());
         }
         armorStand.setCustomName(pet.getName(player));
-        Objects.requireNonNull(armorStand.getEquipment()).setHelmet(pet.getHead().unwrap());
+        EquipmentWrapper.wrap(armorStand).setHelmet(pet.getHead());
     }
 
     private Location getArmorStandLocation() {

@@ -1,11 +1,9 @@
 package com.aregcraft.pets;
 
-import org.bukkit.event.Listener;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetContainer implements Listener {
+public class PetContainer {
     private final List<Pet> pets = new ArrayList<>();
     private int selectedPet = -1;
     private boolean showPets = true;

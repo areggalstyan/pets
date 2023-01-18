@@ -1,142 +1,213 @@
-# Overview
+# Pets
 
-![](images/banner_1.png)
-![](images/banner_2.png)
-![](images/banner_3.png)
-![](images/banner_4.png)
-![](images/banner_5.png)
-[![](images/spigotmc_button.png)](https://www.spigotmc.org/resources/pets.106830/)
-[![](images/github_button.png)](https://github.com/Aregcraft/pets)
+Pets are a new mechanic for enhancing the combat experience. Pets float around their owners and provide various stat boosts. Obtain them on a crafting table.
 
-# Configuration
+## Why this plugin?
 
-Specify colors and placeholders with `%color_name%` or `%placeholder_name%` (e.g., `%dark_blue%`, `%level%`).
+Make your server unique by creating your pets from scratch.
 
-## position.json
+## Showcase
 
-Configures the pet position relative to the player.
+![](banner.png)
 
-### x: double
+## Commands
 
-Specifies the x coordinate of the position.
+| Name | Description | Permission |
+| --- | --- | --- |
+| /pets | Opens the pet menu | pets.command.pets |
+| /togglepets | Toggles the visibility of your pets | pets.command.togglepets |
+| /reloadpets | Reloads the configuration files | pets.command.reloadpets |
 
-### y: double
+## FAQ
 
-Specifies the y coordinate of the position.
+### How to get a pet?
 
-### z: double
+Craft pets with the configured recipe.
 
-Specifies the z coordinate of the position.
+### How to add a pet to your menu?
+
+Right-click with the pet.
+
+### How to select a pet?
+
+Right-click on it in the menu.
+
+### How to remove a pet from your menu?
+
+Left-click on it in the menu.
+
+### How to level up a pet?
+
+Pets level up as the experience level of their owner increases.
+
+## Support
+
+If you encounter a bug, please report it on the GitHub issue tracker.
+
+## Configuration
+
+Pets use JSON as their configuration language. Please use https://jsonlint.com/ or similar websites to validate your configuration files, as any syntax errors will result in a crash.
+
+### Placeholders
+
+Lots of strings can have colors and placeholders. Specify colors with `%color_name%` or `%#rrggbb%`. Specify placeholders with `%placeholder_name%`.
+
+### Primitives
+
+| Type | Description | Example |
+| --- | --- | --- |
+| `int` | An integer from $-2^{31}$ to $2^{31}-1$ | `7` |
+| `double` |A double-precision floating point number | `9.7` |
+| `boolean` | Either `true` or `false` | `true` |
+| `char` | A character | `"a"` |
+| `String` | A sequence of characters | `"Hello, World!"` |
+| `Expression` | A mathematical expression | `"2cos(2t)"` |
+
+### Enumerations
+
+| Type | Values |
+| --- | --- |
+| `Attribute` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html |
+
+### `List<E>`
+
+```
+[E, E, ...]
+```
 
 ```json
+[7, 9]
+```
+
+### `Map<K, V>`
+
+```
 {
-  "x": 1,
-  "y": 2,
-  "z": 1
+  K: V,
+  K: V,
+  ...
 }
 ```
 
-## menu.json
-
-Configures the pet menu.
-
-### title: string
-
-Specifies the title of the menu.
-
-### size: int
-
-Specifies the size of the menu (must be a multiple of 9).
-
 ```json
 {
-  "title": "Pets",
-  "size": 36
+  "key1": "value1",
+  "key2": "value2"
 }
 ```
 
-## pets.json
+### `ItemWrapper`
 
-Configures the pet types.
+| Name | Type | Description | Optional | Default |
+| --- | --- | --- | --- | --- |
+| material | `Material` | The material  | No | N/A |
+| amount | `int` | The amount | Yes | `1` |
+| name | `String` | The name, can have colors  | Yes | Client-side |
+| lore | `List<String>` | The lore, can have colors  | Yes | None |
+| enchants | `Map<Enchantment, Integer>` | The enchantments with their levels | Yes | None |
+| flags | `ItemFlag` | The flags | Yes | None |
+| unbreakable | `boolean` | Whether the item should be unbreakable | Yes | `false` |
+| attributeModifiers | `Multimap<Attribute, AttributeModifier>` | The attribute modifiers | Yes | None |
+| persistentData | `Map<String, Object>` | The persistent data | Yes | None |
 
-### id: string
+```json
+{
+  "material": "DIAMOND_SWORD",
+  "name": "%gold%Excalibur",
+  "lore": ["%gold%A legendary sword!"],
+  "enchants": {
+    "minecraft:sharpness": 5,
+    "minecraft:knockback": 2
+  },
+  "flags": ["HIDE_UNBREAKABLE"],
+  "unbreakable": true,
+  "attributeModifiers": {
+    "GENERIC_MAX_HEALTH": [
+      {
+        "name": "generic_max_health",
+        "amount": 10
+      }
+    ]
+  },
+  "persistentData": {
+    "id": "EXCALIBUR"
+  }
+}
+```
 
-Specifies the id of the pet.
+### `Recipe`
 
-### name: string
+| Name | Type | Description |
+| --- | --- | --- |
+| shape | `List<String>` | The shape of the recipe of the form `["aaa", "aaa", "aaa"]`, where letters correspond to some ingredient |
+| ingredients | `Map<char, Material>` | The ingredients of the recipe |
 
-Specifies the name of the pet.
+```json
+{
+  "shape": [
+    "ddd",
+    "ddd",
+    "ddd"
+  ],
+  "ingredients": {
+    "d": "DIAMOND"
+  }
+}
+```
 
-Colorized, placeholders:
-- **player** - the name of the owner
-- **level** - the level of the pet
+### `menu.json`
 
-### head: string
+| Name | Type | Description |
+| --- | --- | --- |
+| title | `String` | The name of the menu |
+| size | `int` | The size of the menu, which must be a multiple of 9 |
 
-Specifies the url of the skin (see [https://minecraft-heads.com/](https://minecraft-heads.com/)).
+```json
+{  
+  "title": "Pets",  
+  "size": 36  
+}
+```
 
-### item
+### `position.json`
 
-Specifies the item of this pet.
+| Name | Type | Description |
+| --- | --- | --- |
+| x | `double` | The x coordinate of the pet relative to their owner |
+| y | `double` | The y coordinate of the pet relative to their owner |
+| z | `double` | The z coordinate of the pet relative to their owner |
 
-#### material: material
+```json
+{  
+  "x": 1,  
+  "y": 1,  
+  "z": 1  
+}
+```
 
-Specifies the material of the item (use `PLAYER_HEAD`).
+### `pets.json: List<Pet>`
 
-#### name: string
+| Name | Type | Description |
+| --- | --- | --- |
+| id | `String` | The identifier |
+| name | `String` | The name |
+| item | `ItemWrapper` | The item |
+| recipe | `Recipe` | The crafting recipe |
+| level | `Expression` | How many levels the pet receives based on how many experience levels (x) its owner received |
+| attributes | `Map<Attribute, Expression>` | The attributes with their amounts based on the pet level (x) |
 
-Specifies the name of the item.
+#### Placeholders
 
-Colorized, placeholders:
-- **level** - the level of the pet
-
-#### lore: string list
-
-Specifies the lore of the item.
-
-Colorized, placeholders:
-- **level** - the level of the pet
-- **attackSpeed** - the attack speed provided by the pet
-- **attackDamage** - the attack damage provided by the pet
-- **maxHealth** - the max health provided by the pet
-- **knockbackResistance** - the knockback resistance provided by the pet
-- **movementSpeed** - the movement speed provided by the pet
-- **armor** - the armor provided by the pet
-- **armorToughness** - the armor toughness provided by the pet
-
-### recipe
-
-Specifies the crafting recipe of the pet.
-
-#### shape: string list
-
-Specifies the shape of the crafting recipe.
-
-#### ingredients: char to material map
-
-Specifies single-character aliases for the materials used in the shape.
-
-### level: expression
-
-Specifies the mathematical expression for calculating the pet level.
-
-Arguments:
-- **x** - the player experience
-
-### [attribute]: expression
-
-- **attackSpeed** - the attack speed provided by the pet
-- **attackDamage** - the attack damage provided by the pet
-- **maxHealth** - the max health provided by the pet
-- **knockbackResistance** - the knockback resistance provided by the pet
-- **movementSpeed** - the movement speed provided by the pet
-- **armor** - the armor provided by the pet
-- **armorToughness** - the armor toughness provided by the pet
-
-Specifies the mathematical expression for calculating the stat boosts provided by the pet.
-
-Arguments:
-- **x** - the pet level
+| Name | Description | Example |
+| --- | --- | --- |
+| level | The level | 5 |
+| player | The owner | Aregcraft |
+| generic_max_health | The max health | 10 |
+| generic_knockback_resistance | The knockback resistance | 1 |
+| generic_movement_speed | The movement speed | 0.1 |
+| generic_armor | The armor | 5 |
+| generic_armor_toughness | The armor toughness | 3 |
+| generic_attack_knockback | The attack knockback | 1 |
 
 ```json
 [
@@ -151,9 +222,9 @@ Arguments:
         "%dark_gray%Roar...",
         "",
         "%gray%When selected:",
-        "%dark_green% %maxHealth% Max Health",
-        "%dark_green% %attackDamage% Attack Damage",
-        "%dark_green% %armor% Armor"
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
       ]
     },
     "recipe": {
@@ -167,10 +238,12 @@ Arguments:
         "e": "EGG"
       }
     },
-    "level": "x / 50",
-    "maxHealth": "x / 5",
-    "attackDamage": "x / 10",
-    "armor": "x / 10"
+    "level": "x",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_DAMAGE": "x / 10",
+      "GENERIC_ARMOR": "x / 10"
+    }
   },
   {
     "id": "ELEPHANT",
@@ -183,9 +256,9 @@ Arguments:
         "%dark_gray%Trumpet...",
         "",
         "%gray%When selected:",
-        "%dark_green% %maxHealth% Max Health",
-        "%dark_green% %armor% Armor",
-        "%dark_green% %attackSpeed% Attack Speed"
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_attack_speed% Attack Speed"
       ]
     },
     "recipe": {
@@ -200,10 +273,47 @@ Arguments:
         "e": "EGG"
       }
     },
-    "level": "x / 50",
-    "maxHealth": "x / 5",
-    "attackSpeed": "x / 10",
-    "armor": "x / 5"
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ARMOR": "x / 5"
+    }
+  },
+  {
+    "id": "CHEETAH",
+    "name": "%yellow%[%level%] %player%'s Cheetah",
+    "head": "1553f8856dd46de7e05d46f5fc2fb58eafba6829b11b160a1545622e89caaa33",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%yellow%[%level%] Cheetah",
+      "lore": [
+        "%dark_gray%Chirrs...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %generic_movement_speed% Movement Speed",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_attack_speed% Attack Speed"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "igi",
+        "geg",
+        "igi"
+      ],
+      "ingredients": {
+        "i": "IRON_BLOCK",
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MOVEMENT_SPEED": "x / 1000",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ATTACK_DAMAGE": "x / 5"
+    }
   }
 ]
 ```

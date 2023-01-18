@@ -1,18 +1,23 @@
 package com.aregcraft.pets.json;
 
-import com.aregcraft.delta.api.ItemWrapper;
 import com.aregcraft.delta.api.Recipe;
+import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.delta.api.json.JsonReader;
 import com.aregcraft.delta.api.json.annotation.JsonAdapterFor;
 import com.aregcraft.pets.PetType;
 import com.aregcraft.pets.Pets;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import org.bukkit.attribute.Attribute;
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 @JsonAdapterFor(PetType.class)
 public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer<PetType> {
+    private static final TypeToken<Map<Attribute, Expression>> ATTRIBUTES_TYPE = new TypeToken<>() {};
+
     private Pets plugin;
 
     @Override
@@ -27,13 +32,7 @@ public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer
                 reader.get("item", ItemWrapper.class),
                 reader.get("recipe", Recipe.class),
                 reader.get("level", Expression.class),
-                reader.get("maxHealth", Expression.class),
-                reader.get("knockbackResistance", Expression.class),
-                reader.get("movementSpeed", Expression.class),
-                reader.get("attackDamage", Expression.class),
-                reader.get("armor", Expression.class),
-                reader.get("armorToughness", Expression.class),
-                reader.get("attackSpeed", Expression.class));
+                reader.get("attributes", ATTRIBUTES_TYPE));
     }
 
     @Override

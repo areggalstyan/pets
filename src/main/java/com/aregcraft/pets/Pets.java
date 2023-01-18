@@ -2,6 +2,7 @@ package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
+import com.google.gson.reflect.TypeToken;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,12 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Pets extends DeltaPlugin {
-    private final JsonConfigurationLoader configurationLoader = new JsonConfigurationLoader(this);
+    private static final TypeToken<List<PetType>> PET_TYPE_TYPE = new TypeToken<>() {};
+
+    private final JsonConfigurationLoader configurationLoader = JsonConfigurationLoader.builder()
+            .name(PET_TYPE_TYPE, "pets")
+            .plugin(this)
+            .build();
     private final Map<UUID, PetOwner> owners = new HashMap<>();
 
     @Override
@@ -33,7 +39,7 @@ public class Pets extends DeltaPlugin {
     }
 
     private List<PetType> getPetTypes() {
-        return List.of(configurationLoader.get("pets", PetType[].class));
+        return configurationLoader.get(PET_TYPE_TYPE);
     }
 
     public Vector getPetPosition() {

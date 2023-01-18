@@ -10,9 +10,9 @@
         "%dark_gray%Roar...",
         "",
         "%gray%When selected:",
-        "%dark_green% %maxHealth% Max Health",
-        "%dark_green% %attackDamage% Attack Damage",
-        "%dark_green% %armor% Armor"
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
       ]
     },
     "recipe": {
@@ -26,10 +26,12 @@
         "e": "EGG"
       }
     },
-    "level": "x / 50",
-    "maxHealth": "x / 5",
-    "attackDamage": "x / 10",
-    "armor": "x / 10"
+    "level": "x",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_DAMAGE": "x / 10",
+      "GENERIC_ARMOR": "x / 10"
+    }
   },
   {
     "id": "ELEPHANT",
@@ -42,9 +44,9 @@
         "%dark_gray%Trumpet...",
         "",
         "%gray%When selected:",
-        "%dark_green% %maxHealth% Max Health",
-        "%dark_green% %armor% Armor",
-        "%dark_green% %attackSpeed% Attack Speed"
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_attack_speed% Attack Speed"
       ]
     },
     "recipe": {
@@ -59,9 +61,46 @@
         "e": "EGG"
       }
     },
-    "level": "x / 50",
-    "maxHealth": "x / 5",
-    "attackSpeed": "x / 10",
-    "armor": "x / 5"
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ARMOR": "x / 5"
+    }
+  },
+  {
+    "id": "CHEETAH",
+    "name": "%yellow%[%level%] %player%'s Cheetah",
+    "head": "1553f8856dd46de7e05d46f5fc2fb58eafba6829b11b160a1545622e89caaa33",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%yellow%[%level%] Cheetah",
+      "lore": [
+        "%dark_gray%Chirrs...",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %generic_movement_speed% Movement Speed",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_attack_speed% Attack Speed"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "igi",
+        "geg",
+        "igi"
+      ],
+      "ingredients": {
+        "i": "IRON_BLOCK",
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MOVEMENT_SPEED": "x / 1000",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ATTACK_DAMAGE": "x / 5"
+    }
   }
 ]
