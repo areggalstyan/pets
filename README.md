@@ -60,14 +60,20 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | `double` |A double-precision floating point number | `9.7` |
 | `boolean` | Either `true` or `false` | `true` |
 | `char` | A character | `"a"` |
+| `Object` | Anything | `6` |
 | `String` | A sequence of characters | `"Hello, World!"` |
 | `Expression` | A mathematical expression | `"2cos(2t)"` |
+| `UUID` | A universally unique identifier | `"b74413ae-d8a7-4025-8dc7-60ca8b65f979"` |
+| `Enchantment` | An enchantment of the form `"minecraft:id"` | `"minecraft:sharpness"` |
 
 ### Enumerations
 
 | Type | Values |
 | --- | --- |
 | `Attribute` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html |
+| `AttributeModifier.Operation` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/AttributeModifier.Operation.html |
+| `EquipmentSlot` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/EquipmentSlot.html |
+| `Material` | https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html |
 
 ### `List<E>`
 
