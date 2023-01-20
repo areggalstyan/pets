@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Pet {
     private final PetType type;
     private double level;
+    private ExperienceBooster experienceBooster;
 
     public Pet(PetType type) {
         this.type = type;
@@ -22,7 +23,15 @@ public class Pet {
     }
 
     public boolean addExperience(int experience) {
-        return level < (level += calculate(type.level(), experience));
+        return level < (level += calculate(type.level(), experience) + calculateBoost(experience));
+    }
+
+    private double calculateBoost(int experience) {
+        return experienceBooster != null ? experienceBooster.calculate(experience) : 0;
+    }
+
+    public void setExperienceBooster(ExperienceBooster experienceBooster) {
+        this.experienceBooster = experienceBooster;
     }
 
     public void addAttributeModifiers(Player player) {
@@ -70,12 +79,16 @@ public class Pet {
     public ItemWrapper getItem(Pets plugin) {
         return ItemWrapper.wrap(getHead()).createBuilder()
                 .formattingContext(getFormattingContext())
+                .filterDisplayableLore()
                 .persistentData(plugin, "pet", this)
                 .build();
     }
 
     private FormattingContext getFormattingContext() {
         var builder = FormattingContext.builder().placeholder("level", (int) level);
+        if (experienceBooster != null) {
+            builder.placeholder("experienceBooster", experienceBooster.getName());
+        }
         type.attributes().forEach((attribute, amount) ->
                 builder.placeholder(attribute.name().toLowerCase(), calculateAttribute(amount)));
         return builder.build();

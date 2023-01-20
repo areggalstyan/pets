@@ -14,10 +14,12 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Pets extends DeltaPlugin {
-    private static final TypeToken<List<PetType>> PET_TYPE_TYPE = new TypeToken<>() {};
+    private static final TypeToken<List<PetType>> PET_TYPES_TYPE = new TypeToken<>() {};
+    private static final TypeToken<List<ExperienceBooster>> EXPERIENCE_BOOSTERS_TYPE = new TypeToken<>() {};
 
     private final JsonConfigurationLoader configurationLoader = JsonConfigurationLoader.builder()
-            .name(PET_TYPE_TYPE, "pets")
+            .name(PET_TYPES_TYPE, "pets")
+            .name(EXPERIENCE_BOOSTERS_TYPE, "experience_boosters")
             .plugin(this)
             .build();
     private final Map<UUID, PetOwner> owners = new HashMap<>();
@@ -26,6 +28,7 @@ public class Pets extends DeltaPlugin {
     public void onEnable() {
         super.onEnable();
         getPetTypes().forEach(it -> it.register(this));
+        getExperienceBoosters().forEach(it -> it.register(this));
         Bukkit.getOnlinePlayers().forEach(this::addPetOwner);
         new Metrics(this, 17178);
     }
@@ -39,7 +42,15 @@ public class Pets extends DeltaPlugin {
     }
 
     private List<PetType> getPetTypes() {
-        return configurationLoader.get(PET_TYPE_TYPE);
+        return configurationLoader.get(PET_TYPES_TYPE);
+    }
+
+    public ExperienceBooster getExperienceBooster(String id) {
+        return getExperienceBoosters().stream().filter(it -> it.getId().equals(id)).findAny().orElse(null);
+    }
+
+    private List<ExperienceBooster> getExperienceBoosters() {
+        return configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE);
     }
 
     public Vector getPetPosition() {
@@ -61,5 +72,6 @@ public class Pets extends DeltaPlugin {
     public void reload() {
         configurationLoader.invalidateAll();
         getPetTypes().forEach(it -> it.register(this));
+        getExperienceBoosters().forEach(it -> it.register(this));
     }
 }

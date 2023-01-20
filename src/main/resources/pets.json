@@ -10,6 +10,7 @@
         "%dark_gray%Roar...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_armor% Armor"
@@ -44,6 +45,7 @@
         "%dark_gray%Trumpet...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_armor% Armor",
         "%dark_green% %generic_attack_speed% Attack Speed"
@@ -79,6 +81,7 @@
         "%dark_gray%Chirrs...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
         "%dark_green% %generic_movement_speed% Movement Speed",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_attack_speed% Attack Speed"

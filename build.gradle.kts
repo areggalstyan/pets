@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "2.1.0"
+version = "2.2.0"
 
 repositories {
     mavenLocal()
@@ -41,5 +41,6 @@ pluginDescription {
 }
 
 tasks.shadowJar {
-    relocate("org.bstats", project.group.toString())
+    relocate("org.bstats", "${project.group}.reforging")
+    relocate("org.aregcraft.delta", "${project.group}.reforging")
 }

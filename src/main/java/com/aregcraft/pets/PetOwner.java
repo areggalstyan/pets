@@ -9,9 +9,12 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
+import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.Optional;
 
@@ -59,20 +62,28 @@ public class PetOwner implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!checkPlayer(event)) {
-            return;
-        }
+        var action = event.getAction();
         var item = ItemWrapper.wrap(event.getItem());
-        if (item == null) {
+        if (!checkPlayer(event) || action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK
+                || event.getHand() != EquipmentSlot.HAND || item == null) {
             return;
         }
         var pet = Pet.of(item, plugin);
-        if (pet == null) {
+        if (pet != null) {
+            item.decrementAmount();
+            container.addPet(pet);
+            setContainer();
+            event.setCancelled(true);
+        }
+        var experienceBooster = ExperienceBooster.of(item, plugin);
+        var selectedPet = container.getSelectedPet();
+        if (experienceBooster == null || selectedPet == null) {
             return;
         }
         item.decrementAmount();
-        container.addPet(pet);
+        selectedPet.setExperienceBooster(experienceBooster);
         setContainer();
+        event.setCancelled(true);
     }
 
     @EventHandler
@@ -84,9 +95,7 @@ public class PetOwner implements Listener {
 
     @EventHandler
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        if (event.getRightClicked().equals(armorStand)) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(event.getRightClicked().equals(armorStand));
     }
 
     @EventHandler
