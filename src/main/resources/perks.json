@@ -1,0 +1,16 @@
+[
+  {
+    "base": "Effect",
+    "id": "REGENERATION",
+    "name": "%red%Regeneration",
+    "type": "minecraft:regeneration",
+    "amplifier": 0,
+    "hideParticles": true
+  },
+  {
+    "base": "Experience",
+    "id": "EXPERIENCE",
+    "name": "%green%Experience",
+    "bonus": "0.5x"
+  }
+]

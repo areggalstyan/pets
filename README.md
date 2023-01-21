@@ -18,6 +18,14 @@ Make your server unique by creating your pets from scratch.
 | /togglepets | Toggles the visibility of your pets | pets.command.togglepets |
 | /reloadpets | Reloads the configuration files | pets.command.reloadpets |
 
+## Perks
+
+| Name | Description |
+| --- | --- |
+| Effect | Adds an effect on the owner |
+| Experience | Boosts the amount of experience that the owner receives |
+
+
 ## FAQ
 
 ### How to get a pet?
@@ -65,6 +73,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | `Expression` | A mathematical expression | `"2cos(2t)"` |
 | `UUID` | A universally unique identifier | `"b74413ae-d8a7-4025-8dc7-60ca8b65f979"` |
 | `Enchantment` | An enchantment of the form `"minecraft:id"` | `"minecraft:sharpness"` |
+| `PotionEffectType` | A potion effect type of the form `"minecraft:id"` | `"minecraft:strength"` |
 
 ### Enumerations
 
@@ -169,9 +178,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 ```json
-{
-  "title": "Pets",
-  "size": 36
+{  
+  "title": "Pets",  
+  "size": 36  
 }
 ```
 
@@ -184,23 +193,24 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 ```json
-{
-  "x": 1,
-  "y": 1,
-  "z": 1
+{  
+  "x": 1,  
+  "y": 1,  
+  "z": 1  
 }
 ```
 
 ### `pets.json: List<Pet>`
 
-| Name | Type | Description |
-| --- | --- | --- |
-| id | `String` | The identifier |
-| name | `String` | The name |
-| item | `ItemWrapper` | The item |
-| recipe | `Recipe` | The crafting recipe |
-| level | `Expression` | How many levels the pet receives based on how many experience levels (x) its owner received |
-| attributes | `Map<Attribute, Expression>` | The attributes with their amounts based on the pet level (x) |
+| Name | Type | Description | Optional |
+| --- | --- | --- | --- |
+| id | `String` | The identifier | No |
+| name | `String` | The name, can have colors and placeholders | No |
+| item | `ItemWrapper` | The item | No |
+| recipe | `Recipe` | The crafting recipe | No |
+| level | `Expression` | How many levels the pet receives based on how many experience levels (x) its owner received | No |
+| attributes | `Map<Attribute, Expression>` | The attributes with their amounts based on the pet level (x) | No |
+| perk | `String` | The identifier of the perk | Yes |
 
 #### Placeholders
 
@@ -208,7 +218,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | --- | --- | --- |
 | level | The level | 5 |
 | player | The owner | Aregcraft |
-| experienceBooster | The experience booster |
+| perk | The perk | Regeneration |
+| experienceBooster | The experience booster | Decent Experience Booster |
 | generic_max_health | The max health | 10 |
 | generic_knockback_resistance | The knockback resistance | 1 |
 | generic_movement_speed | The movement speed | 0.1 |
@@ -229,6 +240,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "%dark_gray%Roar...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_armor% Armor"
@@ -250,7 +263,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_MAX_HEALTH": "x",
       "GENERIC_ATTACK_DAMAGE": "x / 10",
       "GENERIC_ARMOR": "x / 10"
-    }
+    },
+    "perk": "EXPERIENCE"
   },
   {
     "id": "ELEPHANT",
@@ -263,6 +277,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "%dark_gray%Trumpet...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_armor% Armor",
         "%dark_green% %generic_attack_speed% Attack Speed"
@@ -285,7 +301,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_MAX_HEALTH": "x",
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ARMOR": "x / 5"
-    }
+    },
+    "perk": "REGENERATION"
   },
   {
     "id": "CHEETAH",
@@ -298,6 +315,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "%dark_gray%Chirrs...",
         "",
         "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
         "%dark_green% %generic_movement_speed% Movement Speed",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_attack_speed% Attack Speed"
@@ -410,3 +429,46 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
   }
 ]
 ```
+
+### `perks.json: List<Perk>`
+
+| Name | Type | Description |
+| --- | --- | --- |
+| base | `String` | The base from which to inherit other properties |
+| id | `String` | The identifier |
+| name | `String` | The name, can have colors |
+
+```json
+[
+  {
+    "base": "Effect",
+    "id": "REGENERATION",
+    "name": "%red%Regeneration",
+    "type": "minecraft:regeneration",
+    "amplifier": 0,
+    "hideParticles": true
+  },
+  {
+    "base": "Experience",
+    "id": "EXPERIENCE",
+    "name": "%green%Experience",
+    "bonus": "0.5x"
+  }
+]
+```
+
+### Bases
+
+#### Effect
+
+| Name | Type | Description |
+| --- | --- | --- |
+| type | `PotionEffectType` | The effect type |
+| amplifier | `int` | The effect amplifier |
+| hideParticles | `boolean` | Whether to hide the effect particles |
+
+#### Experience
+
+| Name | Type | Description |
+| --- | --- | --- |
+| boost | `Expression` | The amount of experience to add to the earned ones (x) |

@@ -53,6 +53,20 @@ public class Pet {
                 .forEach(instance::removeModifier);
     }
 
+    public void applyPerk(Player player) {
+        var perk = type.perk();
+        if (perk != null) {
+            perk.apply(player);
+        }
+    }
+
+    public void unapplyPerk(Player player) {
+        var perk = type.perk();
+        if (perk != null) {
+            perk.unapply(player);
+        }
+    }
+
     private double calculate(Expression expression, double value) {
         if (expression == null) {
             return 0;
@@ -86,6 +100,10 @@ public class Pet {
 
     private FormattingContext getFormattingContext() {
         var builder = FormattingContext.builder().placeholder("level", (int) level);
+        var perk = type.perk();
+        if (perk != null) {
+            builder.placeholder("perk", perk.getName());
+        }
         if (experienceBooster != null) {
             builder.placeholder("experienceBooster", experienceBooster.getName());
         }

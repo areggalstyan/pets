@@ -4,7 +4,7 @@ import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import org.mariuszgromada.math.mxparser.Expression;
 
-public class ExperienceBooster {
+public class ExperienceBooster implements Identifiable {
     private final String id;
     private final ItemWrapper item;
     private final Recipe recipe;
@@ -21,10 +21,6 @@ public class ExperienceBooster {
         return plugin.getExperienceBooster(item.getPersistentData(plugin).get("id", String.class));
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getName() {
         return item.getUnformattedName();
     }
@@ -37,5 +33,10 @@ public class ExperienceBooster {
     public double calculate(int experience) {
         boost.setArgumentValue("x", experience);
         return boost.calculate();
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 }

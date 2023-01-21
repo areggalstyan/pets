@@ -2,10 +2,12 @@ package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
+import com.aregcraft.pets.perk.Perk;
 import com.google.gson.reflect.TypeToken;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -16,10 +18,12 @@ import java.util.UUID;
 public class Pets extends DeltaPlugin {
     private static final TypeToken<List<PetType>> PET_TYPES_TYPE = new TypeToken<>() {};
     private static final TypeToken<List<ExperienceBooster>> EXPERIENCE_BOOSTERS_TYPE = new TypeToken<>() {};
+    private static final TypeToken<List<Perk>> PERKS_TYPE = new TypeToken<>() {};
 
     private final JsonConfigurationLoader configurationLoader = JsonConfigurationLoader.builder()
             .name(PET_TYPES_TYPE, "pets")
             .name(EXPERIENCE_BOOSTERS_TYPE, "experience_boosters")
+            .name(PERKS_TYPE, "perks")
             .plugin(this)
             .build();
     private final Map<UUID, PetOwner> owners = new HashMap<>();
@@ -27,8 +31,7 @@ public class Pets extends DeltaPlugin {
     @Override
     public void onEnable() {
         super.onEnable();
-        getPetTypes().forEach(it -> it.register(this));
-        getExperienceBoosters().forEach(it -> it.register(this));
+        load();
         Bukkit.getOnlinePlayers().forEach(this::addPetOwner);
         new Metrics(this, 17178);
     }
@@ -38,7 +41,7 @@ public class Pets extends DeltaPlugin {
     }
 
     public PetType getPetType(String id) {
-        return getPetTypes().stream().filter(it -> it.id().equals(id)).findAny().orElseThrow();
+        return Identifiable.find(getPetTypes(), id);
     }
 
     private List<PetType> getPetTypes() {
@@ -46,11 +49,11 @@ public class Pets extends DeltaPlugin {
     }
 
     public ExperienceBooster getExperienceBooster(String id) {
-        return getExperienceBoosters().stream().filter(it -> it.getId().equals(id)).findAny().orElse(null);
+        return Identifiable.find(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
     }
 
-    private List<ExperienceBooster> getExperienceBoosters() {
-        return configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE);
+    public Perk getPerk(String id) {
+        return Identifiable.find(configurationLoader.get(PERKS_TYPE), id);
     }
 
     public Vector getPetPosition() {
@@ -70,8 +73,15 @@ public class Pets extends DeltaPlugin {
     }
 
     public void reload() {
+        configurationLoader.get(PERKS_TYPE).stream()
+                .filter(Listener.class::isInstance)
+                .map(Listener.class::cast)
+                .forEach(this::unregisterListener);
         configurationLoader.invalidateAll();
+    }
+
+    private void load() {
         getPetTypes().forEach(it -> it.register(this));
-        getExperienceBoosters().forEach(it -> it.register(this));
+        configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).forEach(it -> it.register(this));
     }
 }

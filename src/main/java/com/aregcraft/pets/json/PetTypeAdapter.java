@@ -6,6 +6,7 @@ import com.aregcraft.delta.api.json.JsonReader;
 import com.aregcraft.delta.api.json.annotation.JsonAdapterFor;
 import com.aregcraft.pets.PetType;
 import com.aregcraft.pets.Pets;
+import com.aregcraft.pets.perk.Perk;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.attribute.Attribute;
@@ -32,7 +33,8 @@ public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer
                 reader.get("item", ItemWrapper.class),
                 reader.get("recipe", Recipe.class),
                 reader.get("level", Expression.class),
-                reader.get("attributes", ATTRIBUTES_TYPE));
+                reader.get("attributes", ATTRIBUTES_TYPE),
+                reader.get("perk", Perk.class));
     }
 
     @Override

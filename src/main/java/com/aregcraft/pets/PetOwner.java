@@ -141,16 +141,21 @@ public class PetOwner implements Listener {
     }
 
     public void selectPet(Pet pet) {
+        var selectedPet = container.getSelectedPet();
         if (pet == null) {
             removeArmorStand();
-        } else if (pet.equals(container.getSelectedPet())) {
+        } else if (pet.equals(selectedPet)) {
             selectPet(null);
             return;
         } else {
             pet.addAttributeModifiers(player);
+            pet.applyPerk(player);
             createArmorStand(pet);
         }
-        Optional.ofNullable(container.getSelectedPet()).ifPresent(it -> it.removeAttributeModifiers(player));
+        if (selectedPet != null) {
+            selectedPet.removeAttributeModifiers(player);
+            selectedPet.unapplyPerk(player);
+        }
         container.selectPet(pet);
         setContainer();
     }
