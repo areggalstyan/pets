@@ -24,6 +24,7 @@ Make your server unique by creating your pets from scratch.
 | --- | --- |
 | Effect | Adds an effect on the owner |
 | Experience | Boosts the amount of experience that the owner receives |
+| Thorns | Allows the owner to reflect a portion of the received damage |
 
 
 ## FAQ
@@ -178,9 +179,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 ```json
-{  
-  "title": "Pets",  
-  "size": 36  
+{
+  "title": "Pets",
+  "size": 36
 }
 ```
 
@@ -193,10 +194,10 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 ```json
-{  
-  "x": 1,  
-  "y": 1,  
-  "z": 1  
+{
+  "x": 1,
+  "y": 1,
+  "z": 1
 }
 ```
 
@@ -339,7 +340,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_MOVEMENT_SPEED": "x / 1000",
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ATTACK_DAMAGE": "x / 5"
-    }
+    },
+    "perk": "THORNS"
   }
 ]
 ```
@@ -453,6 +455,12 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     "id": "EXPERIENCE",
     "name": "%green%Experience",
     "bonus": "0.5x"
+  },
+  {
+    "base": "Thorns",
+    "id": "THORNS",
+    "name": "%green%Thorns",
+    "reflect": "0.125x"
   }
 ]
 ```
@@ -472,3 +480,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | Name | Type | Description |
 | --- | --- | --- |
 | boost | `Expression` | The amount of experience to add to the earned ones (x) |
+
+#### Thorns
+
+| Name | Type | Description |
+| --- | --- | --- |
+| reflect | `Expression` | How much damage to reflect on the attacker based on the received damage (x) |

@@ -12,5 +12,11 @@
     "id": "EXPERIENCE",
     "name": "%green%Experience",
     "bonus": "0.5x"
+  },
+  {
+    "base": "Thorns",
+    "id": "THORNS",
+    "name": "%green%Thorns",
+    "reflect": "0.125x"
   }
 ]

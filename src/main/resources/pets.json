@@ -109,6 +109,7 @@
       "GENERIC_MOVEMENT_SPEED": "x / 1000",
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ATTACK_DAMAGE": "x / 5"
-    }
+    },
+    "perk": "THORNS"
   }
 ]
