@@ -191,9 +191,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 ```json
-{  
-  "title": "Pets",  
-  "size": 36  
+{
+  "title": "Pets",
+  "size": 36
 }
 ```
 
@@ -206,10 +206,10 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 ```json
-{  
-  "x": 1,  
-  "y": 1,  
-  "z": 1  
+{
+  "x": 1,
+  "y": 1,
+  "z": 1
 }
 ```
 
@@ -463,7 +463,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | id | `String` | The identifier |
 | item | `ItemWrapper` | The item |
 | recipe | `Recipe` | The recipe |
-| experience | `Expression` | The number of levels to add |
+| experience | `double` | The number of levels to add |
 
 ```json
 [
