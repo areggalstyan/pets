@@ -18,11 +18,13 @@ import java.util.UUID;
 public class Pets extends DeltaPlugin {
     private static final TypeToken<List<PetType>> PET_TYPES_TYPE = new TypeToken<>() {};
     private static final TypeToken<List<ExperienceBooster>> EXPERIENCE_BOOSTERS_TYPE = new TypeToken<>() {};
+    private static final TypeToken<List<Candy>> CANDIES_TYPE = new TypeToken<>() {};
     private static final TypeToken<List<Perk>> PERKS_TYPE = new TypeToken<>() {};
 
     private final JsonConfigurationLoader configurationLoader = JsonConfigurationLoader.builder()
             .name(PET_TYPES_TYPE, "pets")
             .name(EXPERIENCE_BOOSTERS_TYPE, "experience_boosters")
+            .name(CANDIES_TYPE, "candies")
             .name(PERKS_TYPE, "perks")
             .plugin(this)
             .build();
@@ -50,6 +52,10 @@ public class Pets extends DeltaPlugin {
 
     public ExperienceBooster getExperienceBooster(String id) {
         return Identifiable.find(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
+    }
+
+    public Candy getCandy(String id) {
+        return Identifiable.find(configurationLoader.get(CANDIES_TYPE), id);
     }
 
     public Perk getPerk(String id) {
@@ -83,5 +89,6 @@ public class Pets extends DeltaPlugin {
     private void load() {
         getPetTypes().forEach(it -> it.register(this));
         configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).forEach(it -> it.register(this));
+        configurationLoader.get(CANDIES_TYPE).forEach(it -> it.register(this));
     }
 }

@@ -9,6 +9,8 @@
       "lore": [
         "%dark_gray%Roar...",
         "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
         "%dark_green% %perk% Perk",
@@ -34,7 +36,8 @@
       "GENERIC_ATTACK_DAMAGE": "x / 10",
       "GENERIC_ARMOR": "x / 10"
     },
-    "perk": "EXPERIENCE"
+    "perk": "EXPERIENCE",
+    "maxCandies": 3
   },
   {
     "id": "ELEPHANT",
@@ -45,6 +48,8 @@
       "name": "%gray%[%level%] Elephant",
       "lore": [
         "%dark_gray%Trumpet...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
         "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
@@ -72,7 +77,8 @@
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ARMOR": "x / 5"
     },
-    "perk": "REGENERATION"
+    "perk": "REGENERATION",
+    "maxCandies": 4
   },
   {
     "id": "CHEETAH",
@@ -83,6 +89,8 @@
       "name": "%yellow%[%level%] Cheetah",
       "lore": [
         "%dark_gray%Chirrs...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
         "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
@@ -110,6 +118,7 @@
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ATTACK_DAMAGE": "x / 5"
     },
-    "perk": "THORNS"
+    "perk": "THORNS",
+    "maxCandies": 4
   }
 ]

@@ -53,9 +53,7 @@ public class PetOwner implements Listener {
             return;
         }
         if (selectedPet.addExperience(Math.max(event.getNewLevel() - event.getOldLevel(), 0))) {
-            selectedPet.removeAttributeModifiers(player);
-            selectedPet.addAttributeModifiers(player);
-            createArmorStand(selectedPet);
+            updateExperience();
         }
         setContainer();
     }
@@ -75,15 +73,34 @@ public class PetOwner implements Listener {
             setContainer();
             event.setCancelled(true);
         }
-        var experienceBooster = ExperienceBooster.of(item, plugin);
         var selectedPet = container.getSelectedPet();
-        if (experienceBooster == null || selectedPet == null) {
+        if (selectedPet == null) {
+            return;
+        }
+        var experienceBooster = ExperienceBooster.of(item, plugin);
+        if (experienceBooster != null) {
+            item.decrementAmount();
+            selectedPet.setExperienceBooster(experienceBooster);
+            setContainer();
+            event.setCancelled(true);
+        }
+        var candy = Candy.of(item, plugin);
+        if (candy == null || !selectedPet.canUseCandy()) {
             return;
         }
         item.decrementAmount();
-        selectedPet.setExperienceBooster(experienceBooster);
+        if (selectedPet.useCandy(candy)) {
+            updateExperience();
+        }
         setContainer();
         event.setCancelled(true);
+    }
+
+    private void updateExperience() {
+        var selectedPet = container.getSelectedPet();
+        selectedPet.removeAttributeModifiers(player);
+        selectedPet.addAttributeModifiers(player);
+        createArmorStand(selectedPet);
     }
 
     @EventHandler

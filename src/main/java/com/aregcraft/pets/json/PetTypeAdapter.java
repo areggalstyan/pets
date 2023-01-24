@@ -34,7 +34,8 @@ public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer
                 reader.get("recipe", Recipe.class),
                 reader.get("level", Expression.class),
                 reader.get("attributes", ATTRIBUTES_TYPE),
-                reader.get("perk", Perk.class));
+                reader.get("perk", Perk.class),
+                reader.getInt("maxCandies"));
     }
 
     @Override

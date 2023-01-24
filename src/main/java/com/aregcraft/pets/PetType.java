@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record PetType(String id, String name, String head, ItemWrapper item, Recipe recipe, Expression level,
-                      Map<Attribute, Expression> attributes, Perk perk) implements Identifiable {
+                      Map<Attribute, Expression> attributes, Perk perk, int maxCandies) implements Identifiable {
     public void register(Pets plugin) {
         item.<SkullMeta>editMeta(it -> {
             var profile = Bukkit.createPlayerProfile(UUID.randomUUID());

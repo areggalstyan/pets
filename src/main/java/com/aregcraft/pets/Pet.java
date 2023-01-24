@@ -13,6 +13,7 @@ public class Pet {
     private final PetType type;
     private double level;
     private ExperienceBooster experienceBooster;
+    private int candies;
 
     public Pet(PetType type) {
         this.type = type;
@@ -23,7 +24,7 @@ public class Pet {
     }
 
     public boolean addExperience(int experience) {
-        return level < (level += calculate(type.level(), experience) + calculateBoost(experience));
+        return (int) level != (int) (level += calculate(type.level(), experience) + calculateBoost(experience));
     }
 
     private double calculateBoost(int experience) {
@@ -67,6 +68,15 @@ public class Pet {
         }
     }
 
+    public boolean canUseCandy() {
+        return candies < type.maxCandies();
+    }
+
+    public boolean useCandy(Candy candy) {
+        candies++;
+        return (int) level != (int) (level += candy.getExperience());
+    }
+
     private double calculate(Expression expression, double value) {
         if (expression == null) {
             return 0;
@@ -99,7 +109,10 @@ public class Pet {
     }
 
     private FormattingContext getFormattingContext() {
-        var builder = FormattingContext.builder().placeholder("level", (int) level);
+        var builder = FormattingContext.builder()
+                .placeholder("level", (int) level)
+                .placeholder("maxCandies", type.maxCandies())
+                .placeholder("candies", candies);
         var perk = type.perk();
         if (perk != null) {
             builder.placeholder("perk", perk.getName());

@@ -49,6 +49,18 @@ Left-click on it in the menu.
 
 Pets level up as the experience level of their owner increases.
 
+### What are experience boosters?
+
+Experience boosters increase the amount of experience a pet receives.
+
+### What are candies?
+
+Candies instantly give a pet a set amount of experience.
+
+### How to add an experience booster/candy?
+
+Right-click with it.
+
 ## Support
 
 If you encounter a bug, please report it on the GitHub issue tracker.
@@ -179,9 +191,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 ```json
-{
-  "title": "Pets",
-  "size": 36
+{  
+  "title": "Pets",  
+  "size": 36  
 }
 ```
 
@@ -194,10 +206,10 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 ```json
-{
-  "x": 1,
-  "y": 1,
-  "z": 1
+{  
+  "x": 1,  
+  "y": 1,  
+  "z": 1  
 }
 ```
 
@@ -212,12 +224,15 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | level | `Expression` | How many levels the pet receives based on how many experience levels (x) its owner received | No |
 | attributes | `Map<Attribute, Expression>` | The attributes with their amounts based on the pet level (x) | No |
 | perk | `String` | The identifier of the perk | Yes |
+| maxCandies | `int` | The maximum number of candies | No |
 
 #### Placeholders
 
 | Name | Description | Example |
 | --- | --- | --- |
 | level | The level | 5 |
+| candies | The number of candies | 2 |
+| maxCandies | The maximum number of candies | 4 |
 | player | The owner | Aregcraft |
 | perk | The perk | Regeneration |
 | experienceBooster | The experience booster | Decent Experience Booster |
@@ -239,6 +254,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "name": "%green%[%level%] Lion",
       "lore": [
         "%dark_gray%Roar...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
         "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
@@ -265,7 +282,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_ATTACK_DAMAGE": "x / 10",
       "GENERIC_ARMOR": "x / 10"
     },
-    "perk": "EXPERIENCE"
+    "perk": "EXPERIENCE",
+    "maxCandies": 3
   },
   {
     "id": "ELEPHANT",
@@ -276,6 +294,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "name": "%gray%[%level%] Elephant",
       "lore": [
         "%dark_gray%Trumpet...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
         "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
@@ -303,7 +323,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ARMOR": "x / 5"
     },
-    "perk": "REGENERATION"
+    "perk": "REGENERATION",
+    "maxCandies": 4
   },
   {
     "id": "CHEETAH",
@@ -314,6 +335,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "name": "%yellow%[%level%] Cheetah",
       "lore": [
         "%dark_gray%Chirrs...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
         "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
@@ -341,7 +364,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "GENERIC_ATTACK_SPEED": "x / 100",
       "GENERIC_ATTACK_DAMAGE": "x / 5"
     },
-    "perk": "THORNS"
+    "perk": "THORNS",
+    "maxCandies": 4
   }
 ]
 ```
@@ -428,6 +452,92 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       }
     },
     "boost": "2x"
+  }
+]
+```
+
+### `candies.json: List<Candy>`
+
+| Name | Type | Description |
+| --- | --- | --- |
+| id | `String` | The identifier |
+| item | `ItemWrapper` | The item |
+| recipe | `Recipe` | The recipe |
+| experience | `Expression` | The number of levels to add |
+
+```json
+[
+  {
+    "id": "SMALL_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%green%Small Candy",
+      "lore": [
+        "%gray%Instantly adds two levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sgs",
+        "gdg",
+        "sgs"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "g": "GOLD_INGOT",
+        "d": "DIAMOND"
+      }
+    },
+    "experience": 2
+  },
+  {
+    "id": "MEDIUM_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%blue%Medium Candy",
+      "lore": [
+        "%gray%Instantly adds four levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sgs",
+        "gdg",
+        "sgs"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK"
+      }
+    },
+    "experience": 4
+  },
+  {
+    "id": "BIG_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%red%Big Candy",
+      "lore": [
+        "%gray%Instantly adds eight levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sds",
+        "dnd",
+        "sds"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "d": "DIAMOND_BLOCK",
+        "n": "NETHER_STAR"
+      }
+    },
+    "experience": 8
   }
 ]
 ```
