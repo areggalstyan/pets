@@ -120,5 +120,48 @@
     },
     "perk": "THORNS",
     "maxCandies": 4
+  },
+  {
+    "id": "WITHER",
+    "name": "%red%[%level%] %player%'s Wither",
+    "head": "cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%red%[%level%] Wither",
+      "lore": [
+        "%dark_gray%Hush...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_armor_toughness% Armor Toughness"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "dwd",
+        "wnw",
+        "dwd"
+      ],
+      "ingredients": {
+        "d": "DIAMOND_BLOCK",
+        "w": "WITHER_SKELETON_SKULL",
+        "n": "NETHER_STAR"
+      }
+    },
+    "level": "x / 3",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x",
+      "GENERIC_ATTACK_DAMAGE": "x / 3",
+      "GENERIC_ARMOR": "x / 3",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 5"
+    },
+    "perk": "DAMAGE_WITHER",
+    "maxCandies": 2
   }
 ]

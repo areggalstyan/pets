@@ -7,6 +7,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.mariuszgromada.math.mxparser.Expression;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Pet {
@@ -112,7 +113,8 @@ public class Pet {
         var builder = FormattingContext.builder()
                 .placeholder("level", (int) level)
                 .placeholder("maxCandies", type.maxCandies())
-                .placeholder("candies", candies);
+                .placeholder("candies", candies)
+                .formatter(Double.class, new DecimalFormat()::format);
         var perk = type.perk();
         if (perk != null) {
             builder.placeholder("perk", perk.getName());

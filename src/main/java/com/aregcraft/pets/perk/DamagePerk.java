@@ -1,0 +1,38 @@
+package com.aregcraft.pets.perk;
+
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.mariuszgromada.math.mxparser.Expression;
+
+import java.util.Map;
+
+public class DamagePerk extends Perk implements Listener {
+    private Map<EntityType, Expression> bonuses;
+
+    @Override
+    public void apply(Player player) {
+        setPlayerApplied(player);
+    }
+
+    @Override
+    public void unapply(Player player) {
+        unsetPlayerApplied(player);
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        var player = event.getDamager();
+        if (!(event.getEntity() instanceof LivingEntity entity) || !isPlayerApplied(player)) {
+            return;
+        }
+        var damage = event.getDamage();
+        var bonus = bonuses.get(entity.getType());
+        if (bonus != null) {
+            event.setDamage(damage + bonus.calculate());
+        }
+    }
+}

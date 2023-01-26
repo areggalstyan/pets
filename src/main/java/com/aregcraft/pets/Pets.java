@@ -38,6 +38,12 @@ public class Pets extends DeltaPlugin {
         new Metrics(this, 17178);
     }
 
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        owners.values().forEach(PetOwner::removeArmorStand);
+    }
+
     public PetMenu getPetMenu() {
         return configurationLoader.get(PetMenu.class);
     }

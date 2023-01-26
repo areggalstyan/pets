@@ -25,7 +25,7 @@ Make your server unique by creating your pets from scratch.
 | Effect | Adds an effect on the owner |
 | Experience | Boosts the amount of experience that the owner receives |
 | Thorns | Allows the owner to reflect a portion of the received damage |
-
+| Damage | Increase the amount of damage dealt to certain entities |
 
 ## FAQ
 
@@ -96,6 +96,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | `AttributeModifier.Operation` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/AttributeModifier.Operation.html |
 | `EquipmentSlot` | https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/EquipmentSlot.html |
 | `Material` | https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html |
+| `EntityType` | https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html |
 
 ### `List<E>`
 
@@ -191,9 +192,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 ```json
-{
-  "title": "Pets",
-  "size": 36
+{  
+  "title": "Pets",  
+  "size": 36  
 }
 ```
 
@@ -206,10 +207,10 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 ```json
-{
-  "x": 1,
-  "y": 1,
-  "z": 1
+{  
+  "x": 1,  
+  "y": 1,  
+  "z": 1  
 }
 ```
 
@@ -366,6 +367,49 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     },
     "perk": "THORNS",
     "maxCandies": 4
+  },
+  {
+    "id": "WITHER",
+    "name": "%red%[%level%] %player%'s Wither",
+    "head": "cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%red%[%level%] Wither",
+      "lore": [
+        "%dark_gray%Hush...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_armor_toughness% Armor Toughness"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "dwd",
+        "wnw",
+        "dwd"
+      ],
+      "ingredients": {
+        "d": "DIAMOND_BLOCK",
+        "w": "WITHER_SKELETON_SKULL",
+        "n": "NETHER_STAR"
+      }
+    },
+    "level": "x / 3",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x",
+      "GENERIC_ATTACK_DAMAGE": "x / 3",
+      "GENERIC_ARMOR": "x / 3",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 5"
+    },
+    "perk": "DAMAGE_WITHER",
+    "maxCandies": 2
   }
 ]
 ```
@@ -571,6 +615,15 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     "id": "THORNS",
     "name": "%green%Thorns",
     "reflect": "0.125x"
+  },
+  {
+    "base": "Damage",
+    "id": "DAMAGE_WITHER",
+    "name": "%red%Wither Vanquisher",
+    "bonuses": {
+      "WITHER": "0.25x",
+      "WITHER_SKELETON": "0.5x"
+    }
   }
 ]
 ```
@@ -596,3 +649,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | Name | Type | Description |
 | --- | --- | --- |
 | reflect | `Expression` | How much damage to reflect on the attacker based on the received damage (x) |
+
+#### Damage
+
+| Name | Type | Description |
+| --- | --- | --- |
+| bonuses | `Map<EntityType, Expression>` | The damage bonuses based on the dealt damage (x) with entities |

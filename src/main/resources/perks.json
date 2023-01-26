@@ -18,5 +18,14 @@
     "id": "THORNS",
     "name": "%green%Thorns",
     "reflect": "0.125x"
+  },
+  {
+    "base": "Damage",
+    "id": "DAMAGE_WITHER",
+    "name": "%red%Wither Vanquisher",
+    "bonuses": {
+      "WITHER": "0.25x",
+      "WITHER_SKELETON": "0.5x"
+    }
   }
 ]

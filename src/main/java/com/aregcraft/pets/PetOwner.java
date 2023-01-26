@@ -17,6 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class PetOwner implements Listener {
     private final Player player;
@@ -201,7 +202,7 @@ public class PetOwner implements Listener {
         return player.getLocation().add(plugin.getPetPosition());
     }
 
-    private void removeArmorStand() {
+    public void removeArmorStand() {
         if (armorStand == null) {
             return;
         }
