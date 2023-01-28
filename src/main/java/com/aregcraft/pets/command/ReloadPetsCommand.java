@@ -1,5 +1,6 @@
 package com.aregcraft.pets.command;
 
+import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.command.CommandWrapper;
 import com.aregcraft.delta.api.command.RegisteredCommand;
 import com.aregcraft.pets.Pets;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RegisteredCommand("reloadpets")
 public class ReloadPetsCommand implements CommandWrapper {
+    @InjectPlugin
     private Pets plugin;
 
     @Override

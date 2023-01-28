@@ -1,5 +1,6 @@
 package com.aregcraft.pets.json;
 
+import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.delta.api.json.JsonReader;
@@ -14,6 +15,7 @@ import java.lang.reflect.Type;
 @JsonAdapterFor(ExperienceBooster.class)
 public class ExperienceBoosterAdapter implements JsonDeserializer<ExperienceBooster>,
         JsonSerializer<ExperienceBooster> {
+    @InjectPlugin
     private Pets plugin;
 
     @Override

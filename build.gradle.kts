@@ -5,13 +5,14 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "3.3.0"
+version = "3.4.0"
 
 repositories {
     mavenLocal()
 }
 
 dependencies {
+    compileOnly("com.aregcraft.delta:meta:1.0.0")
     compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
     implementation("com.aregcraft.delta:api:1.0.0")
     implementation("org.mariuszgromada.math:MathParser.org-mXparser:5.0.7")
@@ -43,4 +44,15 @@ pluginDescription {
 tasks.shadowJar {
     relocate("org.bstats", "${project.group}.reforging")
     relocate("org.aregcraft.delta", "${project.group}.reforging")
+}
+
+tasks.register<Javadoc>("generateMeta") {
+    dependsOn(project(":meta").tasks["shadowJar"])
+    source = sourceSets.main.get().allJava
+    classpath = sourceSets.main.get().compileClasspath
+    options.destinationDirectory(projectDir)
+    options.docletpath(project(":meta").tasks.getByName<Jar>("shadowJar").archiveFile.get().asFile)
+    options.doclet("${project.group}.pets.meta.PetsMeta")
+    (options as StandardJavadocDocletOptions).addStringOption("version", version.toString())
+    outputs.upToDateWhen { false }
 }

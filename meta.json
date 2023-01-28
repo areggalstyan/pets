@@ -1,0 +1,59 @@
+{
+  "version": "3.4.0",
+  "abilities": [
+    {
+      "name": "Effect",
+      "description": "Adds an effect on the owner",
+      "properties": [
+        {
+          "type": "PotionEffectType",
+          "name": "type",
+          "description": "The effect type"
+        },
+        {
+          "type": "int",
+          "name": "amplifier",
+          "description": "The effect amplifier"
+        },
+        {
+          "type": "boolean",
+          "name": "hideParticles",
+          "description": "Whether to hide the effect particles"
+        }
+      ]
+    },
+    {
+      "name": "Thorns",
+      "description": "Allows the owner to reflect a portion of the received damage",
+      "properties": [
+        {
+          "type": "Expression",
+          "name": "reflect",
+          "description": "How much damage to reflect on the attacker based on the received damage (x)"
+        }
+      ]
+    },
+    {
+      "name": "Damage",
+      "description": "Increase the amount of damage dealt to certain entities",
+      "properties": [
+        {
+          "type": "Expression>",
+          "name": "bonuses",
+          "description": "The damage bonuses based on the dealt damage (x) with entities"
+        }
+      ]
+    },
+    {
+      "name": "Experience",
+      "description": "Boosts the amount of experience that the owner receives",
+      "properties": [
+        {
+          "type": "Expression",
+          "name": "bonus",
+          "description": "The amount of experience to add to the earned ones (x)"
+        }
+      ]
+    }
+  ]
+}

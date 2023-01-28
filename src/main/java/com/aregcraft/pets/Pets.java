@@ -1,6 +1,8 @@
 package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
+import com.aregcraft.delta.api.Identifiable;
+import com.aregcraft.delta.api.UpdateChecker;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
 import com.aregcraft.pets.perk.Perk;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +37,7 @@ public class Pets extends DeltaPlugin {
         super.onEnable();
         load();
         Bukkit.getOnlinePlayers().forEach(this::addPetOwner);
+        configurationLoader.get(UpdateChecker.class).scheduleChecks(this);
         new Metrics(this, 17178);
     }
 
@@ -49,7 +52,7 @@ public class Pets extends DeltaPlugin {
     }
 
     public PetType getPetType(String id) {
-        return Identifiable.find(getPetTypes(), id);
+        return Identifiable.findAny(getPetTypes(), id);
     }
 
     private List<PetType> getPetTypes() {
@@ -57,15 +60,15 @@ public class Pets extends DeltaPlugin {
     }
 
     public ExperienceBooster getExperienceBooster(String id) {
-        return Identifiable.find(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
+        return Identifiable.findAny(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
     }
 
     public Candy getCandy(String id) {
-        return Identifiable.find(configurationLoader.get(CANDIES_TYPE), id);
+        return Identifiable.findAny(configurationLoader.get(CANDIES_TYPE), id);
     }
 
     public Perk getPerk(String id) {
-        return Identifiable.find(configurationLoader.get(PERKS_TYPE), id);
+        return Identifiable.findAny(configurationLoader.get(PERKS_TYPE), id);
     }
 
     public Vector getPetPosition() {

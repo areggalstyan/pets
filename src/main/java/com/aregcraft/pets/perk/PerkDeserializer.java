@@ -1,5 +1,6 @@
 package com.aregcraft.pets.perk;
 
+import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.json.JsonReader;
 import com.aregcraft.delta.api.json.annotation.JsonAdapterFor;
 import com.aregcraft.delta.api.util.Classes;
@@ -15,6 +16,7 @@ import java.lang.reflect.Type;
 public class PerkDeserializer implements JsonDeserializer<Perk> {
     private static final String CLASS_NAME_TEMPLATE = "com.aregcraft.pets.perk.%sPerk";
 
+    @InjectPlugin
     private Pets plugin;
 
     @Override
@@ -24,7 +26,7 @@ public class PerkDeserializer implements JsonDeserializer<Perk> {
         }
         var reader = new JsonReader(context, json);
         var perk = reader.deserialize(json, getClass(reader.getString("base")));
-        Classes.setField(Perk.class, perk, "plugin", plugin);
+        Classes.setPluginField(Perk.class, perk, plugin);
         if (perk instanceof Listener listener) {
             plugin.registerListener(listener);
         }

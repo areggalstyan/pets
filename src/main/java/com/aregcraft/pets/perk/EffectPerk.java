@@ -7,9 +7,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.potion.PotionEffectType;
 
+/**
+ * Adds an effect on the owner
+ */
 public class EffectPerk extends Perk implements Listener {
+    /**
+     * The effect type
+     */
     private PotionEffectType type;
+    /**
+     * The effect amplifier
+     */
     private int amplifier;
+    /**
+     * Whether to hide the effect particles
+     */
     private boolean hideParticles;
 
     @Override

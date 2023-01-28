@@ -6,7 +6,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.mariuszgromada.math.mxparser.Expression;
 
+/**
+ * Boosts the amount of experience that the owner receives
+ */
 public class ExperiencePerk extends Perk implements Listener {
+    /**
+     * The amount of experience to add to the earned ones (x)
+     */
     private Expression bonus;
 
     @Override

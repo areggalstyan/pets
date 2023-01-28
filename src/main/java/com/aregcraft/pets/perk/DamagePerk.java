@@ -10,7 +10,13 @@ import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.Map;
 
+/**
+ * Increase the amount of damage dealt to certain entities
+ */
 public class DamagePerk extends Perk implements Listener {
+    /**
+     * The damage bonuses based on the dealt damage (x) with entities
+     */
     private Map<EntityType, Expression> bonuses;
 
     @Override

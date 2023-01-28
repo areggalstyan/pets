@@ -20,12 +20,14 @@ Make your server unique by creating your pets from scratch.
 
 ## Perks
 
+<!-- <perks> -->
 | Name | Description |
 | --- | --- |
 | Effect | Adds an effect on the owner |
-| Experience | Boosts the amount of experience that the owner receives |
 | Thorns | Allows the owner to reflect a portion of the received damage |
 | Damage | Increase the amount of damage dealt to certain entities |
+| Experience | Boosts the amount of experience that the owner receives |
+<!-- </perks> -->
 
 ## FAQ
 
@@ -191,12 +193,14 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | title | `String` | The name of the menu |
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
+<!-- <menu_json> -->
 ```json
-{  
-  "title": "Pets",  
-  "size": 36  
+{
+  "title": "Pets",
+  "size": 36
 }
 ```
+<!-- </menu_json> -->
 
 ### `position.json`
 
@@ -206,13 +210,15 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | y | `double` | The y coordinate of the pet relative to their owner |
 | z | `double` | The z coordinate of the pet relative to their owner |
 
+<!-- <position_json> -->
 ```json
-{  
-  "x": 1,  
-  "y": 1,  
-  "z": 1  
+{
+  "x": 1,
+  "y": 1,
+  "z": 1
 }
 ```
+<!-- </position_json> -->
 
 ### `pets.json: List<Pet>`
 
@@ -244,6 +250,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | generic_armor_toughness | The armor toughness | 3 |
 | generic_attack_knockback | The attack knockback | 1 |
 
+<!-- <pets_json> -->
 ```json
 [
   {
@@ -413,6 +420,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
   }
 ]
 ```
+<!-- </pets_json> -->
 
 ### `experience_boosters.json: List<ExperienceBooster>`
 
@@ -423,6 +431,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | recipe | `Recipe` | The recipe |
 | boost | `Expression` | The number of levels to add to the earned ones (x) |
 
+<!-- <experience_boosters_json> -->
 ```json
 [
   {
@@ -499,6 +508,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
   }
 ]
 ```
+<!-- </experience_boosters_json> -->
 
 ### `candies.json: List<Candy>`
 
@@ -509,6 +519,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | recipe | `Recipe` | The recipe |
 | experience | `double` | The number of levels to add |
 
+<!-- <candies_json> -->
 ```json
 [
   {
@@ -585,6 +596,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
   }
 ]
 ```
+<!-- </candies_json> -->
 
 ### `perks.json: List<Perk>`
 
@@ -594,6 +606,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | id | `String` | The identifier |
 | name | `String` | The name, can have colors |
 
+<!-- <perks_json> -->
 ```json
 [
   {
@@ -627,9 +640,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
   }
 ]
 ```
+<!-- </perks_json> -->
 
 ### Bases
 
+<!-- <bases> -->
 #### Effect
 
 | Name | Type | Description |
@@ -637,12 +652,6 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | type | `PotionEffectType` | The effect type |
 | amplifier | `int` | The effect amplifier |
 | hideParticles | `boolean` | Whether to hide the effect particles |
-
-#### Experience
-
-| Name | Type | Description |
-| --- | --- | --- |
-| boost | `Expression` | The amount of experience to add to the earned ones (x) |
 
 #### Thorns
 
@@ -654,4 +663,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 
 | Name | Type | Description |
 | --- | --- | --- |
-| bonuses | `Map<EntityType, Expression>` | The damage bonuses based on the dealt damage (x) with entities |
+| bonuses | `Expression>` | The damage bonuses based on the dealt damage (x) with entities |
+
+#### Experience
+
+| Name | Type | Description |
+| --- | --- | --- |
+| bonus | `Expression` | The amount of experience to add to the earned ones (x) |
+<!-- </bases> -->

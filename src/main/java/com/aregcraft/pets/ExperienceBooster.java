@@ -1,10 +1,11 @@
 package com.aregcraft.pets;
 
+import com.aregcraft.delta.api.Identifiable;
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import org.mariuszgromada.math.mxparser.Expression;
 
-public class ExperienceBooster implements Identifiable {
+public class ExperienceBooster implements Identifiable<String> {
     private final String id;
     private final ItemWrapper item;
     private final Recipe recipe;

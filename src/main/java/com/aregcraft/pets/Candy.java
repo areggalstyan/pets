@@ -1,9 +1,10 @@
 package com.aregcraft.pets;
 
+import com.aregcraft.delta.api.Identifiable;
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 
-public class Candy implements Identifiable {
+public class Candy implements Identifiable<String> {
     private final String id;
     private final ItemWrapper item;
     private final Recipe recipe;

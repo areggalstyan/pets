@@ -27,5 +27,14 @@
       "WITHER": "0.25x",
       "WITHER_SKELETON": "0.5x"
     }
+  },
+  {
+    "base": "KillEffect",
+    "id": "KILL_STRENGTH",
+    "name": "%gold%Strong Killer",
+    "type": "minecraft:strength",
+    "duration": 100,
+    "amplifier": 1,
+    "hideParticles": true
   }
 ]

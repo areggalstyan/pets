@@ -7,7 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.mariuszgromada.math.mxparser.Expression;
 
+/**
+ * Allows the owner to reflect a portion of the received damage
+ */
 public class ThornsPerk extends Perk implements Listener {
+    /**
+     * How much damage to reflect on the attacker based on the received damage (x)
+     */
     private Expression reflect;
 
     @Override

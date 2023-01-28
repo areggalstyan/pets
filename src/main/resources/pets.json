@@ -163,5 +163,46 @@
     },
     "perk": "DAMAGE_WITHER",
     "maxCandies": 2
+  },
+  {
+    "id": "TIGER",
+    "name": "%gold%[%level%] %player%'s Tiger",
+    "head": "3bddf5bae3af592858df9a150109e88c1caed8ba51e793c25aa03ca1b25db",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gold%[%level%] Tiger",
+      "lore": [
+        "%dark_gray%Growl...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "gdg",
+        "ded",
+        "gdg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x / 5",
+      "GENERIC_ATTACK_DAMAGE": "x / 5",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "perk": "KILL_STRENGTH",
+    "maxCandies": 3
   }
 ]

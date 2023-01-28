@@ -1,5 +1,6 @@
 package com.aregcraft.pets;
 
+import com.aregcraft.delta.api.Identifiable;
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.pets.perk.Perk;
@@ -16,7 +17,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record PetType(String id, String name, String head, ItemWrapper item, Recipe recipe, Expression level,
-                      Map<Attribute, Expression> attributes, Perk perk, int maxCandies) implements Identifiable {
+                      Map<Attribute, Expression> attributes, Perk perk, int maxCandies)
+        implements Identifiable<String> {
     public void register(Pets plugin) {
         item.<SkullMeta>editMeta(it -> {
             var profile = Bukkit.createPlayerProfile(UUID.randomUUID());

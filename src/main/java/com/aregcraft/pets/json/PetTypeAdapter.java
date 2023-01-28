@@ -1,5 +1,6 @@
 package com.aregcraft.pets.json;
 
+import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.delta.api.json.JsonReader;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer<PetType> {
     private static final TypeToken<Map<Attribute, Expression>> ATTRIBUTES_TYPE = new TypeToken<>() {};
 
+    @InjectPlugin
     private Pets plugin;
 
     @Override

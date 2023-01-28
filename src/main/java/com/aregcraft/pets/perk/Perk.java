@@ -1,14 +1,18 @@
 package com.aregcraft.pets.perk;
 
+import com.aregcraft.delta.api.Identifiable;
+import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.PersistentDataWrapper;
-import com.aregcraft.pets.Identifiable;
+import com.aregcraft.delta.meta.AbilitySuperclass;
 import com.aregcraft.pets.Pets;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public abstract class Perk implements Identifiable {
+@AbilitySuperclass
+public abstract class Perk implements Identifiable<String> {
     private String id;
     private String name;
+    @InjectPlugin
     private transient Pets plugin;
 
     @Override
