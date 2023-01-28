@@ -21,6 +21,13 @@ Make your server unique by creating your pets from scratch.
 ## Perks
 
 <!-- <perks> -->
+| Name | Description |
+| --- | --- |
+| KillEffect | Adds an effect on the owner when they kill |
+| Effect | Adds an effect on the owner |
+| Thorns | Allows the owner to reflect a portion of the received damage |
+| Damage | Increase the amount of damage dealt to certain entities |
+| Experience | Boosts the amount of experience that the owner receives |
 <!-- </perks> -->
 
 ## FAQ
@@ -59,7 +66,7 @@ Right-click with it.
 
 ## Support
 
-Visit the official discord server [https://discord.gg/JaeqU4HU](https://discord.gg/JaeqU4HU).
+Visit the official discord server, https://discord.gg/AJJWZFzVAX.
 
 ## Configuration
 
@@ -188,6 +195,12 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | size | `int` | The size of the menu, which must be a multiple of 9 |
 
 <!-- <menu_json> -->
+```json
+{
+  "title": "Pets",
+  "size": 36
+}
+```
 <!-- </menu_json> -->
 
 ### `position.json`
@@ -199,6 +212,13 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | z | `double` | The z coordinate of the pet relative to their owner |
 
 <!-- <position_json> -->
+```json
+{
+  "x": 1,
+  "y": 1,
+  "z": 1
+}
+```
 <!-- </position_json> -->
 
 ### `pets.json: List<Pet>`
@@ -232,6 +252,216 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | generic_attack_knockback | The attack knockback | 1 |
 
 <!-- <pets_json> -->
+```json
+[
+  {
+    "id": "LION",
+    "name": "%green%[%level%] %player%'s Lion",
+    "head": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%green%[%level%] Lion",
+      "lore": [
+        "%dark_gray%Roar...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "ggg",
+        "geg",
+        "ggg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_DAMAGE": "x / 10",
+      "GENERIC_ARMOR": "x / 10"
+    },
+    "perk": "EXPERIENCE",
+    "maxCandies": 3
+  },
+  {
+    "id": "ELEPHANT",
+    "name": "%gray%[%level%] %player%'s Elephant",
+    "head": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gray%[%level%] Elephant",
+      "lore": [
+        "%dark_gray%Trumpet...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_attack_speed% Attack Speed"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "odo",
+        "ded",
+        "odo"
+      ],
+      "ingredients": {
+        "o": "OBSIDIAN",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "perk": "REGENERATION",
+    "maxCandies": 4
+  },
+  {
+    "id": "CHEETAH",
+    "name": "%yellow%[%level%] %player%'s Cheetah",
+    "head": "1553f8856dd46de7e05d46f5fc2fb58eafba6829b11b160a1545622e89caaa33",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%yellow%[%level%] Cheetah",
+      "lore": [
+        "%dark_gray%Chirrs...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_movement_speed% Movement Speed",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_attack_speed% Attack Speed"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "igi",
+        "geg",
+        "igi"
+      ],
+      "ingredients": {
+        "i": "IRON_BLOCK",
+        "g": "GOLD_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MOVEMENT_SPEED": "x / 1000",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ATTACK_DAMAGE": "x / 5"
+    },
+    "perk": "THORNS",
+    "maxCandies": 4
+  },
+  {
+    "id": "WITHER",
+    "name": "%red%[%level%] %player%'s Wither",
+    "head": "cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%red%[%level%] Wither",
+      "lore": [
+        "%dark_gray%Hush...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor",
+        "%dark_green% %generic_armor_toughness% Armor Toughness"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "dwd",
+        "wnw",
+        "dwd"
+      ],
+      "ingredients": {
+        "d": "DIAMOND_BLOCK",
+        "w": "WITHER_SKELETON_SKULL",
+        "n": "NETHER_STAR"
+      }
+    },
+    "level": "x / 3",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x",
+      "GENERIC_ATTACK_DAMAGE": "x / 3",
+      "GENERIC_ARMOR": "x / 3",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 5"
+    },
+    "perk": "DAMAGE_WITHER",
+    "maxCandies": 2
+  },
+  {
+    "id": "TIGER",
+    "name": "%gold%[%level%] %player%'s Tiger",
+    "head": "3bddf5bae3af592858df9a150109e88c1caed8ba51e793c25aa03ca1b25db",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gold%[%level%] Tiger",
+      "lore": [
+        "%dark_gray%Growl...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "gdg",
+        "ded",
+        "gdg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x / 5",
+      "GENERIC_ATTACK_DAMAGE": "x / 5",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "perk": "KILL_STRENGTH",
+    "maxCandies": 3
+  }
+]
+```
 <!-- </pets_json> -->
 
 ### `experience_boosters.json: List<ExperienceBooster>`
@@ -244,6 +474,82 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | boost | `Expression` | The number of levels to add to the earned ones (x) |
 
 <!-- <experience_boosters_json> -->
+```json
+[
+  {
+    "id": "WEAK_EXPERIENCE_BOOSTER",
+    "item": {
+      "material": "EXPERIENCE_BOTTLE",
+      "name": "%green%Weak Experience Booster",
+      "lore": [
+        "%gray%Increases the amount of pet experience",
+        "%gray%you receive by 50%."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "gdg",
+        "ded",
+        "gdg"
+      ],
+      "ingredients": {
+        "g": "GOLD_INGOT",
+        "d": "DIAMOND",
+        "e": "EMERALD"
+      }
+    },
+    "boost": "0.5x"
+  },
+  {
+    "id": "DECENT_EXPERIENCE_BOOSTER",
+    "item": {
+      "material": "EXPERIENCE_BOTTLE",
+      "name": "%blue%Decent Experience Booster",
+      "lore": [
+        "%gray%Increases the amount of pet experience",
+        "%gray%you receive by 100%."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "gdg",
+        "ded",
+        "gdg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK",
+        "e": "EMERALD_BLOCK"
+      }
+    },
+    "boost": "x"
+  },
+  {
+    "id": "STRONG_EXPERIENCE_BOOSTER",
+    "item": {
+      "material": "EXPERIENCE_BOTTLE",
+      "name": "%red%Strong Experience Booster",
+      "lore": [
+        "%gray%Increases the amount of pet experience",
+        "%gray%you receive by 200%."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "ded",
+        "ene",
+        "ded"
+      ],
+      "ingredients": {
+        "d": "DIAMOND_BLOCK",
+        "e": "EMERALD_BLOCK",
+        "n": "NETHER_STAR"
+      }
+    },
+    "boost": "2x"
+  }
+]
+```
 <!-- </experience_boosters_json> -->
 
 ### `candies.json: List<Candy>`
@@ -256,6 +562,82 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | experience | `double` | The number of levels to add |
 
 <!-- <candies_json> -->
+```json
+[
+  {
+    "id": "SMALL_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%green%Small Candy",
+      "lore": [
+        "%gray%Instantly adds two levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sgs",
+        "gdg",
+        "sgs"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "g": "GOLD_INGOT",
+        "d": "DIAMOND"
+      }
+    },
+    "experience": 2
+  },
+  {
+    "id": "MEDIUM_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%blue%Medium Candy",
+      "lore": [
+        "%gray%Instantly adds four levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sgs",
+        "gdg",
+        "sgs"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK"
+      }
+    },
+    "experience": 4
+  },
+  {
+    "id": "BIG_CANDY",
+    "item": {
+      "material": "SUGAR",
+      "name": "%red%Big Candy",
+      "lore": [
+        "%gray%Instantly adds eight levels to your",
+        "%gray%selected pet."
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "sds",
+        "dnd",
+        "sds"
+      ],
+      "ingredients": {
+        "s": "SUGAR",
+        "d": "DIAMOND_BLOCK",
+        "n": "NETHER_STAR"
+      }
+    },
+    "experience": 8
+  }
+]
+```
 <!-- </candies_json> -->
 
 ### `perks.json: List<Perk>`
@@ -267,9 +649,86 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | name | `String` | The name, can have colors |
 
 <!-- <perks_json> -->
+```json
+[
+  {
+    "base": "Effect",
+    "id": "REGENERATION",
+    "name": "%red%Regeneration",
+    "type": "minecraft:regeneration",
+    "amplifier": 0,
+    "hideParticles": true
+  },
+  {
+    "base": "Experience",
+    "id": "EXPERIENCE",
+    "name": "%green%Experience",
+    "bonus": "0.5x"
+  },
+  {
+    "base": "Thorns",
+    "id": "THORNS",
+    "name": "%green%Thorns",
+    "reflect": "0.125x"
+  },
+  {
+    "base": "Damage",
+    "id": "DAMAGE_WITHER",
+    "name": "%red%Wither Vanquisher",
+    "bonuses": {
+      "WITHER": "0.25x",
+      "WITHER_SKELETON": "0.5x"
+    }
+  },
+  {
+    "base": "KillEffect",
+    "id": "KILL_STRENGTH",
+    "name": "%gold%Strong Killer",
+    "type": "minecraft:strength",
+    "duration": 100,
+    "amplifier": 1,
+    "hideParticles": true
+  }
+]
+```
 <!-- </perks_json> -->
 
 ### Bases
 
 <!-- <bases> -->
+#### KillEffect
+
+| Name | Type | Description |
+| --- | --- | --- |
+| type | `PotionEffectType` | The effect type |
+| duration | `int` | The effect duration in ticks (1 second = 20 ticks) |
+| amplifier | `int` | The effect amplifier |
+| hideParticles | `boolean` | Whether to hide the effect particles |
+| onlyPlayers | `boolean` | Whether to add the effect only when killing players |
+
+#### Effect
+
+| Name | Type | Description |
+| --- | --- | --- |
+| type | `PotionEffectType` | The effect type |
+| amplifier | `int` | The effect amplifier |
+| hideParticles | `boolean` | Whether to hide the effect particles |
+
+#### Thorns
+
+| Name | Type | Description |
+| --- | --- | --- |
+| reflect | `Expression` | How much damage to reflect on the attacker based on the received damage (x) |
+
+#### Damage
+
+| Name | Type | Description |
+| --- | --- | --- |
+| bonuses | `Expression>` | The damage bonuses based on the dealt damage (x) with entities |
+
+#### Experience
+
+| Name | Type | Description |
+| --- | --- | --- |
+| bonus | `Expression` | The amount of experience to add to the earned ones (x) |
 <!-- </bases> -->
