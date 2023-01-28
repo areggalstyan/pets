@@ -23,6 +23,7 @@ Make your server unique by creating your pets from scratch.
 <!-- <perks> -->
 | Name | Description |
 | --- | --- |
+| KillEffect | Adds an effect on the owner when they kill |
 | Effect | Adds an effect on the owner |
 | Thorns | Allows the owner to reflect a portion of the received damage |
 | Damage | Increase the amount of damage dealt to certain entities |
@@ -417,6 +418,47 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     },
     "perk": "DAMAGE_WITHER",
     "maxCandies": 2
+  },
+  {
+    "id": "TIGER",
+    "name": "%gold%[%level%] %player%'s Tiger",
+    "head": "3bddf5bae3af592858df9a150109e88c1caed8ba51e793c25aa03ca1b25db",
+    "item": {
+      "material": "PLAYER_HEAD",
+      "name": "%gold%[%level%] Tiger",
+      "lore": [
+        "%dark_gray%Growl...",
+        "",
+        "%gray%%candies%/%maxCandies% candies used!",
+        "",
+        "%gray%When selected:",
+        "%dark_green% %experienceBooster%",
+        "%dark_green% %perk% Perk",
+        "%dark_green% %generic_max_health% Max Health",
+        "%dark_green% %generic_attack_damage% Attack Damage",
+        "%dark_green% %generic_armor% Armor"
+      ]
+    },
+    "recipe": {
+      "shape": [
+        "gdg",
+        "ded",
+        "gdg"
+      ],
+      "ingredients": {
+        "g": "GOLD_BLOCK",
+        "d": "DIAMOND_BLOCK",
+        "e": "EGG"
+      }
+    },
+    "level": "x / 2",
+    "attributes": {
+      "GENERIC_MAX_HEALTH": "2x / 5",
+      "GENERIC_ATTACK_DAMAGE": "x / 5",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "perk": "KILL_STRENGTH",
+    "maxCandies": 3
   }
 ]
 ```
@@ -637,6 +679,15 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
       "WITHER": "0.25x",
       "WITHER_SKELETON": "0.5x"
     }
+  },
+  {
+    "base": "KillEffect",
+    "id": "KILL_STRENGTH",
+    "name": "%gold%Strong Killer",
+    "type": "minecraft:strength",
+    "duration": 100,
+    "amplifier": 1,
+    "hideParticles": true
   }
 ]
 ```
@@ -645,6 +696,16 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 ### Bases
 
 <!-- <bases> -->
+#### KillEffect
+
+| Name | Type | Description |
+| --- | --- | --- |
+| type | `PotionEffectType` | The effect type |
+| duration | `int` | The effect duration in ticks (1 second = 20 ticks) |
+| amplifier | `int` | The effect amplifier |
+| hideParticles | `boolean` | Whether to hide the effect particles |
+| onlyPlayers | `boolean` | Whether to add the effect only when killing players |
+
 #### Effect
 
 | Name | Type | Description |

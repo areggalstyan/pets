@@ -2,6 +2,37 @@
   "version": "3.4.0",
   "abilities": [
     {
+      "name": "KillEffect",
+      "description": "Adds an effect on the owner when they kill",
+      "properties": [
+        {
+          "type": "PotionEffectType",
+          "name": "type",
+          "description": "The effect type"
+        },
+        {
+          "type": "int",
+          "name": "duration",
+          "description": "The effect duration in ticks (1 second = 20 ticks)"
+        },
+        {
+          "type": "int",
+          "name": "amplifier",
+          "description": "The effect amplifier"
+        },
+        {
+          "type": "boolean",
+          "name": "hideParticles",
+          "description": "Whether to hide the effect particles"
+        },
+        {
+          "type": "boolean",
+          "name": "onlyPlayers",
+          "description": "Whether to add the effect only when killing players"
+        }
+      ]
+    },
+    {
       "name": "Effect",
       "description": "Adds an effect on the owner",
       "properties": [
