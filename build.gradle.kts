@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "3.4.0"
+version = "3.5.0"
 
 repositories {
     mavenLocal()
@@ -37,6 +37,28 @@ pluginDescription {
             description.set("Reloads the configuration files.")
             usage.set("Usage: /<command>")
             permission.set("pets.command.reloadpets")
+        }
+        create("petsinfo") {
+            aliases.add("pi")
+            description.set("Shows information about available pets, stats, and crafting recipes.")
+            permission.set("reforging.command.petsinfo")
+        }
+    }
+    permissions {
+        create("reforging.command.pets") {
+            description.set("Allows you to use the command /pets")
+            default.set("true")
+        }
+        create("reforging.command.togglepets") {
+            description.set("Allows you to use the command /togglepets")
+            default.set("true")
+        }
+        create("reforging.command.reloadpets") {
+            description.set("Allows you to use the command /reloadpets")
+        }
+        create("reforging.command.petsinfo") {
+            description.set("Allows you to use the command /petsinfo")
+            default.set("true")
         }
     }
 }

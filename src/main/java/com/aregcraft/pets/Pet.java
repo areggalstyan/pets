@@ -28,6 +28,10 @@ public class Pet {
         return (int) level != (int) (level += calculate(type.level(), experience) + calculateBoost(experience));
     }
 
+    public void setLevel(double level) {
+        this.level = level;
+    }
+
     private double calculateBoost(int experience) {
         return experienceBooster != null ? experienceBooster.calculate(experience) : 0;
     }
@@ -118,6 +122,7 @@ public class Pet {
         var perk = type.perk();
         if (perk != null) {
             builder.placeholder("perk", perk.getName());
+            builder.placeholder("perkDescription", perk.getDescription());
         }
         if (experienceBooster != null) {
             builder.placeholder("experienceBooster", experienceBooster.getName());

@@ -52,11 +52,11 @@ public class Pets extends DeltaPlugin {
     }
 
     public PetType getPetType(String id) {
-        return Identifiable.findAny(getPetTypes(), id);
+        return Identifiable.findAny(configurationLoader.get(PET_TYPES_TYPE), id);
     }
 
-    private List<PetType> getPetTypes() {
-        return configurationLoader.get(PET_TYPES_TYPE);
+    public List<String> getPetTypeIds() {
+        return configurationLoader.get(PET_TYPES_TYPE).stream().map(Identifiable::getId).toList();
     }
 
     public ExperienceBooster getExperienceBooster(String id) {
@@ -96,7 +96,7 @@ public class Pets extends DeltaPlugin {
     }
 
     private void load() {
-        getPetTypes().forEach(it -> it.register(this));
+        configurationLoader.get(PET_TYPES_TYPE).forEach(it -> it.register(this));
         configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).forEach(it -> it.register(this));
         configurationLoader.get(CANDIES_TYPE).forEach(it -> it.register(this));
     }

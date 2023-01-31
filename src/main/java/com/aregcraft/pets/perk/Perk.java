@@ -8,10 +8,13 @@ import com.aregcraft.pets.Pets;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 @AbilitySuperclass
 public abstract class Perk implements Identifiable<String> {
     private String id;
     private String name;
+    private List<String> description;
     @InjectPlugin
     private transient Pets plugin;
 
@@ -22,6 +25,10 @@ public abstract class Perk implements Identifiable<String> {
 
     public String getName() {
         return name;
+    }
+
+    public List<String> getDescription() {
+        return description;
     }
 
     protected Pets getPlugin() {

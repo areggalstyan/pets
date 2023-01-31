@@ -12,11 +12,12 @@ Make your server unique by creating your pets from scratch.
 
 ## Commands
 
-| Name | Description | Permission |
-| --- | --- | --- |
-| /pets | Opens the pet menu | pets.command.pets |
-| /togglepets | Toggles the visibility of your pets | pets.command.togglepets |
-| /reloadpets | Reloads the configuration files | pets.command.reloadpets |
+| Name | Description | Permission | Aliases | Default |
+| --- | --- | --- | --- | --- |
+| /pets | Opens the pet menu | pets.command.pets | N/A | Yes |
+| /togglepets | Toggles the visibility of your pets | pets.command.togglepets | N/A | Yes |
+| /reloadpets | Reloads the configuration files | pets.command.reloadpets | N/A | OP |
+| /petsinfo | Shows information about available pets, stats, and crafting recipes | pets.command.petsinfo | /pi | Yes |
 
 ## Perks
 
@@ -242,7 +243,8 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | candies | The number of candies | 2 |
 | maxCandies | The maximum number of candies | 4 |
 | player | The owner | Aregcraft |
-| perk | The perk | Regeneration |
+| perk | The name of the perk | Regeneration |
+| perkDescription | The description of the perk | Gives you regeneration 1! |
 | experienceBooster | The experience booster | Decent Experience Booster |
 | generic_max_health | The max health | 10 |
 | generic_knockback_resistance | The knockback resistance | 1 |
@@ -266,9 +268,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "",
         "%gray%%candies%/%maxCandies% candies used!",
         "",
+        "%perk% Perk",
+        "%perkDescription%",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
-        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_armor% Armor"
@@ -306,9 +310,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "",
         "%gray%%candies%/%maxCandies% candies used!",
         "",
+        "%perk% Perk",
+        "%perkDescription%",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
-        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_armor% Armor",
         "%dark_green% %generic_attack_speed% Attack Speed"
@@ -347,9 +353,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "",
         "%gray%%candies%/%maxCandies% candies used!",
         "",
+        "%perk% Perk",
+        "%perkDescription%",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
-        "%dark_green% %perk% Perk",
         "%dark_green% %generic_movement_speed% Movement Speed",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_attack_speed% Attack Speed"
@@ -388,9 +396,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "",
         "%gray%%candies%/%maxCandies% candies used!",
         "",
+        "%perk% Perk",
+        "%perkDescription%",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
-        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_armor% Armor",
@@ -431,9 +441,11 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
         "",
         "%gray%%candies%/%maxCandies% candies used!",
         "",
+        "%perk% Perk",
+        "%perkDescription%",
+        "",
         "%gray%When selected:",
         "%dark_green% %experienceBooster%",
-        "%dark_green% %perk% Perk",
         "%dark_green% %generic_max_health% Max Health",
         "%dark_green% %generic_attack_damage% Attack Damage",
         "%dark_green% %generic_armor% Armor"
@@ -655,6 +667,9 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     "base": "Effect",
     "id": "REGENERATION",
     "name": "%red%Regeneration",
+    "description": [
+      "%gray%Gives you regeneration 1!"
+    ],
     "type": "minecraft:regeneration",
     "amplifier": 0,
     "hideParticles": true
@@ -663,18 +678,29 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     "base": "Experience",
     "id": "EXPERIENCE",
     "name": "%green%Experience",
+    "description": [
+      "%gray%Boosts your experience gain by 50%!"
+    ],
     "bonus": "0.5x"
   },
   {
     "base": "Thorns",
     "id": "THORNS",
     "name": "%green%Thorns",
+    "description": [
+      "%gray%Reflects 12.5% of the damage you receive!"
+    ],
     "reflect": "0.125x"
   },
   {
     "base": "Damage",
     "id": "DAMAGE_WITHER",
     "name": "%red%Wither Vanquisher",
+    "description": [
+      "%gray%Increases the amount of damage you deal",
+      "%gray%to withers by 25% and wither skeletons",
+      "%gray%by 50%!"
+    ],
     "bonuses": {
       "WITHER": "0.25x",
       "WITHER_SKELETON": "0.5x"
@@ -684,6 +710,10 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
     "base": "KillEffect",
     "id": "KILL_STRENGTH",
     "name": "%gold%Strong Killer",
+    "description": [
+      "%gray%Gives you strength 2 for 5 seconds",
+      "%gray%each time you kill a mob or player!"
+    ],
     "type": "minecraft:strength",
     "duration": 100,
     "amplifier": 1,
