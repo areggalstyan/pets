@@ -29,7 +29,9 @@ public record PetType(String id, String name, String head, ItemWrapper item, Rec
             }
             it.setOwnerProfile(profile);
         });
-        recipe.add(plugin, id, new Pet(this).getItem(plugin));
+        if (recipe != null) {
+            recipe.add(plugin, id, new Pet(this).getItem(plugin));
+        }
     }
 
     @Override

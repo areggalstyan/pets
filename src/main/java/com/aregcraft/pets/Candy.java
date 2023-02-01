@@ -27,11 +27,17 @@ public class Candy implements Identifiable<String> {
 
     public void register(Pets plugin) {
         item.getPersistentData(plugin).set("id", id);
-        recipe.add(plugin, id, item);
+        if (recipe != null) {
+            recipe.add(plugin, id, item);
+        }
     }
 
     @Override
     public String getId() {
         return id;
+    }
+
+    public ItemWrapper getItem() {
+        return item;
     }
 }

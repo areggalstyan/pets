@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "3.5.0"
+version = "3.6.0"
 
 repositories {
     mavenLocal()
@@ -43,6 +43,11 @@ pluginDescription {
             description.set("Shows information about available pets, stats, and crafting recipes.")
             permission.set("reforging.command.petsinfo")
         }
+        create("petsgive") {
+            description.set("Gives you a pet, experience booster, or candy.")
+            usage.set("Usage: /<command> <id>")
+            permission.set("reforging.command.petsgive")
+        }
     }
     permissions {
         create("reforging.command.pets") {
@@ -59,6 +64,9 @@ pluginDescription {
         create("reforging.command.petsinfo") {
             description.set("Allows you to use the command /petsinfo")
             default.set("true")
+        }
+        create("reforging.command.petsgive") {
+            description.set("Allows you to use the command /petsgive")
         }
     }
 }

@@ -28,7 +28,9 @@ public class ExperienceBooster implements Identifiable<String> {
 
     public void register(Pets plugin) {
         item.getPersistentData(plugin).set("id", id);
-        recipe.add(plugin, id, item);
+        if (recipe != null) {
+            recipe.add(plugin, id, item);
+        }
     }
 
     public double calculate(int experience) {
@@ -39,5 +41,9 @@ public class ExperienceBooster implements Identifiable<String> {
     @Override
     public String getId() {
         return id;
+    }
+
+    public ItemWrapper getItem() {
+        return item;
     }
 }

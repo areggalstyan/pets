@@ -18,6 +18,7 @@ Make your server unique by creating your pets from scratch.
 | /togglepets | Toggles the visibility of your pets | pets.command.togglepets | N/A | Yes |
 | /reloadpets | Reloads the configuration files | pets.command.reloadpets | N/A | OP |
 | /petsinfo | Shows information about available pets, stats, and crafting recipes | pets.command.petsinfo | /pi | Yes |
+| /petsgive &lt;id&gt; | Gives you a pet, experience booster, or candy | pets.command.petsgive | N/A | OP |
 
 ## Perks
 
@@ -229,7 +230,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | id | `String` | The identifier | No |
 | name | `String` | The name, can have colors and placeholders | No |
 | item | `ItemWrapper` | The item | No |
-| recipe | `Recipe` | The crafting recipe | No |
+| recipe | `Recipe` | The crafting recipe | Yes |
 | level | `Expression` | How many levels the pet receives based on how many experience levels (x) its owner received | No |
 | attributes | `Map<Attribute, Expression>` | The attributes with their amounts based on the pet level (x) | No |
 | perk | `String` | The identifier of the perk | Yes |
@@ -478,12 +479,12 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 
 ### `experience_boosters.json: List<ExperienceBooster>`
 
-| Name | Type | Description |
-| --- | --- | --- |
-| id | `String` | The identifier |
-| item | `ItemWrapper` | The item |
-| recipe | `Recipe` | The recipe |
-| boost | `Expression` | The number of levels to add to the earned ones (x) |
+| Name | Type | Description | Optional |
+| --- | --- | --- | --- |
+| id | `String` | The identifier | No |
+| item | `ItemWrapper` | The item | No |
+| recipe | `Recipe` | The recipe | Yes |
+| boost | `Expression` | The number of levels to add to the earned ones (x) | No |
 
 <!-- <experience_boosters_json> -->
 ```json
@@ -566,12 +567,12 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 
 ### `candies.json: List<Candy>`
 
-| Name | Type | Description |
-| --- | --- | --- |
-| id | `String` | The identifier |
-| item | `ItemWrapper` | The item |
-| recipe | `Recipe` | The recipe |
-| experience | `double` | The number of levels to add |
+| Name | Type | Description | Optional |
+| --- | --- | --- | --- |
+| id | `String` | The identifier | No |
+| item | `ItemWrapper` | The item | No |
+| recipe | `Recipe` | The recipe | Yes |
+| experience | `double` | The number of levels to add | No |
 
 <!-- <candies_json> -->
 ```json

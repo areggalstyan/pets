@@ -12,10 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Pets extends DeltaPlugin {
     private static final TypeToken<List<PetType>> PET_TYPES_TYPE = new TypeToken<>() {};
@@ -63,8 +60,16 @@ public class Pets extends DeltaPlugin {
         return Identifiable.findAny(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
     }
 
+    public List<String> getExperienceBoosterIds() {
+        return configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).stream().map(Identifiable::getId).toList();
+    }
+
     public Candy getCandy(String id) {
         return Identifiable.findAny(configurationLoader.get(CANDIES_TYPE), id);
+    }
+
+    public List<String> getCandyIds() {
+        return configurationLoader.get(CANDIES_TYPE).stream().map(Identifiable::getId).toList();
     }
 
     public Perk getPerk(String id) {

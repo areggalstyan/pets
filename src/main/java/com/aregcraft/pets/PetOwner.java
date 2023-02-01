@@ -14,10 +14,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
-import org.mariuszgromada.math.mxparser.Expression;
-
-import java.util.Optional;
-import java.util.UUID;
 
 public class PetOwner implements Listener {
     private final Player player;
@@ -192,7 +188,7 @@ public class PetOwner implements Listener {
             return;
         }
         if (armorStand == null) {
-            armorStand = EntityBuilder.createArmorStand().nameVisible(true).build(getArmorStandLocation());
+            armorStand = EntityBuilder.createArmorStand().nameVisible(true).build(getArmorStandLocation(), plugin);
         }
         armorStand.setCustomName(pet.getName(player));
         EquipmentWrapper.wrap(armorStand).setHelmet(pet.getHead());
