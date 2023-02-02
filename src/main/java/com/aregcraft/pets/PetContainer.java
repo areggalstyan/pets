@@ -37,4 +37,8 @@ public class PetContainer {
     public void togglePets() {
         showPets = !showPets;
     }
+
+    public void clearPets() {
+        pets.clear();
+    }
 }

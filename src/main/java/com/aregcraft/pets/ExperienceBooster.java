@@ -46,4 +46,8 @@ public class ExperienceBooster implements Identifiable<String> {
     public ItemWrapper getItem() {
         return item;
     }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
 }

@@ -2,6 +2,7 @@ package com.aregcraft.pets.command;
 
 import com.aregcraft.delta.api.FormattingContext;
 import com.aregcraft.delta.api.InjectPlugin;
+import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.command.CommandWrapper;
 import com.aregcraft.delta.api.command.RegisteredCommand;
 import com.aregcraft.pets.Pet;
@@ -68,17 +69,45 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
     }
 
     private void showRecipe(Player player, String id) {
-        var petType = plugin.getPetType(id);
-        if (petType == null) {
+        var recipe = getRecipe(id);
+        if (recipe == null) {
             showUsage(player);
             return;
         }
-        var inventory = Bukkit.createInventory(player, 45, new Pet(petType).getName(player));
+        var inventory = Bukkit.createInventory(player, 45, getTitle(player, id));
         for (var i = 0; i < 9; i++) {
-            inventory.setItem(i + i / 3 * 6 + 12, new ItemStack(petType.recipe().get(i)));
+            inventory.setItem(i + i / 3 * 6 + 12, new ItemStack(recipe.get(i)));
         }
         inventories.add(inventory);
         player.openInventory(inventory);
+    }
+
+    private Recipe getRecipe(String id) {
+        var petType = plugin.getPetType(id);
+        if (petType != null) {
+            return petType.recipe();
+        }
+        var experienceBooster = plugin.getExperienceBooster(id);
+        if (experienceBooster != null) {
+            return experienceBooster.getRecipe();
+        }
+        var candy = plugin.getCandy(id);
+        if (candy != null) {
+            return candy.getRecipe();
+        }
+        return null;
+    }
+
+    private String getTitle(Player player, String id) {
+        var petType = plugin.getPetType(id);
+        if (petType != null) {
+            return new Pet(petType).getName(player);
+        }
+        var experienceBooster = plugin.getExperienceBooster(id);
+        if (experienceBooster != null) {
+            return experienceBooster.getItem().getName();
+        }
+        return plugin.getCandy(id).getItem().getName();
     }
 
     @EventHandler
@@ -95,9 +124,17 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
             return null;
         }
         return switch (args.get(0)) {
-            case "pet", "recipe" -> plugin.getPetTypeIds();
+            case "pet" -> plugin.getPetTypeIds();
+            case "recipe" -> getRecipeIds();
             default -> null;
         };
+    }
+
+    private List<String> getRecipeIds() {
+        var ids = new ArrayList<>(plugin.getPetTypeIds());
+        ids.addAll(plugin.getExperienceBoosterIds());
+        ids.addAll(plugin.getCandyIds());
+        return ids;
     }
 
     private void showUsage(Player sender) {

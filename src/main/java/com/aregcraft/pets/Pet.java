@@ -94,6 +94,10 @@ public class Pet {
         return calculate(expression, (int) level);
     }
 
+    public PetType getType() {
+        return type;
+    }
+
     public String getName(Player player) {
         return FormattingContext.builder()
                 .placeholder("level", (int) level)

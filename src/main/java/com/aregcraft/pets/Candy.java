@@ -40,4 +40,8 @@ public class Candy implements Identifiable<String> {
     public ItemWrapper getItem() {
         return item;
     }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
 }

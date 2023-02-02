@@ -10,12 +10,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 
+import java.util.logging.Level;
+
 public class PetOwner implements Listener {
+    private static final String DATA_CORRUPTION_ERROR =
+            "A data corruption was detected while trying to register player %s!";
+
     private final Player player;
     private final Pets plugin;
     private final PersistentDataWrapper persistentData;
@@ -28,6 +34,10 @@ public class PetOwner implements Listener {
         this.plugin = plugin;
         persistentData = PersistentDataWrapper.wrap(plugin, player);
         container = persistentData.getOrElse("pet_container", new PetContainer());
+        if (container.getPets().removeIf(it -> it.getType() == null)) {
+            plugin.getLogger().log(Level.SEVERE, DATA_CORRUPTION_ERROR.formatted(player.getDisplayName()));
+        }
+        setContainer();
         inventory = plugin.getPetMenu().createInventory(player);
         createArmorStand(container.getSelectedPet());
         plugin.registerListener(this);
@@ -35,8 +45,35 @@ public class PetOwner implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (checkPlayer(event) && armorStand != null) {
+        if (!checkPlayer(event)) {
+            return;
+        }
+        if (armorStand == null) {
+            createArmorStand(container.getSelectedPet());
+        }
+        if (armorStand != null) {
             armorStand.teleport(getArmorStandLocation());
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (event.getEntity().equals(player)) {
+            removeArmorStand();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        if (event.getPlayer().equals(player)) {
+            removeArmorStand();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerPortal(PlayerPortalEvent event) {
+        if (checkPlayer(event)) {
+            removeArmorStand();
         }
     }
 
@@ -179,6 +216,12 @@ public class PetOwner implements Listener {
         setContainer();
     }
 
+    public void clearPets() {
+        selectPet(null);
+        container.clearPets();
+        setContainer();
+    }
+
     private void setContainer() {
         persistentData.set("pet_container", container);
     }
@@ -188,7 +231,10 @@ public class PetOwner implements Listener {
             return;
         }
         if (armorStand == null) {
-            armorStand = EntityBuilder.createArmorStand().nameVisible(true).build(getArmorStandLocation(), plugin);
+            armorStand = EntityBuilder.createArmorStand()
+                    .nameVisible(true)
+                    .persistentData("id", "PET_ARMOR_STAND")
+                    .build(getArmorStandLocation(), plugin);
         }
         armorStand.setCustomName(pet.getName(player));
         EquipmentWrapper.wrap(armorStand).setHelmet(pet.getHead());

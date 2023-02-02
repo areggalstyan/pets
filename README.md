@@ -19,6 +19,7 @@ Make your server unique by creating your pets from scratch.
 | /reloadpets | Reloads the configuration files | pets.command.reloadpets | N/A | OP |
 | /petsinfo | Shows information about available pets, stats, and crafting recipes | pets.command.petsinfo | /pi | Yes |
 | /petsgive &lt;id&gt; | Gives you a pet, experience booster, or candy | pets.command.petsgive | N/A | OP |
+| /clearpets | Removes all of your pets | pets.command.clearpets | N/A | Yes |
 
 ## Perks
 
@@ -141,6 +142,7 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 | enchants | `Map<Enchantment, Integer>` | The enchantments with their levels | Yes | None |
 | flags | `ItemFlag` | The flags | Yes | None |
 | unbreakable | `boolean` | Whether the item should be unbreakable | Yes | `false` |
+| customModelData | `int` | The custom model data | Yes | None |
 | attributeModifiers | `Multimap<Attribute, AttributeModifier>` | The attribute modifiers | Yes | None |
 | persistentData | `Map<String, Object>` | The persistent data | Yes | None |
 
