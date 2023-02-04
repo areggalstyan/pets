@@ -54,4 +54,19 @@ public record PetType(String id, String name, String head, ItemWrapper item, Rec
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "PetType{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", head='" + head + '\'' +
+                ", item=" + item +
+                ", recipe=" + recipe +
+                ", level=" + level +
+                ", attributes=" + attributes +
+                ", perk=" + perk +
+                ", maxCandies=" + maxCandies +
+                '}';
+    }
 }

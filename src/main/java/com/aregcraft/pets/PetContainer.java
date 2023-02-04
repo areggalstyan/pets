@@ -23,7 +23,7 @@ public class PetContainer {
     }
 
     public Pet getSelectedPet() {
-        return selectedPet < 0 ? null : pets.get(selectedPet);
+        return selectedPet >= 0 && selectedPet < pets.size() ? pets.get(selectedPet) : null;
     }
 
     public void selectPet(Pet pet) {
@@ -40,5 +40,14 @@ public class PetContainer {
 
     public void clearPets() {
         pets.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "PetContainer{" +
+                "pets=" + pets +
+                ", selectedPet=" + selectedPet +
+                ", showPets=" + showPets +
+                '}';
     }
 }

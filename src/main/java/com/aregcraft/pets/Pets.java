@@ -28,6 +28,7 @@ public class Pets extends DeltaPlugin {
             .plugin(this)
             .build();
     private final Map<UUID, PetOwner> owners = new HashMap<>();
+    private final Updater updater = new Updater(this);
 
     @Override
     public void onEnable() {
@@ -42,6 +43,10 @@ public class Pets extends DeltaPlugin {
     public void onDisable() {
         super.onDisable();
         owners.values().forEach(PetOwner::removeArmorStand);
+    }
+
+    public Updater getUpdater() {
+        return updater;
     }
 
     public PetMenu getPetMenu() {
@@ -104,5 +109,9 @@ public class Pets extends DeltaPlugin {
         configurationLoader.get(PET_TYPES_TYPE).forEach(it -> it.register(this));
         configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).forEach(it -> it.register(this));
         configurationLoader.get(CANDIES_TYPE).forEach(it -> it.register(this));
+    }
+
+    public String[] getPetsInfoUsage() {
+        return configurationLoader.get("petsinfo_usage", String[].class);
     }
 }

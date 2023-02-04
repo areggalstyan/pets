@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "3.7.0"
+version = "3.8.0"
 
 repositories {
     mavenLocal()
@@ -22,7 +22,6 @@ dependencies {
 pluginDescription {
     main.set("$group.pets.Pets")
     apiVersion.set("1.19")
-    load.set("STARTUP")
     commands {
         create("pets") {
             description.set("Opens the pet menu.")
@@ -54,6 +53,11 @@ pluginDescription {
             usage.set("Usage: /<command>")
             permission.set("reforging.command.clearpets")
         }
+        create("updatepets") {
+            description.set("Updates the plugin.")
+            usage.set("Usage: /<command>")
+            permission.set("reforging.command.updatepets")
+        }
     }
     permissions {
         create("reforging.command.pets") {
@@ -77,6 +81,9 @@ pluginDescription {
         create("reforging.command.clearpets") {
             description.set("Allows you to use the command /clearpets")
             default.set("true")
+        }
+        create("reforging.command.updatepets") {
+            description.set("Allows you to use the command /updatepets")
         }
     }
 }

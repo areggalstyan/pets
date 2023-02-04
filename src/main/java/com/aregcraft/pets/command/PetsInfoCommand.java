@@ -138,10 +138,7 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
     }
 
     private void showUsage(Player sender) {
-        sendMessage(sender, """
-                %red%/petsinfo pets %gray%- %yellow%List all pets
-                %red%/petsinfo pet <id> %gray%- %yellow%Show info about a pet
-                %red%/petsinfo recipe <id> %gray%- %yellow%Show a crafting recipe""");
+        sendMessage(sender, plugin.getPetsInfoUsage());
     }
 
     private void sendMessage(Player player, String... messages) {

@@ -20,6 +20,7 @@ Make your server unique by creating your pets from scratch.
 | /petsinfo | Shows information about available pets, stats, and crafting recipes | pets.command.petsinfo | /pi | Yes |
 | /petsgive &lt;id&gt; | Gives you a pet, experience booster, or candy | pets.command.petsgive | N/A | OP |
 | /clearpets | Removes all of your pets | pets.command.clearpets | N/A | Yes |
+| /updatepets | Updates the plugin | pets.command.updatepets | N/A | OP |
 
 ## Perks
 
@@ -224,6 +225,36 @@ Lots of strings can have colors and placeholders. Specify colors with `%color_na
 }
 ```
 <!-- </position_json> -->
+
+### `petsinfo_usage.json: List<String>`
+
+The usage message of the command /petsinfo
+
+<!-- <petsinfo_usage_json> -->
+```json
+[
+  "%red%/petsinfo pets %gray%- %yellow%List all pets",
+  "%red%/petsinfo pet <id> %gray%- %yellow%Show info about a pet",
+  "%red%/petsinfo recipe <id> %gray%- %yellow%Show a crafting recipe"
+]
+```
+<!-- </petsinfo_usage_json> -->
+
+### `update_checker.json`
+
+| Name | Type | Description |
+| --- | --- | --- |
+| enable | `String` | The message to log in console when a new update is available |
+| period | `long` | How often to check for updates in ticks (1 second = 20 ticks) |
+
+<!-- <update_checker_json> -->
+```json
+{
+  "message": "A new update is available! Use /updatepets to update.",
+  "period": 36000
+}
+```
+<!-- </update_checker_json> -->
 
 ### `pets.json: List<Pet>`
 

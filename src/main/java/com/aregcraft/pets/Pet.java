@@ -152,4 +152,14 @@ public class Pet {
     public int hashCode() {
         return Objects.hash(type, level);
     }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "type=" + type +
+                ", level=" + level +
+                ", experienceBooster=" + experienceBooster +
+                ", candies=" + candies +
+                '}';
+    }
 }

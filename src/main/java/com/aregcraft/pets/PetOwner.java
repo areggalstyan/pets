@@ -4,6 +4,8 @@ import com.aregcraft.delta.api.PersistentDataWrapper;
 import com.aregcraft.delta.api.entity.EntityBuilder;
 import com.aregcraft.delta.api.entity.EquipmentWrapper;
 import com.aregcraft.delta.api.item.ItemWrapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -34,13 +36,22 @@ public class PetOwner implements Listener {
         this.plugin = plugin;
         persistentData = PersistentDataWrapper.wrap(plugin, player);
         container = persistentData.getOrElse("pet_container", new PetContainer());
-        if (container.getPets().removeIf(it -> it.getType() == null)) {
-            plugin.getLogger().log(Level.SEVERE, DATA_CORRUPTION_ERROR.formatted(player.getDisplayName()));
-        }
+        checkForDataCorruption();
         setContainer();
         inventory = plugin.getPetMenu().createInventory(player);
         createArmorStand(container.getSelectedPet());
         plugin.registerListener(this);
+    }
+
+    private void checkForDataCorruption() {
+        var pets = container.getPets();
+        if (pets.stream().noneMatch(it -> it.getType() == null)) {
+            return;
+        }
+        plugin.getLogger().log(Level.SEVERE, DATA_CORRUPTION_ERROR.formatted(player.getDisplayName()));
+        plugin.getLogger().log(Level.SEVERE, String.valueOf(container));
+        container.selectPet(null);
+        pets.removeIf(it -> it.getType() == null);
     }
 
     @EventHandler

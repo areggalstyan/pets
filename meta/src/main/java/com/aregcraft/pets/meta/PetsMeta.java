@@ -9,6 +9,8 @@ public class PetsMeta extends MetaDoclet {
     public PetsMeta() {
         super(new JsonReplacement("menu"),
                 new JsonReplacement("position"),
+                new JsonReplacement("petsinfo_usage"),
+                new JsonReplacement("update_checker"),
                 new JsonReplacement("pets"),
                 new JsonReplacement("experience_boosters"),
                 new JsonReplacement("candies"),
