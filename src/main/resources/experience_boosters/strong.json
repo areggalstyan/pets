@@ -1,0 +1,25 @@
+{
+  "id": "STRONG_EXPERIENCE_BOOSTER",
+  "item": {
+    "material": "EXPERIENCE_BOTTLE",
+    "name": "%red%Strong Experience Booster",
+    "lore": [
+      "%gray%Increases the amount of pet experience",
+      "%gray%you receive by 200%.",
+      "%dark_gray%Right-click to use."
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "ded",
+      "ene",
+      "ded"
+    ],
+    "ingredients": {
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  },
+  "boost": "2x"
+}

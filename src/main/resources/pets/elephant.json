@@ -1,0 +1,60 @@
+{
+  "id": "ELEPHANT",
+  "name": "%gray%[%level%] %player%'s Elephant",
+  "head": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514",
+  "item": {
+    "material": "PLAYER_HEAD",
+    "name": "%gray%[%level%] Elephant",
+    "lore": [
+      "%dark_gray%Trumpet...",
+      "",
+      "%gray%%candies%/%maxCandies% candies used!",
+      "",
+      "%perks%",
+      "",
+      "%gray%When selected:",
+      "%dark_green% %experienceBooster%",
+      "%dark_green% %generic_max_health% Max Health",
+      "%dark_green% %generic_armor% Armor",
+      "%dark_green% %generic_attack_speed% Attack Speed",
+      "",
+      "%rarity%"
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "odo",
+      "ded",
+      "odo"
+    ],
+    "ingredients": {
+      "o": "OBSIDIAN",
+      "d": "DIAMOND_BLOCK",
+      "e": "EGG"
+    }
+  },
+  "level": "x / 2",
+  "attributes": {
+    "COMMON": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_SPEED": "x / 100",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "RARE": {
+      "GENERIC_MAX_HEALTH": "1.2x",
+      "GENERIC_ATTACK_SPEED": "x / 80",
+      "GENERIC_ARMOR": "x / 4"
+    },
+    "LEGENDARY": {
+      "GENERIC_MAX_HEALTH": "1.4x",
+      "GENERIC_ATTACK_SPEED": "x / 60",
+      "GENERIC_ARMOR": "x / 3"
+    }
+  },
+  "perks": {
+    "COMMON": ["REGENERATION_1"],
+    "RARE": ["REGENERATION_1", "KILL_STRENGTH_3"],
+    "LEGENDARY": ["REGENERATION_2"]
+  },
+  "maxCandies": 4
+}

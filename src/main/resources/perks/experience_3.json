@@ -1,0 +1,7 @@
+{
+  "base": "Experience",
+  "id": "EXPERIENCE_3",
+  "name": "%green%Experience",
+  "description": ["%gray%Boosts your experience gain by 100%!"],
+  "bonus": "x"
+}

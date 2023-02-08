@@ -22,7 +22,7 @@ public class PerkDeserializer implements JsonDeserializer<Perk> {
     @Override
     public Perk deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
         if (json.isJsonPrimitive()) {
-            return plugin.getPerk(json.getAsString());
+            return plugin.getPerks().findAny(json.getAsString());
         }
         var reader = new JsonReader(context, json);
         var perk = reader.deserialize(json, getClass(reader.getString("base")));

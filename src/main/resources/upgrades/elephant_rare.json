@@ -1,0 +1,26 @@
+{
+  "id": "ELEPHANT_RARE_UPGRADE",
+  "pet": "ELEPHANT",
+  "rarity": "RARE",
+  "item": {
+    "material": "DIAMOND",
+    "name": "%blue%Rare Elephant Upgrade",
+    "lore": [
+      "%gray%Upgrades your Elephant %gray%to %blue%Rare%gray%!",
+      "%dark_gray%Right-click to use."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "odo",
+      "ded",
+      "odo"
+    ],
+    "ingredients": {
+      "o": "OBSIDIAN",
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK"
+    }
+  }
+}

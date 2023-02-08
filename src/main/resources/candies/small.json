@@ -1,0 +1,25 @@
+{
+  "id": "SMALL_CANDY",
+  "item": {
+    "material": "SUGAR",
+    "name": "%green%Small Candy",
+    "lore": [
+      "%gray%Instantly adds two levels to your",
+      "%gray%selected pet.",
+      "%dark_gray%Right-click to use."
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "sgs",
+      "gdg",
+      "sgs"
+    ],
+    "ingredients": {
+      "s": "SUGAR",
+      "g": "GOLD_INGOT",
+      "d": "DIAMOND"
+    }
+  },
+  "experience": 2
+}

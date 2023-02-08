@@ -3,21 +3,28 @@ package com.aregcraft.pets;
 import com.aregcraft.delta.api.AttributeModifierBuilder;
 import com.aregcraft.delta.api.FormattingContext;
 import com.aregcraft.delta.api.item.ItemWrapper;
+import com.aregcraft.pets.perk.Perk;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.text.DecimalFormat;
-import java.util.Objects;
+import java.util.*;
 
 public class Pet {
     private final PetType type;
     private double level;
     private ExperienceBooster experienceBooster;
     private int candies;
+    private Rarity rarity;
 
-    public Pet(PetType type) {
+    public Pet(PetType type, Pets plugin) {
+        this(type, plugin.getDefaultRarity());
+    }
+
+    public Pet(PetType type, Rarity rarity) {
         this.type = type;
+        this.rarity = rarity;
     }
 
     public static Pet of(ItemWrapper item, Pets plugin) {
@@ -41,7 +48,7 @@ public class Pet {
     }
 
     public void addAttributeModifiers(Player player) {
-        type.attributes().forEach((attribute, amount) -> AttributeModifierBuilder.forAttributable(player)
+        getAttributes().forEach((attribute, amount) -> AttributeModifierBuilder.forAttributable(player)
                 .attribute(attribute)
                 .name(type.id())
                 .amount(calculateAttribute(amount))
@@ -49,7 +56,7 @@ public class Pet {
     }
 
     public void removeAttributeModifiers(Player player) {
-        type.attributes().keySet().forEach(it -> removeAttributeModifier(player, it));
+        getAttributes().keySet().forEach(it -> removeAttributeModifier(player, it));
     }
 
     private void removeAttributeModifier(Player player, Attribute attribute) {
@@ -59,18 +66,22 @@ public class Pet {
                 .forEach(instance::removeModifier);
     }
 
-    public void applyPerk(Player player) {
-        var perk = type.perk();
-        if (perk != null) {
-            perk.apply(player);
+    public void applyPerks(Player player) {
+        var perks = getPerks();
+        if (perks != null) {
+            perks.forEach(it -> it.apply(player));
         }
     }
 
-    public void unapplyPerk(Player player) {
-        var perk = type.perk();
-        if (perk != null) {
-            perk.unapply(player);
+    public void unapplyPerks(Player player) {
+        var perks = getPerks();
+        if (perks != null) {
+            perks.forEach(it -> it.unapply(player));
         }
+    }
+
+    private List<Perk> getPerks() {
+        return Optional.ofNullable(type.perks()).map(it -> it.get(rarity)).orElse(null);
     }
 
     public boolean canUseCandy() {
@@ -80,6 +91,18 @@ public class Pet {
     public boolean useCandy(Candy candy) {
         candies++;
         return (int) level != (int) (level += candy.getExperience());
+    }
+
+    public boolean canUpgrade(Upgrade upgrade) {
+        return upgrade.getPet().equals(type) && upgrade.getRarity().compareRarity(rarity) == 1;
+    }
+
+    public void applyUpgrade(Upgrade upgrade, Player player) {
+        removeAttributeModifiers(player);
+        unapplyPerks(player);
+        rarity = upgrade.getRarity();
+        addAttributeModifiers(player);
+        applyPerks(player);
     }
 
     private double calculate(Expression expression, double value) {
@@ -117,23 +140,42 @@ public class Pet {
                 .build();
     }
 
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(Rarity rarity) {
+        this.rarity = rarity;
+    }
+
     private FormattingContext getFormattingContext() {
         var builder = FormattingContext.builder()
                 .placeholder("level", (int) level)
                 .placeholder("maxCandies", type.maxCandies())
                 .placeholder("candies", candies)
+                .placeholder("rarity", rarity.getName())
                 .formatter(Double.class, new DecimalFormat()::format);
-        var perk = type.perk();
-        if (perk != null) {
-            builder.placeholder("perk", perk.getName());
-            builder.placeholder("perkDescription", perk.getDescription());
+        var perks = getPerks();
+        if (perks != null) {
+            var value = new ArrayList<String>();
+            perks.forEach(it -> {
+                value.add(it.getName());
+                value.addAll(it.getDescription());
+                value.add("");
+            });
+            value.remove(value.size() - 1);
+            builder.placeholder("perks", value);
         }
         if (experienceBooster != null) {
             builder.placeholder("experienceBooster", experienceBooster.getName());
         }
-        type.attributes().forEach((attribute, amount) ->
+        getAttributes().forEach((attribute, amount) ->
                 builder.placeholder(attribute.name().toLowerCase(), calculateAttribute(amount)));
         return builder.build();
+    }
+
+    private Map<Attribute, Expression> getAttributes() {
+        return type.attributes().get(rarity);
     }
 
     @Override

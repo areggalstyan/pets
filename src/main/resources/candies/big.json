@@ -1,0 +1,25 @@
+{
+  "id": "BIG_CANDY",
+  "item": {
+    "material": "SUGAR",
+    "name": "%red%Big Candy",
+    "lore": [
+      "%gray%Instantly adds eight levels to your",
+      "%gray%selected pet.",
+      "%dark_gray%Right-click to use."
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "sds",
+      "dnd",
+      "sds"
+    ],
+    "ingredients": {
+      "s": "SUGAR",
+      "d": "DIAMOND_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  },
+  "experience": 8
+}

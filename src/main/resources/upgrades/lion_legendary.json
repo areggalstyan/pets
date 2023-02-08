@@ -1,0 +1,26 @@
+{
+  "id": "LION_LEGENDARY_UPGRADE",
+  "pet": "LION",
+  "rarity": "LEGENDARY",
+  "item": {
+    "material": "GOLD_BLOCK",
+    "name": "%gold%Legendary Lion Upgrade",
+    "lore": [
+      "%gray%Upgrades your %green%Lion %gray%to %gold%Legendary%gray%!",
+      "%dark_gray%Right-click to use."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "gdg",
+      "dnd",
+      "gdg"
+    ],
+    "ingredients": {
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  }
+}

@@ -21,7 +21,7 @@ public class ExperienceBoosterAdapter implements JsonDeserializer<ExperienceBoos
     @Override
     public ExperienceBooster deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
         if (json.isJsonPrimitive()) {
-            return plugin.getExperienceBooster(json.getAsString());
+            return plugin.getExperienceBoosters().findAny(json.getAsString());
         }
         var reader = new JsonReader(context, json);
         return new ExperienceBooster(reader.getString("id"),

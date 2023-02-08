@@ -1,0 +1,26 @@
+{
+  "id": "CHEETAH_RARE_UPGRADE",
+  "pet": "CHEETAH",
+  "rarity": "RARE",
+  "item": {
+    "material": "IRON_INGOT",
+    "name": "%blue%Rare Cheetah Upgrade",
+    "lore": [
+      "%gray%Upgrades your %yellow%Cheetah %gray%to %blue%Rare%gray%!",
+      "%dark_gray%Right-click to use."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "igi",
+      "gdg",
+      "igi"
+    ],
+    "ingredients": {
+      "i": "IRON_BLOCK",
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK"
+    }
+  }
+}

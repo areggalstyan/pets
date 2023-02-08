@@ -29,38 +29,45 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
 
     @Override
     public boolean execute(Player sender, List<String> args) {
-        if (args.size() == 0) {
+        var size = args.size();
+        if (size == 0) {
             showUsage(sender);
             return true;
         }
         var subcommand = args.get(0);
-        if (args.size() == 1 && subcommand.equals("pets")) {
+        if (size == 1 && subcommand.equals("pets")) {
             listPets(sender);
             return true;
         }
-        if (args.size() != 2) {
-            showUsage(sender);
+        var id = args.get(1);
+        if (size == 2 && subcommand.equals("recipe")) {
+            showRecipe(sender, id);
             return true;
         }
-        switch (subcommand) {
-            case "pet" -> showPet(sender, args.get(1));
-            case "recipe" -> showRecipe(sender, args.get(1));
-            default -> showUsage(sender);
+        if (size == 3 && subcommand.equals("pet")) {
+            showPet(sender, id, args.get(2));
+            return true;
         }
-        return true;
+        showUsage(sender);
+        return false;
     }
 
     private void listPets(Player player) {
-        sendMessage(player, "%aqua%" + String.join("%gray%, %aqua%", plugin.getPetTypeIds()));
+        sendMessage(player, "%aqua%" + String.join("%gray%, %aqua%", plugin.getPets().getIds()));
     }
 
-    private void showPet(Player player, String id) {
-        var petType = plugin.getPetType(id);
+    private void showPet(Player player, String id, String rarityId) {
+        var petType = plugin.getPets().findAny(id);
         if (petType == null) {
             showUsage(player);
             return;
         }
-        var pet = new Pet(petType);
+        var rarity = plugin.getRarities().findAny(rarityId);
+        if (rarity == null) {
+            showUsage(player);
+            return;
+        }
+        var pet = new Pet(petType, rarity);
         pet.setLevel(100);
         var inventory = Bukkit.createInventory(player, 27, pet.getName(player));
         inventory.setItem(13, pet.getItem(plugin).unwrap());
@@ -83,31 +90,35 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
     }
 
     private Recipe getRecipe(String id) {
-        var petType = plugin.getPetType(id);
+        var petType = plugin.getPets().findAny(id);
         if (petType != null) {
             return petType.recipe();
         }
-        var experienceBooster = plugin.getExperienceBooster(id);
+        var experienceBooster = plugin.getExperienceBoosters().findAny(id);
         if (experienceBooster != null) {
             return experienceBooster.getRecipe();
         }
-        var candy = plugin.getCandy(id);
+        var candy = plugin.getCandies().findAny(id);
         if (candy != null) {
             return candy.getRecipe();
+        }
+        var upgrade = plugin.getUpgrades().findAny(id);
+        if (upgrade != null) {
+            return upgrade.getRecipe();
         }
         return null;
     }
 
     private String getTitle(Player player, String id) {
-        var petType = plugin.getPetType(id);
+        var petType = plugin.getPets().findAny(id);
         if (petType != null) {
-            return new Pet(petType).getName(player);
+            return new Pet(petType, plugin).getName(player);
         }
-        var experienceBooster = plugin.getExperienceBooster(id);
+        var experienceBooster = plugin.getExperienceBoosters().findAny(id);
         if (experienceBooster != null) {
             return experienceBooster.getItem().getName();
         }
-        return plugin.getCandy(id).getItem().getName();
+        return plugin.getCandies().findAny(id).getItem().getName();
     }
 
     @EventHandler
@@ -117,23 +128,28 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
 
     @Override
     public List<String> suggest(Player sender, List<String> args) {
-        if (args.size() == 1) {
+        var size = args.size();
+        if (size == 1) {
             return SUBCOMMANDS;
         }
-        if (args.size() != 2) {
-            return null;
+        var subcommand = args.get(0);
+        if (size == 2 && subcommand.equals("recipe")) {
+            return getRecipeIds();
         }
-        return switch (args.get(0)) {
-            case "pet" -> plugin.getPetTypeIds();
-            case "recipe" -> getRecipeIds();
-            default -> null;
-        };
+        if (size == 2 && subcommand.equals("pet")) {
+            return new ArrayList<>(plugin.getPets().getIds());
+        }
+        if (size == 3 && subcommand.equals("pet")) {
+            return new ArrayList<>(plugin.getRarities().getIds());
+        }
+        return null;
     }
 
     private List<String> getRecipeIds() {
-        var ids = new ArrayList<>(plugin.getPetTypeIds());
-        ids.addAll(plugin.getExperienceBoosterIds());
-        ids.addAll(plugin.getCandyIds());
+        var ids = new ArrayList<>(plugin.getPets().getIds());
+        ids.addAll(plugin.getExperienceBoosters().getIds());
+        ids.addAll(plugin.getCandies().getIds());
+        ids.addAll(plugin.getUpgrades().getIds());
         return ids;
     }
 

@@ -1,39 +1,38 @@
 package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
-import com.aregcraft.delta.api.Identifiable;
 import com.aregcraft.delta.api.UpdateChecker;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
+import com.aregcraft.delta.api.registry.RegistrableRegistry;
+import com.aregcraft.delta.api.registry.Registry;
 import com.aregcraft.pets.perk.Perk;
-import com.google.gson.reflect.TypeToken;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Pets extends DeltaPlugin {
-    private static final TypeToken<List<PetType>> PET_TYPES_TYPE = new TypeToken<>() {};
-    private static final TypeToken<List<ExperienceBooster>> EXPERIENCE_BOOSTERS_TYPE = new TypeToken<>() {};
-    private static final TypeToken<List<Candy>> CANDIES_TYPE = new TypeToken<>() {};
-    private static final TypeToken<List<Perk>> PERKS_TYPE = new TypeToken<>() {};
-
-    private final JsonConfigurationLoader configurationLoader = JsonConfigurationLoader.builder()
-            .name(PET_TYPES_TYPE, "pets")
-            .name(EXPERIENCE_BOOSTERS_TYPE, "experience_boosters")
-            .name(CANDIES_TYPE, "candies")
-            .name(PERKS_TYPE, "perks")
-            .plugin(this)
-            .build();
+    private final JsonConfigurationLoader configurationLoader = new JsonConfigurationLoader(this);
+    private final Registry<String, Perk> perks = new Registry<>("perks", Perk.class, configurationLoader);
+    private final Registry<String, Rarity> rarities = new Registry<>("rarities", Rarity.class, configurationLoader);
+    private final Registry<String, PetType> pets =
+            new RegistrableRegistry<>("pets", PetType.class, configurationLoader);
+    private final Registry<String, ExperienceBooster> experienceBoosters =
+            new RegistrableRegistry<>("experience_boosters", ExperienceBooster.class, configurationLoader);
+    private final Registry<String, Candy> candies =
+            new RegistrableRegistry<>("candies", Candy.class, configurationLoader);
+    private final Registry<String, Upgrade> upgrades =
+            new RegistrableRegistry<>("upgrades", Upgrade.class, configurationLoader);
     private final Map<UUID, PetOwner> owners = new HashMap<>();
     private final Updater updater = new Updater(this);
 
     @Override
     public void onEnable() {
         super.onEnable();
-        load();
         Bukkit.getOnlinePlayers().forEach(this::addPetOwner);
         configurationLoader.get(UpdateChecker.class).scheduleChecks(this);
         new Metrics(this, 17178);
@@ -53,36 +52,40 @@ public class Pets extends DeltaPlugin {
         return configurationLoader.get(PetMenu.class);
     }
 
-    public PetType getPetType(String id) {
-        return Identifiable.findAny(configurationLoader.get(PET_TYPES_TYPE), id);
-    }
-
-    public List<String> getPetTypeIds() {
-        return configurationLoader.get(PET_TYPES_TYPE).stream().map(Identifiable::getId).toList();
-    }
-
-    public ExperienceBooster getExperienceBooster(String id) {
-        return Identifiable.findAny(configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE), id);
-    }
-
-    public List<String> getExperienceBoosterIds() {
-        return configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).stream().map(Identifiable::getId).toList();
-    }
-
-    public Candy getCandy(String id) {
-        return Identifiable.findAny(configurationLoader.get(CANDIES_TYPE), id);
-    }
-
-    public List<String> getCandyIds() {
-        return configurationLoader.get(CANDIES_TYPE).stream().map(Identifiable::getId).toList();
-    }
-
-    public Perk getPerk(String id) {
-        return Identifiable.findAny(configurationLoader.get(PERKS_TYPE), id);
-    }
-
     public Vector getPetPosition() {
         return configurationLoader.get("position", Vector.class);
+    }
+
+    public String[] getPetsInfoUsage() {
+        return configurationLoader.get("petsinfo_usage", String[].class);
+    }
+
+    public Registry<String, Perk> getPerks() {
+        return perks;
+    }
+
+    public Registry<String, Rarity> getRarities() {
+        return rarities;
+    }
+
+    public Rarity getDefaultRarity() {
+        return rarities.getValues().stream().sorted().findFirst().orElseThrow();
+    }
+
+    public Registry<String, PetType> getPets() {
+        return pets;
+    }
+
+    public Registry<String, ExperienceBooster> getExperienceBoosters() {
+        return experienceBoosters;
+    }
+
+    public Registry<String, Candy> getCandies() {
+        return candies;
+    }
+
+    public Registry<String, Upgrade> getUpgrades() {
+        return upgrades;
     }
 
     public PetOwner getPetOwner(Player player) {
@@ -98,20 +101,12 @@ public class Pets extends DeltaPlugin {
     }
 
     public void reload() {
-        configurationLoader.get(PERKS_TYPE).stream()
-                .filter(Listener.class::isInstance)
-                .map(Listener.class::cast)
-                .forEach(this::unregisterListener);
+        perks.invalidateAll();
+        rarities.invalidateAll();
+        pets.invalidateAll();
+        experienceBoosters.invalidateAll();
+        candies.invalidateAll();
+        upgrades.invalidateAll();
         configurationLoader.invalidateAll();
-    }
-
-    private void load() {
-        configurationLoader.get(PET_TYPES_TYPE).forEach(it -> it.register(this));
-        configurationLoader.get(EXPERIENCE_BOOSTERS_TYPE).forEach(it -> it.register(this));
-        configurationLoader.get(CANDIES_TYPE).forEach(it -> it.register(this));
-    }
-
-    public String[] getPetsInfoUsage() {
-        return configurationLoader.get("petsinfo_usage", String[].class);
     }
 }

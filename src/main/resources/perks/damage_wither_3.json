@@ -1,0 +1,14 @@
+{
+  "base": "Damage",
+  "id": "DAMAGE_WITHER_3",
+  "name": "%red%Wither Vanquisher",
+  "description": [
+    "%gray%Increases the amount of damage you deal",
+    "%gray%to withers by 50% and wither skeletons",
+    "%gray%by 75%!"
+  ],
+  "bonuses": {
+    "WITHER": "0.5x",
+    "WITHER_SKELETON": "0.75x"
+  }
+}

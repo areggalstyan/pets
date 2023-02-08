@@ -1,0 +1,25 @@
+{
+  "id": "MEDIUM_CANDY",
+  "item": {
+    "material": "SUGAR",
+    "name": "%blue%Medium Candy",
+    "lore": [
+      "%gray%Instantly adds four levels to your",
+      "%gray%selected pet.",
+      "%dark_gray%Right-click to use."
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "sgs",
+      "gdg",
+      "sgs"
+    ],
+    "ingredients": {
+      "s": "SUGAR",
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK"
+    }
+  },
+  "experience": 4
+}

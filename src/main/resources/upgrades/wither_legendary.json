@@ -1,0 +1,27 @@
+{
+  "id": "WITHER_LEGENDARY_UPGRADE",
+  "pet": "WITHER",
+  "rarity": "LEGENDARY",
+  "item": {
+    "material": "NETHER_STAR",
+    "name": "%gold%Legendary Wither Upgrade",
+    "lore": [
+      "%gray%Upgrades your %red%Wither %gray%to %gold%Legendary%gray%!",
+      "%dark_gray%Right-click to use."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "ded",
+      "ngn",
+      "ded"
+    ],
+    "ingredients": {
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK",
+      "n": "NETHER_STAR",
+      "g": "GOLD_BLOCK"
+    }
+  }
+}

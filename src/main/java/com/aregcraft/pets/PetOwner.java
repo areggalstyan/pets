@@ -4,8 +4,6 @@ import com.aregcraft.delta.api.PersistentDataWrapper;
 import com.aregcraft.delta.api.entity.EntityBuilder;
 import com.aregcraft.delta.api.entity.EquipmentWrapper;
 import com.aregcraft.delta.api.item.ItemWrapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -45,6 +43,7 @@ public class PetOwner implements Listener {
 
     private void checkForDataCorruption() {
         var pets = container.getPets();
+        pets.stream().filter(it -> it.getRarity() == null).forEach(it -> it.setRarity(plugin.getDefaultRarity()));
         if (pets.stream().noneMatch(it -> it.getType() == null)) {
             return;
         }
@@ -129,6 +128,14 @@ public class PetOwner implements Listener {
             setContainer();
             event.setCancelled(true);
         }
+        var upgrade = Upgrade.of(item, plugin);
+        if (upgrade != null && selectedPet.canUpgrade(upgrade)) {
+            item.decrementAmount();
+            selectedPet.applyUpgrade(upgrade, player);
+            setContainer();
+            event.setCancelled(true);
+            return;
+        }
         var candy = Candy.of(item, plugin);
         if (candy == null || !selectedPet.canUseCandy()) {
             return;
@@ -211,12 +218,12 @@ public class PetOwner implements Listener {
             return;
         } else {
             pet.addAttributeModifiers(player);
-            pet.applyPerk(player);
+            pet.applyPerks(player);
             createArmorStand(pet);
         }
         if (selectedPet != null) {
             selectedPet.removeAttributeModifiers(player);
-            selectedPet.unapplyPerk(player);
+            selectedPet.unapplyPerks(player);
         }
         container.selectPet(pet);
         setContainer();

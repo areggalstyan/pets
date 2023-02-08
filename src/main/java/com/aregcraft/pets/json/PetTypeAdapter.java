@@ -7,6 +7,7 @@ import com.aregcraft.delta.api.json.JsonReader;
 import com.aregcraft.delta.api.json.annotation.JsonAdapterFor;
 import com.aregcraft.pets.PetType;
 import com.aregcraft.pets.Pets;
+import com.aregcraft.pets.Rarity;
 import com.aregcraft.pets.perk.Perk;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -14,11 +15,13 @@ import org.bukkit.attribute.Attribute;
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 @JsonAdapterFor(PetType.class)
 public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer<PetType> {
-    private static final TypeToken<Map<Attribute, Expression>> ATTRIBUTES_TYPE = new TypeToken<>() {};
+    private static final TypeToken<Map<Rarity, Map<Attribute, Expression>>> ATTRIBUTES_TYPE = new TypeToken<>() {};
+    private static final TypeToken<Map<Rarity, List<Perk>>> PERKS_TYPE = new TypeToken<>() {};
 
     @InjectPlugin
     private Pets plugin;
@@ -26,7 +29,7 @@ public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer
     @Override
     public PetType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
         if (json.isJsonPrimitive()) {
-            return plugin.getPetType(json.getAsString());
+            return plugin.getPets().findAny(json.getAsString());
         }
         var reader = new JsonReader(context, json);
         return new PetType(reader.getString("id"),
@@ -36,7 +39,7 @@ public class PetTypeAdapter implements JsonDeserializer<PetType>, JsonSerializer
                 reader.get("recipe", Recipe.class),
                 reader.get("level", Expression.class),
                 reader.get("attributes", ATTRIBUTES_TYPE),
-                reader.get("perk", Perk.class),
+                reader.get("perks", PERKS_TYPE),
                 reader.getInt("maxCandies"));
     }
 

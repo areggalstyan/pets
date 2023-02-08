@@ -1,0 +1,26 @@
+{
+  "id": "CHEETAH_LEGENDARY_UPGRADE",
+  "pet": "CHEETAH",
+  "rarity": "LEGENDARY",
+  "item": {
+    "material": "IRON_BLOCK",
+    "name": "%gold%Legendary Cheetah Upgrade",
+    "lore": [
+      "%gray%Upgrades your %yellow%Cheetah %gray%to %gold%Legendary%gray%!",
+      "%dark_gray%Right-click to use."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "igi",
+      "gng",
+      "igi"
+    ],
+    "ingredients": {
+      "i": "IRON_BLOCK",
+      "g": "GOLD_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  }
+}

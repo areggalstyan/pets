@@ -22,21 +22,27 @@ public class PetsGiveCommand implements CommandWrapper {
         }
         var inventory = sender.getInventory();
         var id = args.get(0);
-        var petType = plugin.getPetType(id);
+        var petType = plugin.getPets().findAny(id);
         if (petType != null) {
-            inventory.addItem(new Pet(petType).getItem(plugin).unwrap());
+            inventory.addItem(new Pet(petType, plugin).getItem(plugin).unwrap());
             return true;
         }
-        var experienceBooster = plugin.getExperienceBooster(id);
+        var experienceBooster = plugin.getExperienceBoosters().findAny(id);
         if (experienceBooster != null) {
             inventory.addItem(experienceBooster.getItem().unwrap());
             return true;
         }
-        var candy = plugin.getCandy(id);
-        if (candy == null) {
+
+        var candy = plugin.getCandies().findAny(id);
+        if (candy != null) {
+            inventory.addItem(candy.getItem().unwrap());
+            return true;
+        }
+        var upgrade = plugin.getUpgrades().findAny(id);
+        if (upgrade == null) {
             return false;
         }
-        inventory.addItem(candy.getItem().unwrap());
+        inventory.addItem(upgrade.getItem().unwrap());
         return true;
     }
 
@@ -45,9 +51,10 @@ public class PetsGiveCommand implements CommandWrapper {
         if (args.size() != 1) {
             return null;
         }
-        var ids = new ArrayList<>(plugin.getPetTypeIds());
-        ids.addAll(plugin.getExperienceBoosterIds());
-        ids.addAll(plugin.getCandyIds());
+        var ids = new ArrayList<>(plugin.getPets().getIds());
+        ids.addAll(plugin.getExperienceBoosters().getIds());
+        ids.addAll(plugin.getCandies().getIds());
+        ids.addAll(plugin.getUpgrades().getIds());
         return ids;
     }
 }

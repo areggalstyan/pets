@@ -1,8 +1,8 @@
 package com.aregcraft.pets.perk;
 
-import com.aregcraft.delta.api.Identifiable;
 import com.aregcraft.delta.api.InjectPlugin;
 import com.aregcraft.delta.api.PersistentDataWrapper;
+import com.aregcraft.delta.api.registry.Identifiable;
 import com.aregcraft.delta.meta.AbilitySuperclass;
 import com.aregcraft.pets.Pets;
 import org.bukkit.entity.Entity;
