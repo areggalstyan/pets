@@ -94,7 +94,7 @@ public class Pet {
     }
 
     public boolean canUpgrade(Upgrade upgrade) {
-        return upgrade.getPet().equals(type) && upgrade.getRarity().compareRarity(rarity) == 1;
+        return upgrade.getPet().equals(type) && upgrade.getRarity().compareLevel(rarity) == 1;
     }
 
     public void applyUpgrade(Upgrade upgrade, Player player) {

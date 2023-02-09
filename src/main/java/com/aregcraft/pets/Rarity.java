@@ -2,7 +2,7 @@ package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.registry.Identifiable;
 
-public class Rarity implements Identifiable<String> {
+public class Rarity implements Identifiable<String>, Comparable<Rarity> {
     private final String id;
     private final String name;
     private final int level;
@@ -22,7 +22,12 @@ public class Rarity implements Identifiable<String> {
         return id;
     }
 
-    public int compareRarity(Rarity o) {
+    @Override
+    public int compareTo(Rarity o) {
+        return compareLevel(o);
+    }
+
+    public int compareLevel(Rarity o) {
         return level - o.level;
     }
 }
