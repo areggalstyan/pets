@@ -2,6 +2,7 @@ package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
+import com.aregcraft.delta.api.log.Crash;
 import com.aregcraft.delta.api.registry.Identifiable;
 import com.aregcraft.delta.api.registry.Registrable;
 import com.aregcraft.pets.perk.Perk;
@@ -27,7 +28,7 @@ public record PetType(String id, String name, String head, ItemWrapper item, Rec
             try {
                 profile.getTextures().setSkin(new URL("https://textures.minecraft.net/texture/" + head));
             } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+                Crash.Default.IO.withThrowable(e).log(plugin);
             }
             it.setOwnerProfile(profile);
         });

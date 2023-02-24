@@ -1,0 +1,18 @@
+{
+  "select": {
+    "sound": {
+      "type": "ITEM_ARMOR_EQUIP_LEATHER",
+      "volume": 1,
+      "pitch": 0
+    },
+    "message": "%name% %green%selected!"
+  },
+  "deselect": {
+    "sound": {
+      "type": "ITEM_ARMOR_EQUIP_LEATHER",
+      "volume": 1,
+      "pitch": 1
+    },
+    "message": "%name% %red%deselected!"
+  }
+}

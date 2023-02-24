@@ -213,10 +213,12 @@ public class PetOwner implements Listener {
         var selectedPet = container.getSelectedPet();
         if (pet == null) {
             removeArmorStand();
+            plugin.giveDeselectFeedback(player, selectedPet);
         } else if (pet.equals(selectedPet)) {
             selectPet(null);
             return;
         } else {
+            plugin.giveSelectFeedback(player, pet);
             pet.addAttributeModifiers(player);
             pet.applyPerks(player);
             createArmorStand(pet);

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "4.0.1"
+version = "4.1.0"
 
 repositories {
     mavenLocal()
@@ -41,48 +41,48 @@ pluginDescription {
         create("petsinfo") {
             aliases.add("pi")
             description.set("Shows information about available pets, stats, and crafting recipes.")
-            permission.set("reforging.command.petsinfo")
+            permission.set("pets.command.petsinfo")
         }
         create("petsgive") {
             description.set("Gives you a pet, experience booster, or candy.")
             usage.set("Usage: /<command> <id>")
-            permission.set("reforging.command.petsgive")
+            permission.set("pets.command.petsgive")
         }
         create("clearpets") {
             description.set("Removes all of your pets.")
             usage.set("Usage: /<command>")
-            permission.set("reforging.command.clearpets")
+            permission.set("pets.command.clearpets")
         }
         create("updatepets") {
             description.set("Updates the plugin.")
             usage.set("Usage: /<command>")
-            permission.set("reforging.command.updatepets")
+            permission.set("pets.command.updatepets")
         }
     }
     permissions {
-        create("reforging.command.pets") {
+        create("pets.command.pets") {
             description.set("Allows you to use the command /pets")
             default.set("true")
         }
-        create("reforging.command.togglepets") {
+        create("pets.command.togglepets") {
             description.set("Allows you to use the command /togglepets")
             default.set("true")
         }
-        create("reforging.command.reloadpets") {
+        create("pets.command.reloadpets") {
             description.set("Allows you to use the command /reloadpets")
         }
-        create("reforging.command.petsinfo") {
+        create("pets.command.petsinfo") {
             description.set("Allows you to use the command /petsinfo")
             default.set("true")
         }
-        create("reforging.command.petsgive") {
+        create("pets.command.petsgive") {
             description.set("Allows you to use the command /petsgive")
         }
-        create("reforging.command.clearpets") {
+        create("pets.command.clearpets") {
             description.set("Allows you to use the command /clearpets")
             default.set("true")
         }
-        create("reforging.command.updatepets") {
+        create("pets.command.updatepets") {
             description.set("Allows you to use the command /updatepets")
         }
     }

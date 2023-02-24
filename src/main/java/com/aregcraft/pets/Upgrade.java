@@ -4,7 +4,6 @@ import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.delta.api.registry.Identifiable;
 import com.aregcraft.delta.api.registry.Registrable;
-import org.bukkit.inventory.ItemStack;
 
 public class Upgrade implements Identifiable<String>, Registrable<Pets> {
     private final String id;

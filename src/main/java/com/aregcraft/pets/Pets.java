@@ -1,10 +1,11 @@
 package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
-import com.aregcraft.delta.api.UpdateChecker;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
 import com.aregcraft.delta.api.registry.RegistrableRegistry;
 import com.aregcraft.delta.api.registry.Registry;
+import com.aregcraft.delta.api.update.UpdateChecker;
+import com.aregcraft.delta.api.update.Updater;
 import com.aregcraft.pets.perk.Perk;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -18,7 +19,8 @@ import java.util.UUID;
 public class Pets extends DeltaPlugin {
     private final JsonConfigurationLoader configurationLoader = new JsonConfigurationLoader(this);
     private final Registry<String, Perk> perks = new Registry<>("perks", Perk.class, configurationLoader);
-    private final Registry<String, Rarity> rarities = new Registry<>("rarities", Rarity.class, configurationLoader);
+    private final Registry<String, Rarity> rarities =
+            new Registry<>("rarities", Rarity.class, configurationLoader);
     private final Registry<String, PetType> pets =
             new RegistrableRegistry<>("pets", PetType.class, configurationLoader);
     private final Registry<String, ExperienceBooster> experienceBoosters =
@@ -108,5 +110,13 @@ public class Pets extends DeltaPlugin {
         candies.invalidateAll();
         upgrades.invalidateAll();
         configurationLoader.invalidateAll();
+    }
+
+    public void giveSelectFeedback(Player player, Pet pet) {
+        configurationLoader.get(SelectDeselect.class).getSelect().give(player, pet.getName(player));
+    }
+
+    public void giveDeselectFeedback(Player player, Pet pet) {
+        configurationLoader.get(SelectDeselect.class).getDeselect().give(player, pet.getName(player));
     }
 }
