@@ -4,6 +4,7 @@ import com.aregcraft.delta.api.PersistentDataWrapper;
 import com.aregcraft.delta.api.entity.EntityBuilder;
 import com.aregcraft.delta.api.entity.EquipmentWrapper;
 import com.aregcraft.delta.api.item.ItemWrapper;
+import com.aregcraft.delta.api.log.Error;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -16,12 +17,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 
-import java.util.logging.Level;
-
 public class PetOwner implements Listener {
-    private static final String DATA_CORRUPTION_ERROR =
-            "A data corruption was detected while trying to register player %s!";
-
     private final Player player;
     private final Pets plugin;
     private final PersistentDataWrapper persistentData;
@@ -47,8 +43,8 @@ public class PetOwner implements Listener {
         if (pets.stream().noneMatch(it -> it.getType() == null)) {
             return;
         }
-        plugin.getLogger().log(Level.SEVERE, DATA_CORRUPTION_ERROR.formatted(player.getDisplayName()));
-        plugin.getLogger().log(Level.SEVERE, String.valueOf(container));
+        PetsError.CORRUPTED_DATA.log(plugin, player.getDisplayName());
+        new Error.Custom(container.toString()).log(plugin);
         container.selectPet(null);
         pets.removeIf(it -> it.getType() == null);
     }
@@ -164,7 +160,9 @@ public class PetOwner implements Listener {
 
     @EventHandler
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        event.setCancelled(event.getRightClicked().equals(armorStand));
+        if (event.getRightClicked().equals(armorStand)) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler

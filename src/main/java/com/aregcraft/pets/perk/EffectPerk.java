@@ -39,6 +39,8 @@ public class EffectPerk extends Perk implements Listener {
     @EventHandler
     public void onEntityPotionEffect(EntityPotionEffectEvent event) {
         var oldEffect = event.getOldEffect();
-        event.setCancelled(oldEffect != null && oldEffect.getType() == type && isPlayerApplied(event.getEntity()));
+        if (oldEffect != null && oldEffect.getType() == type && isPlayerApplied(event.getEntity())) {
+            event.setCancelled(true);
+        }
     }
 }

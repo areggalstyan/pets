@@ -123,7 +123,9 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
 
     @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent event) {
-        event.setCancelled(inventories.contains(event.getInventory()));
+        if (inventories.contains(event.getInventory())) {
+            event.setCancelled(true);
+        }
     }
 
     @Override
