@@ -1,0 +1,7 @@
+{
+  "base": "Thorns",
+  "id": "THORNS_3",
+  "name": "%green%Dikenler",
+  "description": ["%gray%Aldığın hasarın %25'ini yansıtır!"],
+  "reflect": "0.25x"
+}

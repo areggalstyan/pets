@@ -1,0 +1,5 @@
+[
+  "%red%/petsinfo pets %gray%- %yellow%Tüm evcil hayvanları sırala.",
+  "%red%/petsinfo pet <id> <rarity> %gray%- %yellow%Bir evcil hayvan hakkında bilgi göster.",
+  "%red%/petsinfo recipe <id> %gray%- %yellow%Bir üretim tarifi göster."
+]

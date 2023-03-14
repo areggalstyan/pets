@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "4.1.1"
+version = "4.2.0"
 
 repositories {
     mavenLocal()
@@ -15,8 +15,8 @@ dependencies {
     compileOnly("com.aregcraft.delta:meta:1.0.0")
     compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
     implementation("com.aregcraft.delta:api:1.0.0")
-    implementation("org.mariuszgromada.math:MathParser.org-mXparser:5.0.7")
-    implementation("org.bstats:bstats-bukkit:3.0.0")
+    implementation("org.mariuszgromada.math:MathParser.org-mXparser:5.2.1")
+    implementation("org.bstats:bstats-bukkit:3.0.1")
 }
 
 pluginDescription {
@@ -58,6 +58,11 @@ pluginDescription {
             usage.set("Usage: /<command>")
             permission.set("pets.command.updatepets")
         }
+        create("petslang") {
+            description.set("Changes the language of the plugin.")
+            usage.set("Usage: /<command> <language>")
+            permission.set("pets.command.petslang")
+        }
     }
     permissions {
         create("pets.command.pets") {
@@ -84,6 +89,9 @@ pluginDescription {
         }
         create("pets.command.updatepets") {
             description.set("Allows you to use the command /updatepets")
+        }
+        create("pets.command.petslang") {
+            description.set("Allows you to use the command /petslang")
         }
     }
 }

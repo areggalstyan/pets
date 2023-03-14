@@ -1,0 +1,27 @@
+{
+  "id": "TIGER_LEGENDARY_UPGRADE",
+  "pet": "TIGER",
+  "rarity": "LEGENDARY",
+  "item": {
+    "material": "EMERALD_BLOCK",
+    "name": "%gold%Efsanevi Kaplan Yükseltmesi",
+    "lore": [
+      "%gold%Kaplanını %gray%şuna yükseltir: %gold%Efsanevi%gray%!",
+      "%dark_gray%Kullanmak için sağ-tıkla."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "ded",
+      "gng",
+      "ded"
+    ],
+    "ingredients": {
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK",
+      "g": "GOLD_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  }
+}

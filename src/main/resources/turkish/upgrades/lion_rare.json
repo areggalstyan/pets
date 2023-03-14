@@ -1,0 +1,25 @@
+{
+  "id": "LION_RARE_UPGRADE",
+  "pet": "LION",
+  "rarity": "RARE",
+  "item": {
+    "material": "GOLD_INGOT",
+    "name": "%blue%Nadir Aslan Yükseltmesi",
+    "lore": [
+      "%green%Aslanını %gray%şuna yükseltir: %blue%Nadir%gray%!",
+      "%dark_gray%Kullanmak için sağ-tıkla."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "ggg",
+      "gdg",
+      "ggg"
+    ],
+    "ingredients": {
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK"
+    }
+  }
+}

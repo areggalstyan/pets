@@ -1,0 +1,26 @@
+{
+  "id": "TIGER_RARE_UPGRADE",
+  "pet": "TIGER",
+  "rarity": "RARE",
+  "item": {
+    "material": "EMERALD",
+    "name": "%blue%Nadir Kaplan Yükseltmesi",
+    "lore": [
+      "%gold%Kaplanını %gray%şuna yükseltir %blue%Nadir%gray%!",
+      "%dark_gray%Kullanmak için sağ-tıkla."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "gdg",
+      "ege",
+      "gdg"
+    ],
+    "ingredients": {
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK"
+    }
+  }
+}

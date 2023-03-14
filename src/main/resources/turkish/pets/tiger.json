@@ -1,0 +1,60 @@
+{
+  "id": "TIGER",
+  "name": "%gold%[%level%] %player%'ın Kaplanı",
+  "head": "3bddf5bae3af592858df9a150109e88c1caed8ba51e793c25aa03ca1b25db",
+  "item": {
+    "material": "PLAYER_HEAD",
+    "name": "%gold%[%level%] Kaplan",
+    "lore": [
+      "%dark_gray%Pençe...",
+      "",
+      "%gray%%candies%/%maxCandies% şeker kullanılmış!",
+      "",
+      "%perks%",
+      "",
+      "%gray%Seçildiğinde:",
+      "%dark_green% %experienceBooster%",
+      "%dark_green% %generic_max_health% Azami Can",
+      "%dark_green% %generic_attack_damage% Saldırı Hasarı",
+      "%dark_green% %generic_armor% Zırh",
+      "",
+      "%rarity%"
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "gdg",
+      "ded",
+      "gdg"
+    ],
+    "ingredients": {
+      "g": "GOLD_BLOCK",
+      "d": "DIAMOND_BLOCK",
+      "e": "EGG"
+    }
+  },
+  "level": "x / 2",
+  "attributes": {
+    "COMMON": {
+      "GENERIC_MAX_HEALTH": "0.4x",
+      "GENERIC_ATTACK_DAMAGE": "x / 5",
+      "GENERIC_ARMOR": "x / 5"
+    },
+    "RARE": {
+      "GENERIC_MAX_HEALTH": "0.6x",
+      "GENERIC_ATTACK_DAMAGE": "x / 4",
+      "GENERIC_ARMOR": "x / 4"
+    },
+    "LEGENDARY": {
+      "GENERIC_MAX_HEALTH": "0.6x",
+      "GENERIC_ATTACK_DAMAGE": "x / 4",
+      "GENERIC_ARMOR": "x / 4"
+    }
+  },
+  "perks": {
+    "COMMON": ["KILL_STRENGTH_1"],
+    "RARE": ["KILL_STRENGTH_2"],
+    "LEGENDARY": ["KILL_STRENGTH_3"]
+  },
+  "maxCandies": 3
+}

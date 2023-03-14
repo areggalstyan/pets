@@ -46,6 +46,11 @@ public class Pets extends DeltaPlugin {
         owners.values().forEach(PetOwner::removeArmorStand);
     }
 
+    public void setLocale(String locale) {
+        configurationLoader.setLocale(locale);
+        reload();
+    }
+
     public Updater getUpdater() {
         return updater;
     }

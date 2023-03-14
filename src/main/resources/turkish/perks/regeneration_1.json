@@ -1,0 +1,9 @@
+{
+  "base": "Effect",
+  "id": "REGENERATION_1",
+  "name": "%red%Yenilenme",
+  "description": ["%gray%Yenilenme 1 verir!"],
+  "type": "minecraft:regeneration",
+  "amplifier": 0,
+  "hideParticles": true
+}

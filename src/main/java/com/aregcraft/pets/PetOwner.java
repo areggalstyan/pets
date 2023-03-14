@@ -103,7 +103,7 @@ public class PetOwner implements Listener {
         var action = event.getAction();
         var item = ItemWrapper.wrap(event.getItem());
         if (!checkPlayer(event) || action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK
-                || event.getHand() != EquipmentSlot.HAND || item == null) {
+                || event.getHand() != EquipmentSlot.HAND || item == null || item.getMaterial().isAir()) {
             return;
         }
         var pet = Pet.of(item, plugin);
@@ -171,7 +171,7 @@ public class PetOwner implements Listener {
             return;
         }
         var item = ItemWrapper.wrap(event.getCurrentItem());
-        if (item == null) {
+        if (item == null || item.getMaterial().isAir()) {
             return;
         }
         var pet = Pet.of(item, plugin);

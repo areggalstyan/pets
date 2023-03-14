@@ -1,0 +1,26 @@
+{
+  "id": "ELEPHANT_RARE_UPGRADE",
+  "pet": "ELEPHANT",
+  "rarity": "RARE",
+  "item": {
+    "material": "DIAMOND",
+    "name": "%blue%Nadir Fil Yükseltmesi",
+    "lore": [
+      "%gray%Filini %gray%şuna yükseltir: %blue%Nadir%gray%!",
+      "%dark_gray%Kullanmak için sağ-tıkla."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "odo",
+      "ded",
+      "odo"
+    ],
+    "ingredients": {
+      "o": "OBSIDIAN",
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK"
+    }
+  }
+}

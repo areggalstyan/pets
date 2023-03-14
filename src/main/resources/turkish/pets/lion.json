@@ -1,0 +1,59 @@
+{
+  "id": "LION",
+  "name": "%green%[%level%] %player%'ın Aslanı",
+  "head": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120",
+  "item": {
+    "material": "PLAYER_HEAD",
+    "name": "%green%[%level%] Aslan",
+    "lore": [
+      "%dark_gray%Kükreme...",
+      "",
+      "%gray%%candies%/%maxCandies% şeker kullanılmış!",
+      "",
+      "%perks%",
+      "",
+      "%gray%Seçildiğinde:",
+      "%dark_green% %experienceBooster%",
+      "%dark_green% %generic_max_health% Azami Can",
+      "%dark_green% %generic_attack_damage% Saldırı Hasarı",
+      "%dark_green% %generic_armor% Zırh",
+      "",
+      "%rarity%"
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "ggg",
+      "geg",
+      "ggg"
+    ],
+    "ingredients": {
+      "g": "GOLD_BLOCK",
+      "e": "EGG"
+    }
+  },
+  "level": "x",
+  "attributes": {
+    "COMMON": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_DAMAGE": "x / 10",
+      "GENERIC_ARMOR": "x / 10"
+    },
+    "RARE": {
+      "GENERIC_MAX_HEALTH": "1.2x",
+      "GENERIC_ATTACK_DAMAGE": "x / 8",
+      "GENERIC_ARMOR": "x / 8"
+    },
+    "LEGENDARY": {
+      "GENERIC_MAX_HEALTH": "1.4x",
+      "GENERIC_ATTACK_DAMAGE": "x / 6",
+      "GENERIC_ARMOR": "x / 6"
+    }
+  },
+  "perks": {
+    "COMMON": ["EXPERIENCE_1"],
+    "RARE": ["EXPERIENCE_2"],
+    "LEGENDARY": ["EXPERIENCE_3"]
+  },
+  "maxCandies": 3
+}

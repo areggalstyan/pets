@@ -1,0 +1,64 @@
+{
+  "id": "WITHER",
+  "name": "%red%[%level%] %player%'ın Witherı",
+  "head": "cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f",
+  "item": {
+    "material": "PLAYER_HEAD",
+    "name": "%red%[%level%] Wither",
+    "lore": [
+      "%dark_gray%Hush...",
+      "",
+      "%gray%%candies%/%maxCandies% şeker kullanılmış!",
+      "",
+      "%perks%",
+      "",
+      "%gray%Seçildiğinde:",
+      "%dark_green% %experienceBooster%",
+      "%dark_green% %generic_max_health% Azami Can",
+      "%dark_green% %generic_attack_damage% Saldırı Hasarı",
+      "%dark_green% %generic_armor% Zırh",
+      "%dark_green% %generic_armor_toughness% Zırh Sertliği",
+      "",
+      "%rarity%"
+    ]
+  },
+  "recipe": {
+    "shape": [
+      "dwd",
+      "wnw",
+      "dwd"
+    ],
+    "ingredients": {
+      "d": "DIAMOND_BLOCK",
+      "w": "WITHER_SKELETON_SKULL",
+      "n": "NETHER_STAR"
+    }
+  },
+  "level": "x / 3",
+  "attributes": {
+    "COMMON": {
+      "GENERIC_MAX_HEALTH": "x",
+      "GENERIC_ATTACK_DAMAGE": "x / 5",
+      "GENERIC_ARMOR": "x / 5",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 5"
+    },
+    "RARE": {
+      "GENERIC_MAX_HEALTH": "2x",
+      "GENERIC_ATTACK_DAMAGE": "x / 4",
+      "GENERIC_ARMOR": "x / 4",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 4"
+    },
+    "LEGENDARY": {
+      "GENERIC_MAX_HEALTH": "3x",
+      "GENERIC_ATTACK_DAMAGE": "x / 3",
+      "GENERIC_ARMOR": "x / 3",
+      "GENERIC_ARMOR_TOUGHNESS": "x / 3"
+    }
+  },
+  "perks": {
+    "COMMON": ["DAMAGE_WITHER_1"],
+    "RARE": ["DAMAGE_WITHER_2"],
+    "LEGENDARY": ["DAMAGE_WITHER_3"]
+  },
+  "maxCandies": 2
+}

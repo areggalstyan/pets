@@ -1,0 +1,27 @@
+{
+  "id": "ELEPHANT_LEGENDARY_UPGRADE",
+  "pet": "ELEPHANT",
+  "rarity": "LEGENDARY",
+  "item": {
+    "material": "DIAMOND_BLOCK",
+    "name": "%gold%Legendary Elephant Upgrade",
+    "lore": [
+      "%gray%Filini %gray%şuna yükseltir: %gold%Efsanevi%gray%!",
+      "%dark_gray%Kullanmak için sağ-tıkla."
+    ],
+    "glowing": true
+  },
+  "recipe": {
+    "shape": [
+      "odo",
+      "ene",
+      "odo"
+    ],
+    "ingredients": {
+      "o": "OBSIDIAN",
+      "d": "DIAMOND_BLOCK",
+      "e": "EMERALD_BLOCK",
+      "n": "NETHER_STAR"
+    }
+  }
+}

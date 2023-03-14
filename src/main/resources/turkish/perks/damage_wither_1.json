@@ -1,0 +1,14 @@
+{
+  "base": "Damage",
+  "id": "DAMAGE_WITHER_1",
+  "name": "%red%Wither Katili",
+  "description": [
+    "%gray%Witherlara verdiğin",
+    "%gray%hasarı %25, wither iskeletlere",
+    "%gray%ise %50 artırır!"
+  ],
+  "bonuses": {
+    "WITHER": "0.25x",
+    "WITHER_SKELETON": "0.5x"
+  }
+}
