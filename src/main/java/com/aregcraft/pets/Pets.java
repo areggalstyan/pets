@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,9 +47,14 @@ public class Pets extends DeltaPlugin {
         owners.values().forEach(PetOwner::removeArmorStand);
     }
 
-    public void setLocale(String locale) {
-        configurationLoader.setLocale(locale);
+    public List<String> getAvailableLocales() {
+        return configurationLoader.getAvailableLocales();
+    }
+
+    public boolean setLocale(String locale) {
+        var result = configurationLoader.setLocale(locale);
         reload();
+        return result;
     }
 
     public Updater getUpdater() {

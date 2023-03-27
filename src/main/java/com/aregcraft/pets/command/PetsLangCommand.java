@@ -7,7 +7,7 @@ import com.aregcraft.pets.Pets;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @RegisteredCommand("petslang")
@@ -22,15 +22,15 @@ public class PetsLangCommand implements CommandWrapper {
         }
         var locale = args.get(0);
         if (locale.equals("DEFAULT")) {
-            plugin.setLocale("");
-            return true;
+            return plugin.setLocale("");
         }
-        plugin.setLocale(locale);
-        return true;
+        return plugin.setLocale(locale);
     }
 
     @Override
     public List<String> suggest(Player sender, List<String> args) {
-        return Collections.singletonList("DEFAULT");
+        var locales = new ArrayList<>(plugin.getAvailableLocales());
+        locales.add("DEFAULT");
+        return locales;
     }
 }
