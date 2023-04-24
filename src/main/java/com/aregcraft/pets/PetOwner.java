@@ -32,7 +32,7 @@ public class PetOwner implements Listener {
         container = persistentData.getOrElse("pet_container", new PetContainer());
         checkForDataCorruption();
         setContainer();
-        inventory = plugin.getPetMenu().createInventory(player);
+        inventory = plugin.getPetMenu().createInventory(player, plugin);
         createArmorStand(container.getSelectedPet());
         plugin.registerListener(this);
     }
@@ -254,7 +254,7 @@ public class PetOwner implements Listener {
                     .persistentData("id", "PET_ARMOR_STAND")
                     .build(getArmorStandLocation(), plugin);
         }
-        armorStand.setCustomName(pet.getName(player));
+        armorStand.setCustomName(pet.getName(player, plugin));
         EquipmentWrapper.wrap(armorStand).setHelmet(pet.getHead());
     }
 

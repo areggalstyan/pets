@@ -69,7 +69,7 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
         }
         var pet = new Pet(petType, rarity);
         pet.setLevel(100);
-        var inventory = Bukkit.createInventory(player, 27, pet.getName(player));
+        var inventory = Bukkit.createInventory(player, 27, pet.getName(player, plugin));
         inventory.setItem(13, pet.getItem(plugin).unwrap());
         inventories.add(inventory);
         player.openInventory(inventory);
@@ -112,7 +112,7 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
     private String getTitle(Player player, String id) {
         var petType = plugin.getPets().findAny(id);
         if (petType != null) {
-            return new Pet(petType, plugin).getName(player);
+            return new Pet(petType, plugin).getName(player, plugin);
         }
         var experienceBooster = plugin.getExperienceBoosters().findAny(id);
         if (experienceBooster != null) {
@@ -160,6 +160,8 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
     }
 
     private void sendMessage(Player player, String... messages) {
-        player.sendMessage(Arrays.stream(messages).map(FormattingContext.DEFAULT::format).toArray(String[]::new));
+        player.sendMessage(Arrays.stream(messages)
+                .map(FormattingContext.withPlugin(plugin)::format)
+                .toArray(String[]::new));
     }
 }

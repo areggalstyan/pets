@@ -1,7 +1,0 @@
-{
-  "base": "Experience",
-  "id": "EXPERIENCE_1",
-  "name": "%green%Tecrübe",
-  "description": ["%gray%Tecrübe kazanımını %50 artırır!"],
-  "bonus": "0.5x"
-}

@@ -1,8 +1,8 @@
 {
   "base": "Effect",
   "id": "REGENERATION_1",
-  "name": "%red%Regeneration",
-  "description": ["%gray%Gives you regeneration 1!"],
+  "name": "%red%@REGENERATION_1@",
+  "description": ["@REGENERATION_1_DESCRIPTION@"],
   "type": "minecraft:regeneration",
   "amplifier": 0,
   "hideParticles": true

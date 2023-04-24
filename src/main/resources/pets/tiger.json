@@ -1,22 +1,22 @@
 {
   "id": "TIGER",
-  "name": "%gold%[%level%] %player%'s Tiger",
+  "name": "%gold%[%level%] %player%@TIGER_SELECTED@",
   "head": "3bddf5bae3af592858df9a150109e88c1caed8ba51e793c25aa03ca1b25db",
   "item": {
     "material": "PLAYER_HEAD",
-    "name": "%gold%[%level%] Tiger",
+    "name": "%gold%[%level%] @TIGER@",
     "lore": [
-      "%dark_gray%Growl...",
+      "%dark_gray%@TIGER_SOUND@...",
       "",
-      "%gray%%candies%/%maxCandies% candies used!",
+      "%gray%%candies%/%maxCandies% @CANDIES_USED@!",
       "",
       "%perks%",
       "",
-      "%gray%When selected:",
+      "%gray%@WHEN_SELECTED@:",
       "%dark_green% %experienceBooster%",
-      "%dark_green% %generic_max_health% Max Health",
-      "%dark_green% %generic_attack_damage% Attack Damage",
-      "%dark_green% %generic_armor% Armor",
+      "%dark_green% %generic_max_health% @MAX_HEALTH@",
+      "%dark_green% %generic_attack_damage% @ATTACK_DAMAGE@",
+      "%dark_green% %generic_armor% @ARMOR@",
       "",
       "%rarity%"
     ]

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "4.3.0"
+version = "4.4.0"
 
 repositories {
     mavenLocal()
@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     compileOnly("com.aregcraft.delta:meta:1.0.0")
-    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
     implementation("com.aregcraft.delta:api:1.0.0")
     implementation("org.mariuszgromada.math:MathParser.org-mXparser:5.2.1")
     implementation("org.bstats:bstats-bukkit:3.0.1")
@@ -44,7 +44,7 @@ pluginDescription {
             permission.set("pets.command.petsinfo")
         }
         create("petsgive") {
-            description.set("Gives you a pet, experience booster, or candy.")
+            description.set("Gives you or the player a pet, experience booster, or candy.")
             usage.set("Usage: /<command> <id>")
             permission.set("pets.command.petsgive")
         }

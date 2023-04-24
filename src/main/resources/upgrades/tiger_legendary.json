@@ -4,10 +4,9 @@
   "rarity": "LEGENDARY",
   "item": {
     "material": "EMERALD_BLOCK",
-    "name": "%gold%Legendary Tiger Upgrade",
+    "name": "%gold%@TIGER_LEGENDARY_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %gold%Tiger %gray%to %gold%Legendary%gray%!",
-      "%dark_gray%Right-click to use."
+      "@TIGER_LEGENDARY_UPGRADE_LORE@"
     ],
     "glowing": true
   },

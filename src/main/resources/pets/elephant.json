@@ -1,22 +1,22 @@
 {
   "id": "ELEPHANT",
-  "name": "%gray%[%level%] %player%'s Elephant",
+  "name": "%gray%[%level%] %player%@ELEPHANT_SELECTED@",
   "head": "7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514",
   "item": {
     "material": "PLAYER_HEAD",
-    "name": "%gray%[%level%] Elephant",
+    "name": "%gray%[%level%] @ELEPHANT@",
     "lore": [
-      "%dark_gray%Trumpet...",
+      "%dark_gray%@ELEPHANT_SOUND@...",
       "",
-      "%gray%%candies%/%maxCandies% candies used!",
+      "%gray%%candies%/%maxCandies% @CANDIES_USED@!",
       "",
       "%perks%",
       "",
-      "%gray%When selected:",
+      "%gray%@WHEN_SELECTED@:",
       "%dark_green% %experienceBooster%",
-      "%dark_green% %generic_max_health% Max Health",
-      "%dark_green% %generic_armor% Armor",
-      "%dark_green% %generic_attack_speed% Attack Speed",
+      "%dark_green% %generic_max_health% @MAX_HEALTH@",
+      "%dark_green% %generic_armor% @ARMOR@",
+      "%dark_green% %generic_attack_speed% @ATTACK_SPEED@",
       "",
       "%rarity%"
     ]

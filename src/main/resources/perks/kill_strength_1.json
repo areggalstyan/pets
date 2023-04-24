@@ -1,10 +1,9 @@
 {
   "base": "KillEffect",
   "id": "KILL_STRENGTH_1",
-  "name": "%gold%Strong Killer",
+  "name": "%gold%@KILL_STRENGTH_1@",
   "description": [
-    "%gray%Gives you strength 1 for 5 seconds",
-    "%gray%each time you kill a mob or player!"
+    "@KILL_STRENGTH_1_DESCRIPTION@"
   ],
   "type": "minecraft:strength",
   "duration": 100,

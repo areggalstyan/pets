@@ -1,22 +1,22 @@
 {
   "id": "CHEETAH",
-  "name": "%yellow%[%level%] %player%'s Cheetah",
+  "name": "%yellow%[%level%] %player%@CHEETAH_SELECTED@",
   "head": "1553f8856dd46de7e05d46f5fc2fb58eafba6829b11b160a1545622e89caaa33",
   "item": {
     "material": "PLAYER_HEAD",
-    "name": "%yellow%[%level%] Cheetah",
+    "name": "%yellow%[%level%] @CHEETAH@",
     "lore": [
-      "%dark_gray%Chirrs...",
+      "%dark_gray%@CHEETAH_SOUND@...",
       "",
-      "%gray%%candies%/%maxCandies% candies used!",
+      "%gray%%candies%/%maxCandies% @CANDIES_USED@!",
       "",
       "%perks%",
       "",
-      "%gray%When selected:",
+      "%gray%@WHEN_SELECTED@:",
       "%dark_green% %experienceBooster%",
-      "%dark_green% %generic_movement_speed% Movement Speed",
-      "%dark_green% %generic_attack_damage% Attack Damage",
-      "%dark_green% %generic_attack_speed% Attack Speed",
+      "%dark_green% %generic_movement_speed% @MOVEMENT_SPEED@",
+      "%dark_green% %generic_attack_damage% @ATTACK_DAMAGE@",
+      "%dark_green% %generic_attack_speed% @ATTACK_SPEED@",
       "",
       "%rarity%"
     ]

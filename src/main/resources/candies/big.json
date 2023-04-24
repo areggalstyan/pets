@@ -2,11 +2,9 @@
   "id": "BIG_CANDY",
   "item": {
     "material": "SUGAR",
-    "name": "%red%Big Candy",
+    "name": "%red%@BIG_CANDY@",
     "lore": [
-      "%gray%Instantly adds eight levels to your",
-      "%gray%selected pet.",
-      "%dark_gray%Right-click to use."
+      "@BIG_CANDY_LORE@"
     ]
   },
   "recipe": {

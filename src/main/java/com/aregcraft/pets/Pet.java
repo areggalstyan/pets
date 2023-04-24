@@ -121,8 +121,9 @@ public class Pet {
         return type;
     }
 
-    public String getName(Player player) {
+    public String getName(Player player, Pets plugin) {
         return FormattingContext.builder()
+                .plugin(plugin)
                 .placeholder("level", (int) level)
                 .placeholder("player", player.getDisplayName())
                 .build().format(type.name());
@@ -134,7 +135,7 @@ public class Pet {
 
     public ItemWrapper getItem(Pets plugin) {
         return ItemWrapper.wrap(getHead()).createBuilder()
-                .formattingContext(getFormattingContext())
+                .formattingContext(getFormattingContext(plugin))
                 .filterDisplayableLore()
                 .persistentData(plugin, "pet", this)
                 .build();
@@ -148,8 +149,9 @@ public class Pet {
         this.rarity = rarity;
     }
 
-    private FormattingContext getFormattingContext() {
+    private FormattingContext getFormattingContext(Pets plugin) {
         var builder = FormattingContext.builder()
+                .plugin(plugin)
                 .placeholder("level", (int) level)
                 .placeholder("maxCandies", type.maxCandies())
                 .placeholder("candies", candies)

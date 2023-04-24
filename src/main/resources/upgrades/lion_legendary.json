@@ -4,10 +4,9 @@
   "rarity": "LEGENDARY",
   "item": {
     "material": "GOLD_BLOCK",
-    "name": "%gold%Legendary Lion Upgrade",
+    "name": "%gold%@LION_LEGENDARY_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %green%Lion %gray%to %gold%Legendary%gray%!",
-      "%dark_gray%Right-click to use."
+      "@LION_LEGENDARY_UPGRADE_LORE@"
     ],
     "glowing": true
   },

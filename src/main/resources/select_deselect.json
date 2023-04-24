@@ -5,7 +5,7 @@
       "volume": 1,
       "pitch": 0
     },
-    "message": "%name% %green%selected!"
+    "message": "%name% %green%@SELECTED@!"
   },
   "deselect": {
     "sound": {
@@ -13,6 +13,6 @@
       "volume": 1,
       "pitch": 1
     },
-    "message": "%name% %red%deselected!"
+    "message": "%name% %red%@DESELECTED@!"
   }
 }

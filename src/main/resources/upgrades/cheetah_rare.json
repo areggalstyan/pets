@@ -4,10 +4,9 @@
   "rarity": "RARE",
   "item": {
     "material": "IRON_INGOT",
-    "name": "%blue%Rare Cheetah Upgrade",
+    "name": "%blue%@CHEETAH_RARE_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %yellow%Cheetah %gray%to %blue%Rare%gray%!",
-      "%dark_gray%Right-click to use."
+      "%@CHEETAH_RARE_UPGRADE_LORE@"
     ],
     "glowing": true
   },

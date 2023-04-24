@@ -4,10 +4,9 @@
   "rarity": "RARE",
   "item": {
     "material": "WITHER_SKELETON_SKULL",
-    "name": "%blue%Rare Wither Upgrade",
+    "name": "%blue%@WITHER_RARE_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %red%Wither %gray%to %blue%Rare%gray%!",
-      "%dark_gray%Right-click to use."
+      "@WITHER_RARE_UPGRADE_LORE@"
     ],
     "glowing": true
   },

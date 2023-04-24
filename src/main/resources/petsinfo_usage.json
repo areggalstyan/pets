@@ -1,5 +1,5 @@
 [
-  "%red%/petsinfo pets %gray%- %yellow%List all pets",
-  "%red%/petsinfo pet <id> <rarity> %gray%- %yellow%Show info about a pet",
-  "%red%/petsinfo recipe <id> %gray%- %yellow%Show a crafting recipe"
+  "%red%/petsinfo pets %gray%- %yellow%@INFO_USAGE_PETS@",
+  "%red%/petsinfo pet <id> <rarity> %gray%- %yellow%@INFO_USAGE_PET@",
+  "%red%/petsinfo recipe <id> %gray%- %yellow%@INFO_USAGE_RECIPE@"
 ]

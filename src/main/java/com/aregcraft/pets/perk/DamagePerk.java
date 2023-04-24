@@ -37,8 +37,10 @@ public class DamagePerk extends Perk implements Listener {
         }
         var damage = event.getDamage();
         var bonus = bonuses.get(entity.getType());
-        if (bonus != null) {
-            event.setDamage(damage + bonus.calculate());
+        if (bonus == null) {
+            return;
         }
+        bonus.setArgumentValue("x", damage);
+        event.setDamage(damage + bonus.calculate());
     }
 }

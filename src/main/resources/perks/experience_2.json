@@ -1,7 +1,7 @@
 {
   "base": "Experience",
   "id": "EXPERIENCE_2",
-  "name": "%green%Experience",
-  "description": ["%gray%Boosts your experience gain by 75%!"],
+  "name": "%green%@EXPERIENCE_2@",
+  "description": ["@EXPERIENCE_2_DESCRIPTION@"],
   "bonus": "0.75x"
 }

@@ -1,23 +1,23 @@
 {
   "id": "WITHER",
-  "name": "%red%[%level%] %player%'s Wither",
+  "name": "%red%[%level%] %player%@WITHER_SELECTED@",
   "head": "cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f",
   "item": {
     "material": "PLAYER_HEAD",
-    "name": "%red%[%level%] Wither",
+    "name": "%red%[%level%] @WITHER@",
     "lore": [
-      "%dark_gray%Hush...",
+      "%dark_gray%@WITHER_SOUND@...",
       "",
-      "%gray%%candies%/%maxCandies% candies used!",
+      "%gray%%candies%/%maxCandies% @CANDIES_USED@!",
       "",
       "%perks%",
       "",
-      "%gray%When selected:",
+      "%gray%@WHEN_SELECTED@:",
       "%dark_green% %experienceBooster%",
-      "%dark_green% %generic_max_health% Max Health",
-      "%dark_green% %generic_attack_damage% Attack Damage",
-      "%dark_green% %generic_armor% Armor",
-      "%dark_green% %generic_armor_toughness% Armor Toughness",
+      "%dark_green% %generic_max_health% @MAX_HEALTH@",
+      "%dark_green% %generic_attack_damage% @ATTACK_DAMAGE@",
+      "%dark_green% %generic_armor% @ARMOR@",
+      "%dark_green% %generic_armor_toughness% @ARMOR_TOUGHNESS@",
       "",
       "%rarity%"
     ]

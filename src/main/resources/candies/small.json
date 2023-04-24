@@ -2,11 +2,9 @@
   "id": "SMALL_CANDY",
   "item": {
     "material": "SUGAR",
-    "name": "%green%Small Candy",
+    "name": "%green%@SMALL_CANDY@",
     "lore": [
-      "%gray%Instantly adds two levels to your",
-      "%gray%selected pet.",
-      "%dark_gray%Right-click to use."
+      "@SMALL_CANDY_LORE@"
     ]
   },
   "recipe": {

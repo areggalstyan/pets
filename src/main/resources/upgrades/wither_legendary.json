@@ -4,10 +4,9 @@
   "rarity": "LEGENDARY",
   "item": {
     "material": "NETHER_STAR",
-    "name": "%gold%Legendary Wither Upgrade",
+    "name": "%gold%@WITHER_LEGENDARY_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %red%Wither %gray%to %gold%Legendary%gray%!",
-      "%dark_gray%Right-click to use."
+      "@WITHER_LEGENDARY_UPGRADE_LORE@"
     ],
     "glowing": true
   },

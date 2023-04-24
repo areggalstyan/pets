@@ -1,6 +1,7 @@
 package com.aregcraft.pets;
 
 import com.aregcraft.delta.api.DeltaPlugin;
+import com.aregcraft.delta.api.Language;
 import com.aregcraft.delta.api.json.JsonConfigurationLoader;
 import com.aregcraft.delta.api.registry.RegistrableRegistry;
 import com.aregcraft.delta.api.registry.Registry;
@@ -13,12 +14,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class Pets extends DeltaPlugin {
     private final JsonConfigurationLoader configurationLoader = new JsonConfigurationLoader(this);
+    private final Registry<String, Language> languages =
+            new Registry<>("languages", Language.class, configurationLoader, this::initializeLanguage);
     private final Registry<String, Perk> perks = new Registry<>("perks", Perk.class, configurationLoader);
     private final Registry<String, Rarity> rarities =
             new Registry<>("rarities", Rarity.class, configurationLoader);
@@ -45,16 +47,6 @@ public class Pets extends DeltaPlugin {
     public void onDisable() {
         super.onDisable();
         owners.values().forEach(PetOwner::removeArmorStand);
-    }
-
-    public List<String> getAvailableLocales() {
-        return configurationLoader.getAvailableLocales();
-    }
-
-    public boolean setLocale(String locale) {
-        var result = configurationLoader.setLocale(locale);
-        reload();
-        return result;
     }
 
     public Updater getUpdater() {
@@ -101,6 +93,21 @@ public class Pets extends DeltaPlugin {
         return upgrades;
     }
 
+    public Registry<String, Language> getLanguages() {
+        return languages;
+    }
+
+    @Override
+    public void setLanguage(Language language) {
+        super.setLanguage(language);
+        configurationLoader.set("selected_language", language.getId());
+        reload();
+    }
+
+    private void initializeLanguage() {
+        super.setLanguage(languages.findAny(configurationLoader.get("selected_language", String.class)));
+    }
+
     public PetOwner getPetOwner(Player player) {
         return owners.get(player.getUniqueId());
     }
@@ -124,10 +131,12 @@ public class Pets extends DeltaPlugin {
     }
 
     public void giveSelectFeedback(Player player, Pet pet) {
-        configurationLoader.get(SelectDeselect.class).getSelect().give(player, pet.getName(player));
+        configurationLoader.get(SelectDeselect.class).getSelect()
+                .give(player, pet.getName(player, this), this);
     }
 
     public void giveDeselectFeedback(Player player, Pet pet) {
-        configurationLoader.get(SelectDeselect.class).getDeselect().give(player, pet.getName(player));
+        configurationLoader.get(SelectDeselect.class).getDeselect()
+                .give(player, pet.getName(player, this), this);
     }
 }

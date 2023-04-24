@@ -1,7 +1,7 @@
 {
   "base": "Thorns",
   "id": "THORNS_1",
-  "name": "%green%Thorns",
-  "description": ["%gray%Reflects 12.5% of the damage you receive!"],
+  "name": "%green%@THORNS_1@",
+  "description": ["@THORNS_1_DESCRIPTION@"],
   "reflect": "0.125x"
 }

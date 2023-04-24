@@ -12,13 +12,14 @@ public class Feedback {
         this.message = message;
     }
 
-    public void give(Player player, String name) {
+    public void give(Player player, String name, Pets plugin) {
         sound.play(player);
-        player.sendMessage(getFormattingContext(name).format(message));
+        player.sendMessage(getFormattingContext(name, plugin).format(message));
     }
 
-    private FormattingContext getFormattingContext(String name) {
+    private FormattingContext getFormattingContext(String name, Pets plugin) {
         return FormattingContext.builder()
+                .plugin(plugin)
                 .placeholder("name", name)
                 .build();
     }

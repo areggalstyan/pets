@@ -4,10 +4,9 @@
   "rarity": "RARE",
   "item": {
     "material": "GOLD_INGOT",
-    "name": "%blue%Rare Lion Upgrade",
+    "name": "%blue%@LION_RARE_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %green%Lion %gray%to %blue%Rare%gray%!",
-      "%dark_gray%Right-click to use."
+      "@LION_RARE_UPGRADE_LORE@"
     ],
     "glowing": true
   },

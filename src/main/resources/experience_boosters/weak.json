@@ -2,11 +2,9 @@
   "id": "WEAK_EXPERIENCE_BOOSTER",
   "item": {
     "material": "EXPERIENCE_BOTTLE",
-    "name": "%green%Weak Experience Booster",
+    "name": "%green%@WEAK_EXPERIENCE_BOOSTER@",
     "lore": [
-      "%gray%Increases the amount of pet experience",
-      "%gray%you receive by 50%.",
-      "%dark_gray%Right-click to use."
+      "@WEAK_EXPERIENCE_BOOSTER_LORE@"
     ]
   },
   "recipe": {

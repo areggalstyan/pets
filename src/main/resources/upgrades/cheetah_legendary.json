@@ -4,10 +4,9 @@
   "rarity": "LEGENDARY",
   "item": {
     "material": "IRON_BLOCK",
-    "name": "%gold%Legendary Cheetah Upgrade",
+    "name": "%gold%@CHEETAH_LEGENDARY_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your %yellow%Cheetah %gray%to %gold%Legendary%gray%!",
-      "%dark_gray%Right-click to use."
+      "@CHEETAH_LEGENDARY_UPGRADE_LORE@"
     ],
     "glowing": true
   },

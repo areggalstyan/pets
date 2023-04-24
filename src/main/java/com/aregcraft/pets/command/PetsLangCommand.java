@@ -20,17 +20,19 @@ public class PetsLangCommand implements CommandWrapper {
         if (args.size() != 1) {
             return false;
         }
-        var locale = args.get(0);
-        if (locale.equals("DEFAULT")) {
-            return plugin.setLocale("");
+        var language = plugin.getLanguages().findAny(args.get(0));
+        if (language == null) {
+            return false;
         }
-        return plugin.setLocale(locale);
+        plugin.setLanguage(language);
+        return true;
     }
 
     @Override
     public List<String> suggest(Player sender, List<String> args) {
-        var locales = new ArrayList<>(plugin.getAvailableLocales());
-        locales.add("DEFAULT");
-        return locales;
+        if (args.size() == 1) {
+            return new ArrayList<>(plugin.getLanguages().getIds());
+        }
+        return null;
     }
 }

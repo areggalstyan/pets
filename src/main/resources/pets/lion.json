@@ -1,22 +1,22 @@
 {
   "id": "LION",
-  "name": "%green%[%level%] %player%'s Lion",
+  "name": "%green%[%level%] %player%@LION_SELECTED@",
   "head": "6b3a8ce66dc3927bb5482b29e936b39d24589f91e997bb3dfd567396e871120",
   "item": {
     "material": "PLAYER_HEAD",
-    "name": "%green%[%level%] Lion",
+    "name": "%green%[%level%] @LION@",
     "lore": [
-      "%dark_gray%Roar...",
+      "%dark_gray%@LION_SOUND@...",
       "",
-      "%gray%%candies%/%maxCandies% candies used!",
+      "%gray%%candies%/%maxCandies% @CANDIES_USED@!",
       "",
       "%perks%",
       "",
-      "%gray%When selected:",
+      "%gray%@WHEN_SELECTED@:",
       "%dark_green% %experienceBooster%",
-      "%dark_green% %generic_max_health% Max Health",
-      "%dark_green% %generic_attack_damage% Attack Damage",
-      "%dark_green% %generic_armor% Armor",
+      "%dark_green% %generic_max_health% @MAX_HEALTH@",
+      "%dark_green% %generic_attack_damage% @ATTACK_DAMAGE@",
+      "%dark_green% %generic_armor% @ARMOR@",
       "",
       "%rarity%"
     ]

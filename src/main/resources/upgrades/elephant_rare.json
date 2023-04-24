@@ -4,10 +4,9 @@
   "rarity": "RARE",
   "item": {
     "material": "DIAMOND",
-    "name": "%blue%Rare Elephant Upgrade",
+    "name": "%blue%@ELEPHANT_RARE_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your Elephant %gray%to %blue%Rare%gray%!",
-      "%dark_gray%Right-click to use."
+      "@ELEPHANT_RARE_UPGRADE_LORE@"
     ],
     "glowing": true
   },

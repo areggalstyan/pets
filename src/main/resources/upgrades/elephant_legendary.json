@@ -4,10 +4,9 @@
   "rarity": "LEGENDARY",
   "item": {
     "material": "DIAMOND_BLOCK",
-    "name": "%gold%Legendary Elephant Upgrade",
+    "name": "%gold%@ELEPHANT_LEGENDARY_UPGRADE@",
     "lore": [
-      "%gray%Upgrades your Elephant %gray%to %gold%Legendary%gray%!",
-      "%dark_gray%Right-click to use."
+      "@ELEPHANT_LEGENDARY_UPGRADE_LORE@"
     ],
     "glowing": true
   },

@@ -2,11 +2,9 @@
   "id": "MEDIUM_CANDY",
   "item": {
     "material": "SUGAR",
-    "name": "%blue%Medium Candy",
+    "name": "%blue%@MEDIUM_CANDY@",
     "lore": [
-      "%gray%Instantly adds four levels to your",
-      "%gray%selected pet.",
-      "%dark_gray%Right-click to use."
+      "@MEDIUM_CANDY_LORE@"
     ]
   },
   "recipe": {
