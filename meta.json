@@ -1,5 +1,5 @@
 {
-  "version": "4.3.0",
+  "version": "4.4.1",
   "abilities": [
     {
       "name": "KillEffect",
@@ -29,6 +29,22 @@
           "type": "boolean",
           "name": "onlyPlayers",
           "description": "Whether to add the effect only when killing players"
+        }
+      ]
+    },
+    {
+      "name": "KillCommand",
+      "description": "Runs a command when the owner kills an entity",
+      "properties": [
+        {
+          "type": "EntityType",
+          "name": "type",
+          "description": "The entity type"
+        },
+        {
+          "type": "String",
+          "name": "command",
+          "description": "The command"
         }
       ]
     },
