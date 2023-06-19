@@ -4,7 +4,7 @@ import com.aregcraft.delta.api.Recipe;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.delta.api.registry.Identifiable;
 import com.aregcraft.delta.api.registry.Registrable;
-import org.mariuszgromada.math.mxparser.Expression;
+import net.objecthunter.exp4j.Expression;
 
 public class ExperienceBooster implements Identifiable<String>, Registrable<Pets> {
     private final String id;
@@ -36,8 +36,8 @@ public class ExperienceBooster implements Identifiable<String>, Registrable<Pets
     }
 
     public double calculate(int experience) {
-        boost.setArgumentValue("x", experience);
-        return boost.calculate();
+        boost.setVariable("x", experience);
+        return boost.evaluate();
     }
 
     @Override

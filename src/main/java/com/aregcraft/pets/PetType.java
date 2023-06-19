@@ -6,10 +6,10 @@ import com.aregcraft.delta.api.log.Crash;
 import com.aregcraft.delta.api.registry.Identifiable;
 import com.aregcraft.delta.api.registry.Registrable;
 import com.aregcraft.pets.perk.Perk;
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.net.MalformedURLException;
 import java.net.URL;

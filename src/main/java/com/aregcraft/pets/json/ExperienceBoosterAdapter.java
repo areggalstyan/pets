@@ -8,7 +8,7 @@ import com.aregcraft.delta.api.json.annotation.JsonAdapterFor;
 import com.aregcraft.pets.ExperienceBooster;
 import com.aregcraft.pets.Pets;
 import com.google.gson.*;
-import org.mariuszgromada.math.mxparser.Expression;
+import net.objecthunter.exp4j.Expression;
 
 import java.lang.reflect.Type;
 

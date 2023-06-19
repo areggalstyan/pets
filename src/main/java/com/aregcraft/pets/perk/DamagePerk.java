@@ -1,12 +1,12 @@
 package com.aregcraft.pets.perk;
 
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public class DamagePerk extends Perk implements Listener {
         if (bonus == null) {
             return;
         }
-        bonus.setArgumentValue("x", damage);
-        event.setDamage(damage + bonus.calculate());
+        bonus.setVariable("x", damage);
+        event.setDamage(damage + bonus.evaluate());
     }
 }

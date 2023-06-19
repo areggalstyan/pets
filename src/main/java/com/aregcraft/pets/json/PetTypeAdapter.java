@@ -11,8 +11,8 @@ import com.aregcraft.pets.Rarity;
 import com.aregcraft.pets.perk.Perk;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.attribute.Attribute;
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.lang.reflect.Type;
 import java.util.List;

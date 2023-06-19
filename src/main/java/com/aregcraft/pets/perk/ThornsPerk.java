@@ -1,11 +1,11 @@
 package com.aregcraft.pets.perk;
 
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.mariuszgromada.math.mxparser.Expression;
 
 /**
  * Allows the owner to reflect a portion of the received damage
@@ -31,7 +31,7 @@ public class ThornsPerk extends Perk implements Listener {
         if (!(event.getDamager() instanceof LivingEntity entity) || !isPlayerApplied(event.getEntity())) {
             return;
         }
-        reflect.setArgumentValue("x", event.getDamage());
-        entity.damage(reflect.calculate());
+        reflect.setVariable("x", event.getDamage());
+        entity.damage(reflect.evaluate());
     }
 }

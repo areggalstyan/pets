@@ -1,10 +1,10 @@
 package com.aregcraft.pets.perk;
 
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;
-import org.mariuszgromada.math.mxparser.Expression;
 
 /**
  * Boosts the amount of experience that the owner receives
@@ -31,7 +31,7 @@ public class ExperiencePerk extends Perk implements Listener {
             return;
         }
         var amount = event.getAmount();
-        bonus.setArgumentValue("x",  amount);
-        event.setAmount(amount + (int) bonus.calculate());
+        bonus.setVariable("x",  amount);
+        event.setAmount(amount + (int) bonus.evaluate());
     }
 }

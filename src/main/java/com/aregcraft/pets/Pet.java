@@ -4,9 +4,9 @@ import com.aregcraft.delta.api.AttributeModifierBuilder;
 import com.aregcraft.delta.api.FormattingContext;
 import com.aregcraft.delta.api.item.ItemWrapper;
 import com.aregcraft.pets.perk.Perk;
+import net.objecthunter.exp4j.Expression;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -109,8 +109,8 @@ public class Pet {
         if (expression == null) {
             return 0;
         }
-        expression.setArgumentValue("x", value);
-        return expression.calculate();
+        expression.setVariable("x", value);
+        return expression.evaluate();
     }
 
     private double calculateAttribute(Expression expression) {
