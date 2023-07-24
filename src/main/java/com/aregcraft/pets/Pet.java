@@ -32,6 +32,10 @@ public class Pet {
     }
 
     public boolean addExperience(int experience) {
+        var maxLevel = type.maxLevel();
+        if (maxLevel > 0 && level >= maxLevel) {
+            return false;
+        }
         return (int) level != (int) (level += calculate(type.level(), experience) + calculateBoost(experience));
     }
 

@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public record PetType(String id, String name, String head, ItemWrapper item, Recipe recipe, Expression level,
                       Map<Rarity, Map<Attribute, Expression>> attributes, Map<Rarity, List<Perk>> perks,
-                      int maxCandies) implements Identifiable<String>, Registrable<Pets> {
+                      int maxCandies, int maxLevel) implements Identifiable<String>, Registrable<Pets> {
     @Override
     public void register(Pets plugin) {
         item.<SkullMeta>editMeta(it -> {
@@ -70,6 +70,7 @@ public record PetType(String id, String name, String head, ItemWrapper item, Rec
                 ", attributes=" + attributes +
                 ", perks=" + perks +
                 ", maxCandies=" + maxCandies +
+                ", maxLevel=" + maxLevel +
                 '}';
     }
 }

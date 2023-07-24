@@ -136,6 +136,9 @@ public class Pets extends DeltaPlugin {
     }
 
     public void giveDeselectFeedback(Player player, Pet pet) {
+        if (pet == null) {
+            return;
+        }
         configurationLoader.get(SelectDeselect.class).getDeselect()
                 .give(player, pet.getName(player, this), this);
     }

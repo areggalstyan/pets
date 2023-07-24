@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "4.5.0"
+version = "4.6.0"
 
 repositories {
     mavenLocal()
