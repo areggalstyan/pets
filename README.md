@@ -1,3 +1,4 @@
+![Top supporter](img/supporter.png)
 [![Donate](img/donate.png)](https://www.patreon.com/Aregcraft)
 ![Donate](img/rate.png)
 [![Wiki](img/wiki.png)](https://aregcraft.vercel.app/)
