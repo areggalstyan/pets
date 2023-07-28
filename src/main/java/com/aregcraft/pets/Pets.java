@@ -121,13 +121,13 @@ public class Pets extends DeltaPlugin {
     }
 
     public void reload() {
+        configurationLoader.invalidateAll();
         perks.invalidateAll();
         rarities.invalidateAll();
         pets.invalidateAll();
         experienceBoosters.invalidateAll();
         candies.invalidateAll();
         upgrades.invalidateAll();
-        configurationLoader.invalidateAll();
     }
 
     public void giveSelectFeedback(Player player, Pet pet) {

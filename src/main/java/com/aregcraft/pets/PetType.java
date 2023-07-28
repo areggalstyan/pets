@@ -38,6 +38,13 @@ public record PetType(String id, String name, String head, ItemWrapper item, Rec
     }
 
     @Override
+    public void unregister(Pets plugin) {
+        if (recipe != null) {
+            recipe.remove(plugin, id);
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

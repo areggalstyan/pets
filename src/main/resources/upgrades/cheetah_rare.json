@@ -6,7 +6,7 @@
     "material": "IRON_INGOT",
     "name": "%blue%@CHEETAH_RARE_UPGRADE@",
     "lore": [
-      "%@CHEETAH_RARE_UPGRADE_LORE@"
+      "@CHEETAH_RARE_UPGRADE_LORE@"
     ],
     "glowing": true
   },

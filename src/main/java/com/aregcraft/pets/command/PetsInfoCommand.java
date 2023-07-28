@@ -39,6 +39,10 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
             listPets(sender);
             return true;
         }
+        if (size < 2) {
+            showUsage(sender);
+            return false;
+        }
         var id = args.get(1);
         if (size == 2 && subcommand.equals("recipe")) {
             showRecipe(sender, id);
@@ -118,7 +122,11 @@ public class PetsInfoCommand implements CommandWrapper, Listener {
         if (experienceBooster != null) {
             return experienceBooster.getItem().getName();
         }
-        return plugin.getCandies().findAny(id).getItem().getName();
+        var candy = plugin.getCandies().findAny(id);
+        if (candy != null) {
+            return candy.getItem().getName();
+        }
+        return plugin.getUpgrades().findAny(id).getItem().getName();
     }
 
     @EventHandler

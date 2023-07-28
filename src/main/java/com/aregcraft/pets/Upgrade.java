@@ -52,4 +52,11 @@ public class Upgrade implements Identifiable<String>, Registrable<Pets> {
             recipe.add(plugin, id, item);
         }
     }
+
+    @Override
+    public void unregister(Pets plugin) {
+        if (recipe != null) {
+            recipe.remove(plugin, id);
+        }
+    }
 }

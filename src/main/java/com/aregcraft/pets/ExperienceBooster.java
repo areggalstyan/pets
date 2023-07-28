@@ -35,6 +35,13 @@ public class ExperienceBooster implements Identifiable<String>, Registrable<Pets
         }
     }
 
+    @Override
+    public void unregister(Pets plugin) {
+        if (recipe != null) {
+            recipe.remove(plugin, id);
+        }
+    }
+
     public double calculate(int experience) {
         boost.setVariable("x", experience);
         return boost.evaluate();

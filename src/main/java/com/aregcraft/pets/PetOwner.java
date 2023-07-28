@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 
@@ -96,6 +97,13 @@ public class PetOwner implements Listener {
             updateExperience();
         }
         setContainer();
+    }
+
+    @EventHandler
+    public void onPlayer(VehicleEnterEvent event) {
+        if (event.getEntered().equals(player)) {
+            selectPet(null);
+        }
     }
 
     @EventHandler
@@ -214,6 +222,8 @@ public class PetOwner implements Listener {
             plugin.giveDeselectFeedback(player, selectedPet);
         } else if (pet.equals(selectedPet)) {
             selectPet(null);
+            return;
+        } else if (player.getVehicle() != null) {
             return;
         } else {
             plugin.giveSelectFeedback(player, pet);

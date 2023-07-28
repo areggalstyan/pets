@@ -13,12 +13,12 @@
   "recipe": {
     "shape": [
       "odo",
-      "ded",
+      "geg",
       "odo"
     ],
     "ingredients": {
       "o": "OBSIDIAN",
-      "d": "DIAMOND_BLOCK",
+      "g": "GOLD_BLOCK",
       "e": "EMERALD_BLOCK"
     }
   }

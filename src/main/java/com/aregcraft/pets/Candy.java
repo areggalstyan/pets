@@ -35,6 +35,13 @@ public class Candy implements Identifiable<String>, Registrable<Pets> {
     }
 
     @Override
+    public void unregister(Pets plugin) {
+        if (recipe != null) {
+            recipe.remove(plugin, id);
+        }
+    }
+
+    @Override
     public String getId() {
         return id;
     }
