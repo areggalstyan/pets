@@ -41,13 +41,4 @@ public class PetContainer {
     public void clearPets() {
         pets.clear();
     }
-
-    @Override
-    public String toString() {
-        return "PetContainer{" +
-                "pets=" + pets +
-                ", selectedPet=" + selectedPet +
-                ", showPets=" + showPets +
-                '}';
-    }
 }

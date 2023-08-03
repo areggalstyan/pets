@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
@@ -45,7 +46,7 @@ public class PetOwner implements Listener {
             return;
         }
         PetsError.CORRUPTED_DATA.log(plugin, player.getDisplayName());
-        new Error.Custom(container.toString()).log(plugin);
+        new Error.Custom(plugin.getGson().toJson(container)).log(plugin);
         container.selectPet(null);
         pets.removeIf(it -> it.getType() == null);
     }
@@ -100,9 +101,16 @@ public class PetOwner implements Listener {
     }
 
     @EventHandler
-    public void onPlayer(VehicleEnterEvent event) {
+    public void onVehicleEnter(VehicleEnterEvent event) {
         if (event.getEntered().equals(player)) {
             selectPet(null);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (event.getEntity().equals(armorStand)) {
+            event.setCancelled(true);
         }
     }
 

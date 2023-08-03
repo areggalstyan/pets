@@ -32,11 +32,15 @@ public class Pet {
     }
 
     public boolean addExperience(int experience) {
+        return addLevel(calculate(type.level(), experience) + calculateBoost(experience));
+    }
+
+    private boolean addLevel(double level) {
         var maxLevel = type.maxLevel();
-        if (maxLevel > 0 && level >= maxLevel) {
+        if (maxLevel > 0 && this.level + level > maxLevel) {
             return false;
         }
-        return (int) level != (int) (level += calculate(type.level(), experience) + calculateBoost(experience));
+        return (int) this.level != (int) (this.level += level);
     }
 
     public void setLevel(double level) {
@@ -94,7 +98,7 @@ public class Pet {
 
     public boolean useCandy(Candy candy) {
         candies++;
-        return (int) level != (int) (level += candy.getExperience());
+        return addLevel(candy.getExperience());
     }
 
     public boolean canUpgrade(Upgrade upgrade) {
@@ -193,21 +197,12 @@ public class Pet {
             return false;
         }
         var pet = (Pet) o;
-        return Double.compare(pet.level, level) == 0 && Objects.equals(type, pet.type);
+        return Double.compare(pet.level, level) == 0 && Objects.equals(type, pet.type)
+                && Objects.equals(rarity, pet.rarity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, level);
-    }
-
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "type=" + type +
-                ", level=" + level +
-                ", experienceBooster=" + experienceBooster +
-                ", candies=" + candies +
-                '}';
+        return Objects.hash(type, level, rarity);
     }
 }
