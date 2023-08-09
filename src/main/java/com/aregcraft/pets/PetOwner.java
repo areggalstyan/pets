@@ -170,7 +170,7 @@ public class PetOwner implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (checkPlayer(event)) {
-            removeArmorStand();
+            selectPet(null);
         }
     }
 
@@ -188,6 +188,7 @@ public class PetOwner implements Listener {
         }
         var item = ItemWrapper.wrap(event.getCurrentItem());
         if (item == null || item.getMaterial().isAir()) {
+            event.setCancelled(true);
             return;
         }
         var pet = Pet.of(item, plugin);
