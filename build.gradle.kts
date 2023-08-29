@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.aregcraft"
-version = "4.9.0"
+version = "4.10.0"
 
 repositories {
     mavenLocal()
@@ -13,7 +13,8 @@ repositories {
 
 dependencies {
     compileOnly("com.aregcraft.delta:meta:1.0.0")
-    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("com.mojang:authlib:4.0.43")
     implementation("com.aregcraft.delta:api:1.0.0")
     implementation("net.objecthunter:exp4j:0.4.8")
     implementation("org.bstats:bstats-bukkit:3.0.1")
@@ -21,7 +22,7 @@ dependencies {
 
 pluginDescription {
     main.set("$group.pets.Pets")
-    apiVersion.set("1.19")
+    apiVersion.set("1.16")
     commands {
         create("pets") {
             description.set("Opens the pet menu.")

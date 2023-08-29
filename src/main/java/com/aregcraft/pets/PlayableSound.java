@@ -15,6 +15,6 @@ public class PlayableSound {
     }
 
     public void play(Player player) {
-        player.playSound(player, type, volume, pitch);
+        player.playSound(player.getLocation(), type, volume, pitch);
     }
 }
